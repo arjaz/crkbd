@@ -2,8 +2,8 @@
 
 #define MASTER_LEFT
 
-#define TAPPING_TERM 200
+#define TAPPING_TERM 220
 #define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 
-// TODO: reduce mouse speed
+#define MOUSEKEY_TIME_TO_MAX 60
