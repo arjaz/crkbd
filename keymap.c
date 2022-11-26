@@ -103,23 +103,33 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base dvorak layer */
+	/* TODO:
+	   I don't like how shift is handled that much
+	   Also, backspace can be better
+	*/
     [0] = LAYOUT_split_3x6_3
-    (CAPSWRD,          KC_QUOT, KC_COMM,      KC_DOT,       KC_P, KC_Y, KC_F, KC_G, KC_C,         KC_R,         KC_L, KC_NO,
-     KC_TAB,           KC_A,    LCTL_T(KC_O), LALT_T(KC_E), KC_U, KC_I, KC_D, KC_H, LALT_T(KC_T), LCTL_T(KC_N), KC_S, KC_NO,
-     SCROLL_LOCK_TG_1, KC_SCLN, KC_Q,         KC_J,         KC_K, KC_X, KC_B, KC_M, KC_W,         KC_V,         KC_Z, OSM(MOD_RALT),
+    (CAPSWRD, KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y,
+     KC_F,    KC_G,    KC_C,    KC_R,   KC_L, KC_NO,
 
-     LT(5, KC_BSPC), KC_SPC,         LGUI_T(KC_ESC),
-     MO(4),          LSFT_T(KC_ENT), MO(2)
+     KC_NO, LGUI_T(KC_A), LCTL_T(KC_O), LALT_T(KC_E), LSFT_T(KC_U), KC_I,
+     KC_D,  LSFT_T(KC_H), LALT_T(KC_T), LCTL_T(KC_N), LGUI_T(KC_S), KC_NO,
+
+     SCROLL_LOCK_TG_1, KC_SCLN, KC_Q, KC_J, KC_K, KC_X,
+     KC_B,             KC_M,    KC_W, KC_V, KC_Z, OSM(MOD_RALT),
+
+     LT(5, KC_BSPC), KC_SPC,        KC_ESC,
+     LT(4, KC_TAB),  LT(2, KC_ENT), KC_NO
      ),
 
     /* TODO: figure out how to send unicode */
+    /* TODO: fix somehow that u/ralt(u) conflicting with the ctrl mod */
     /* Cyrillic layer */
     [1] = LAYOUT_split_3x6_3
     (KC_TRNS, TD(TD_Q_GRAVE),  TD(TD_W_QUES), TD(TD_E_SLASH), KC_R, TD(TD_T_RALT_T),
      KC_Y,    TD(TD_U_RALT_U), KC_I,          KC_O,           KC_P, KC_LBRC,
 
-     KC_TRNS, KC_A, TD(TD_RALT_S_S), KC_D, KC_F,    KC_G,
-     KC_H,    KC_J, KC_K,            KC_L, KC_SCLN, TD(TD_RALT_QUOT_QUOT),
+     KC_TRNS, LGUI_T(KC_A), TD(TD_RALT_S_S), LALT_T(KC_D), LSFT_T(KC_F),    KC_G,
+     KC_H,    LSFT_T(KC_J), LALT_T(KC_K),    LCTL_T(KC_L), LGUI_T(KC_SCLN), TD(TD_RALT_QUOT_QUOT),
 
      SCROLL_LOCK_TG_1, KC_Z,          KC_X,    KC_C,   KC_V,          KC_B,
      KC_N,             TD(TD_M_RBRC), KC_COMM, KC_DOT, RALT(KC_RBRC), KC_TRNS,
@@ -139,6 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ),
 
     /* Qwerty layer */
+    /* TODO: place the mods */
     [3] = LAYOUT_split_3x6_3
     (KC_LSFT, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,    KC_O,   KC_P,    KC_LBRC,
      KC_TAB,  KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, KC_QUOT,
