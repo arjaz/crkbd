@@ -101,6 +101,11 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_BSLS_PIPE]      = ACTION_TAP_DANCE_TAP_HOLD(KC_BSLS, KC_PIPE)
 };
 
+const uint16_t PROGMEM combo_comm_dot[] = {KC_COMM, KC_DOT, COMBO_END};
+combo_t key_combos[COMBO_COUNT] = {
+	COMBO(combo_comm_dot, KC_ESC),
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base dvorak layer */
 	/* TODO:
@@ -108,8 +113,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	   Also, backspace can be better
 	*/
     [0] = LAYOUT_split_3x6_3
-    (KC_NO, KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y,
-     KC_F,  KC_G,    KC_C,    KC_R,   KC_L, KC_NO,
+    (CAPSWRD, KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y,
+     KC_F,    KC_G,    KC_C,    KC_R,   KC_L, KC_NO,
 
      CAPSWRD, LGUI_T(KC_A), LCTL_T(KC_O), LALT_T(KC_E), LSFT_T(KC_U), KC_I,
      KC_D,    LSFT_T(KC_H), LALT_T(KC_T), LCTL_T(KC_N), LGUI_T(KC_S), KC_NO,
@@ -117,8 +122,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      SCROLL_LOCK_TG_1, KC_SCLN, KC_Q, KC_J, KC_K, KC_X,
      KC_B,             KC_M,    KC_W, KC_V, KC_Z, OSM(MOD_RALT),
 
-     KC_BSPC,        KC_SPC,        LT(5, KC_ESC),
-     LT(4, KC_TAB),  LT(2, KC_ENT), KC_NO
+     KC_NO,         KC_SPC,        LT(5, KC_BSPC),
+     LT(4, KC_TAB), LT(2, KC_ENT), KC_NO
      ),
 
     /* TODO: figure out how to send unicode */
@@ -169,8 +174,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      TO(3),            TD(TD_EQL_PLUS), TD(TD_GRAVE_TILDE), TD(TD_SLASH_QUES), KC_MINS, KC_UNDS,
      TD(TD_BSLS_PIPE), KC_LCBR,         KC_RCBR,            KC_LBRC,           KC_RBRC, KC_NO,
 
-     KC_DEL, KC_TRNS, KC_TRNS,
-     KC_TRNS,  KC_TRNS, KC_TRNS
+     KC_TRNS, KC_TRNS, KC_DEL,
+     KC_TRNS, KC_TRNS, KC_TRNS
      ),
 
     /* Fn-keys + numpad layer */

@@ -7,3 +7,6 @@
 #define PERMISSIVE_HOLD
 
 #define MOUSEKEY_TIME_TO_MAX 60
+
+#define COMBO_COUNT 1
+#define COMBO_ONLY_FROM_LAYER 0
