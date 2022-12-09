@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
+#include <keymap_steno.h>
 
 enum {
     TD_AT_CTRL,
@@ -165,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Symbols layer */
     [4] = LAYOUT_split_3x6_3
-    (KC_NO, KC_1, KC_2, KC_3, KC_4, KC_5,
+    (TO(6), KC_1, KC_2, KC_3, KC_4, KC_5,
      KC_6,  KC_7, KC_8, KC_9, KC_0, KC_NO,
 
      KC_NO,   KC_EXLM, TD(TD_AT_CTRL),  TD(TD_HASH_ALT),    KC_DLR,  KC_PERC,
@@ -191,5 +192,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
      KC_NO, KC_NO, KC_NO,
      KC_NO, KC_NO, KC_NO
+     ),
+
+    [6] = LAYOUT_split_3x6_3
+    (TO(0),  STN_N1, STN_N2, STN_N3, STN_N4, STN_N5,
+     STN_N6, STN_N7, STN_N8, STN_N9, KC_NO,  KC_NO,
+
+     KC_NO,   STN_S1, STN_TL, STN_PL, STN_HL, STN_ST1,
+     STN_ST3, STN_FR, STN_PR, STN_LR, STN_TR, STN_DR,
+
+     KC_NO,   STN_S2, STN_KL, STN_WL, STN_RL, STN_ST2,
+     STN_ST4, STN_RR, STN_BR, STN_GR, STN_SR, STN_ZR,
+
+     KC_NO, STN_A, STN_O,
+     STN_E, STN_U, KC_NO
      )
 };
