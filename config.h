@@ -2,7 +2,7 @@
 
 #define MASTER_LEFT
 
-#define TAPPING_TERM 220
+#define TAPPING_TERM 240
 #define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 
