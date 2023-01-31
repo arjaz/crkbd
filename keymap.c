@@ -23,7 +23,7 @@ enum {
 
 enum macros_keycodes {
     /* Scroll lock and toggle layer 1 */
-    SCROLL_LOCK_TG_1 = SAFE_RANGE,
+    SCROLL_LOCK_TG_CYR = SAFE_RANGE,
 };
 
 typedef struct {
@@ -36,7 +36,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     qk_tap_dance_action_t *action;
 
     switch (keycode) {
-    case SCROLL_LOCK_TG_1:
+    case SCROLL_LOCK_TG_CYR:
         if (record->event.pressed) {
             SEND_STRING(SS_TAP(X_SCROLLLOCK));
             layer_invert(1);
@@ -109,40 +109,45 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo_u_h, CAPSWRD),
 };
 
+#define DRK_LAYER 0
+#define CYR_LAYER 1
+#define NAV_LAYER 2
+#define QWE_LAYER 3
+#define SYM_LAYER 4
+#define FNK_LAYER 5
+#define STN_LAYER 6
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* Base dvorak layer */
-	[0] = LAYOUT_split_3x6_3
-    (KC_NO, KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y,
-     KC_F,  KC_G,    KC_C,    KC_R,   KC_L, KC_NO,
+    [DRK_LAYER] = LAYOUT_split_3x6_3
+    (TG(STN_LAYER), KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y,
+     KC_F,          KC_G,    KC_C,    KC_R,   KC_L, KC_NO,
 
-     SCROLL_LOCK_TG_1, LGUI_T(KC_A), LCTL_T(KC_O), LALT_T(KC_E), LSFT_T(KC_U), KC_I,
-     KC_D,             LSFT_T(KC_H), LALT_T(KC_T), LCTL_T(KC_N), LGUI_T(KC_S), KC_NO,
+     SCROLL_LOCK_TG_CYR, LGUI_T(KC_A), LCTL_T(KC_O), LALT_T(KC_E), LSFT_T(KC_U), KC_I,
+     KC_D,               LSFT_T(KC_H), LALT_T(KC_T), LCTL_T(KC_N), LGUI_T(KC_S), KC_NO,
 
-     KC_NO, KC_SCLN, KC_Q, KC_J, KC_K, KC_X,
-     KC_B,  KC_M,    KC_W, KC_V, KC_Z, OSM(MOD_RALT),
+     TG(QWE_LAYER), KC_SCLN, KC_Q, KC_J, KC_K, KC_X,
+     KC_B,          KC_M,    KC_W, KC_V, KC_Z, OSM(MOD_RALT),
 
-     KC_NO,         KC_SPC,        LT(5, KC_BSPC),
-     LT(4, KC_TAB), LT(2, KC_ENT), KC_NO
+     KC_NO,                 KC_SPC,                LT(FNK_LAYER, KC_BSPC),
+     LT(SYM_LAYER, KC_TAB), LT(NAV_LAYER, KC_ENT), KC_NO
      ),
 
     /* TODO: figure out how to send unicode */
-    /* Cyrillic layer */
-    [1] = LAYOUT_split_3x6_3
+    [CYR_LAYER] = LAYOUT_split_3x6_3
     (KC_TRNS, TD(TD_Q_GRAVE),  TD(TD_W_QUES), TD(TD_E_SLASH), KC_R, TD(TD_T_RALT_T),
      KC_Y,    TD(TD_U_RALT_U), KC_I,          KC_O,           KC_P, KC_LBRC,
 
-     SCROLL_LOCK_TG_1, LGUI_T(KC_A), TD(TD_RALT_S_S), LALT_T(KC_D), LSFT_T(KC_F),    KC_G,
-     KC_H,             LSFT_T(KC_J), LALT_T(KC_K),    LCTL_T(KC_L), LGUI_T(KC_SCLN), TD(TD_RALT_QUOT_QUOT),
+     SCROLL_LOCK_TG_CYR, LGUI_T(KC_A), TD(TD_RALT_S_S), LALT_T(KC_D), LSFT_T(KC_F),    KC_G,
+     KC_H,               LSFT_T(KC_J), LALT_T(KC_K),    LCTL_T(KC_L), LGUI_T(KC_SCLN), TD(TD_RALT_QUOT_QUOT),
 
-     KC_TRNS, KC_Z,          KC_X,    KC_C,   KC_V,          KC_B,
-     KC_N,    TD(TD_M_RBRC), KC_COMM, KC_DOT, RALT(KC_RBRC), KC_TRNS,
+     KC_NO, KC_Z,          KC_X,    KC_C,   KC_V,          KC_B,
+     KC_N,  TD(TD_M_RBRC), KC_COMM, KC_DOT, RALT(KC_RBRC), KC_TRNS,
 
      KC_TRNS, KC_TRNS, KC_TRNS,
      KC_TRNS, KC_TRNS, KC_TRNS
      ),
 
-    /* Navigation layer */
-    [2] = LAYOUT_split_3x6_3
+    [NAV_LAYER] = LAYOUT_split_3x6_3
     (KC_NO, KC_NO, KC_WH_D, KC_MS_U, KC_WH_U, KC_VOLU, KC_NO, KC_NO,   KC_UP,   KC_NO,   KC_NO, KC_NO,
      KC_NO, KC_NO, KC_MS_L, KC_MS_D, KC_MS_R, KC_VOLD, KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO, KC_NO,
      KC_NO, KC_NO, KC_NO,   KC_HOME, KC_END,  KC_MUTE, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,
@@ -151,18 +156,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_NO,      KC_NO,      KC_NO
      ),
 
-    /* Qwerty layer */
     /* TODO: place the mods */
-    [3] = LAYOUT_split_3x6_3
+    [QWE_LAYER] = LAYOUT_split_3x6_3
     (KC_LSFT, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,    KC_O,   KC_P,    KC_LBRC,
      KC_TAB,  KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, KC_QUOT,
-     TO(0),   KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_RBRC, KC_TRNS,
+     KC_TRNS, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_RBRC, KC_TRNS,
      KC_TRNS, KC_TRNS, KC_TRNS,
      KC_TRNS, KC_TRNS, KC_TRNS
      ),
 
-    /* Symbols layer */
-    [4] = LAYOUT_split_3x6_3
+    [SYM_LAYER] = LAYOUT_split_3x6_3
     (TO(6), KC_1, KC_2, KC_3, KC_4, KC_5,
      KC_6,  KC_7, KC_8, KC_9, KC_0, KC_NO,
 
@@ -178,8 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TRNS, KC_TRNS, KC_TRNS
      ),
 
-    /* Fn-keys + numpad layer */
-    [5] = LAYOUT_split_3x6_3
+    [FNK_LAYER] = LAYOUT_split_3x6_3
     (KC_NO, KC_NO, KC_7,  KC_8,  KC_9,   KC_NO,
      KC_NO, KC_F7, KC_F8, KC_F9, KC_F10, KC_NO,
 
@@ -193,9 +195,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_NO, KC_NO, KC_NO
      ),
 
-    [6] = LAYOUT_split_3x6_3
-    (TO(0),  STN_N1, STN_N2, STN_N3, STN_N4, STN_N5,
-     STN_N6, STN_N7, STN_N8, STN_N9, KC_NO,  KC_NO,
+    [STN_LAYER] = LAYOUT_split_3x6_3
+    (KC_TRNS, STN_N1, STN_N2, STN_N3, STN_N4, STN_N5,
+     STN_N6,  STN_N7, STN_N8, STN_N9, STN_N9, STN_N9,
 
      KC_NO,   STN_S1, STN_TL, STN_PL, STN_HL, STN_ST1,
      STN_ST3, STN_FR, STN_PR, STN_LR, STN_TR, STN_DR,
@@ -203,7 +205,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_NO,   STN_S2, STN_KL, STN_WL, STN_RL, STN_ST2,
      STN_ST4, STN_RR, STN_BR, STN_GR, STN_SR, STN_ZR,
 
-     KC_NO, STN_A, STN_O,
-     STN_E, STN_U, KC_NO
+     STN_N1, STN_A, STN_O,
+     STN_E,  STN_U, STN_N1
      )
 };
