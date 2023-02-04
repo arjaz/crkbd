@@ -19,6 +19,7 @@ enum {
     TD_RALT_S_S,
     TD_RALT_QUOT_QUOT,
     TD_M_RBRC,
+    TD_BSPC_C_BSPC
 };
 
 enum macros_keycodes {
@@ -42,7 +43,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_invert(1);
         }
         break;
-    case TD(TD_AT_CTRL) ... TD(TD_M_RBRC):
+    case TD(TD_AT_CTRL) ... TD(TD_BSPC_C_BSPC):
         action = &tap_dance_actions[TD_INDEX(keycode)];
         if (!record->event.pressed && action->state.count && !action->state.finished) {
             tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
@@ -99,7 +100,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_EQL_PLUS]       = ACTION_TAP_DANCE_TAP_HOLD(KC_EQL, KC_PLUS),
     [TD_GRAVE_TILDE]    = ACTION_TAP_DANCE_TAP_HOLD(KC_GRAVE, KC_TILDE),
     [TD_SLASH_QUES]     = ACTION_TAP_DANCE_TAP_HOLD(KC_SLASH, KC_QUES),
-    [TD_BSLS_PIPE]      = ACTION_TAP_DANCE_TAP_HOLD(KC_BSLS, KC_PIPE)
+    [TD_BSLS_PIPE]      = ACTION_TAP_DANCE_TAP_HOLD(KC_BSLS, KC_PIPE),
+    [TD_BSPC_C_BSPC]    = ACTION_TAP_DANCE_TAP_HOLD(KC_BSPC, LCTL(KC_BSPC))
 };
 
 const uint16_t PROGMEM combo_comm_dot[] = {KC_COMM, KC_DOT, COMBO_END};
@@ -128,8 +130,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      TG(QWE_LAYER), KC_SCLN, KC_Q, KC_J, KC_K, KC_X,
      KC_B,          KC_M,    KC_W, KC_V, KC_Z, OSM(MOD_RALT),
 
-     KC_NO,                 KC_SPC,                LT(FNK_LAYER, KC_BSPC),
-     LT(SYM_LAYER, KC_TAB), LT(NAV_LAYER, KC_ENT), KC_NO
+     KC_NO,                 LT(FNK_LAYER, KC_SPC), TD(TD_BSPC_C_BSPC),
+     LT(NAV_LAYER, KC_TAB), LT(SYM_LAYER, KC_ENT), KC_NO
      ),
 
     /* TODO: figure out how to send unicode */
