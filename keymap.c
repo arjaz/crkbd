@@ -108,7 +108,7 @@ const uint16_t PROGMEM combo_comm_dot[] = {KC_COMM, KC_DOT, COMBO_END};
 const uint16_t PROGMEM combo_u_h[] = {LSFT_T(KC_U), LSFT_T(KC_H), COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
 	COMBO(combo_comm_dot, KC_ESC),
-    COMBO(combo_u_h, CAPSWRD),
+    COMBO(combo_u_h, CAPSWRD)
 };
 
 #define DRK_LAYER 0
@@ -150,12 +150,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ),
 
     [NAV_LAYER] = LAYOUT_split_3x6_3
-    (KC_NO, KC_NO, KC_WH_D, KC_MS_U, KC_WH_U, KC_VOLU, KC_NO, KC_NO,   KC_UP,   KC_NO,   KC_NO, KC_NO,
-     KC_NO, KC_NO, KC_MS_L, KC_MS_D, KC_MS_R, KC_VOLD, KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO, KC_NO,
-     KC_NO, KC_NO, KC_NO,   KC_HOME, KC_END,  KC_MUTE, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,
+    (KC_NO, KC_NO, KC_WH_D, KC_MS_U, KC_WH_U, KC_NO,      KC_NO, KC_VOLD, KC_UP,   KC_VOLU, KC_NO, KC_NO,
+     KC_NO, KC_NO, KC_MS_L, KC_MS_D, KC_MS_R, KC_MS_BTN3, KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO, KC_NO,
+     KC_NO, KC_NO, KC_NO,   KC_HOME, KC_END,  KC_NO,      KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,
 
-     KC_MS_BTN1, KC_MS_BTN3, KC_MS_BTN2,
-     KC_NO,      KC_NO,      KC_NO
+     KC_NO, KC_MS_BTN1, KC_MS_BTN2,
+     KC_NO, KC_NO,      KC_NO
      ),
 
     /* TODO: place the mods */
