@@ -134,16 +134,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      LT(NAV_LAYER, KC_TAB), LT(SYM_LAYER, KC_ENT), KC_NO
      ),
 
-    /* TODO: figure out how to send unicode */
     [CYR_LAYER] = LAYOUT_split_3x6_3
-    (KC_TRNS, TD(TD_Q_GRAVE),  TD(TD_W_QUES), TD(TD_E_SLASH), KC_R, TD(TD_T_RALT_T),
+    (KC_TRNS, TD(TD_Q_GRAVE),  TD(TD_W_QUES), TD(TD_E_SLASH), KC_R, KC_T,
      KC_Y,    TD(TD_U_RALT_U), KC_I,          KC_O,           KC_P, KC_LBRC,
 
-     SCROLL_LOCK_TG_CYR, LGUI_T(KC_A), TD(TD_RALT_S_S), LALT_T(KC_D), LSFT_T(KC_F),    KC_G,
-     KC_H,               LSFT_T(KC_J), LALT_T(KC_K),    LCTL_T(KC_L), LGUI_T(KC_SCLN), TD(TD_RALT_QUOT_QUOT),
+     SCROLL_LOCK_TG_CYR, LGUI_T(KC_A), RALT(KC_S),   LALT_T(KC_D), LSFT_T(KC_F),    KC_G,
+     KC_H,               LSFT_T(KC_J), LALT_T(KC_K), LCTL_T(KC_L), LGUI_T(KC_SCLN), RALT(KC_QUOT),
 
-     KC_NO, KC_Z,          KC_X,    KC_C,   KC_V,          KC_B,
-     KC_N,  TD(TD_M_RBRC), KC_COMM, KC_DOT, RALT(KC_RBRC), KC_TRNS,
+     KC_NO, KC_Z, KC_X,    KC_C,   KC_V,          KC_B,
+     KC_N,  KC_M, KC_COMM, KC_DOT, RALT(KC_RBRC), KC_TRNS,
 
      KC_TRNS, KC_TRNS, KC_TRNS,
      KC_TRNS, KC_TRNS, KC_TRNS
