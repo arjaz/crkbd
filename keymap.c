@@ -14,8 +14,10 @@ enum {
     TD_Q_GRAVE,
     TD_W_QUES,
     TD_E_SLASH,
+    TD_T_RALT_QUOT,
     TD_T_RALT_T,
     TD_U_RALT_U,
+    TD_P_LBRC,
     TD_RALT_S_S,
     TD_RALT_QUOT_QUOT,
     TD_M_RBRC,
@@ -92,8 +94,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_Q_GRAVE]        = ACTION_TAP_DANCE_TAP_HOLD(KC_Q, KC_GRAVE),
     [TD_W_QUES]         = ACTION_TAP_DANCE_TAP_HOLD(KC_W, KC_QUES),
     [TD_E_SLASH]        = ACTION_TAP_DANCE_TAP_HOLD(KC_E, KC_SLASH),
+    [TD_T_RALT_QUOT]    = ACTION_TAP_DANCE_TAP_HOLD(KC_T, RALT(KC_QUOT)),
     [TD_T_RALT_T]       = ACTION_TAP_DANCE_TAP_HOLD(KC_T, RALT(KC_T)),
     [TD_U_RALT_U]       = ACTION_TAP_DANCE_TAP_HOLD(KC_U, RALT(KC_U)),
+    [TD_P_LBRC]         = ACTION_TAP_DANCE_TAP_HOLD(KC_P, KC_LBRC),
     [TD_RALT_S_S]       = ACTION_TAP_DANCE_TAP_HOLD(RALT(KC_S), KC_S),
     [TD_RALT_QUOT_QUOT] = ACTION_TAP_DANCE_TAP_HOLD(RALT(KC_QUOT), KC_QUOT),
     [TD_M_RBRC]         = ACTION_TAP_DANCE_TAP_HOLD(KC_M, KC_RBRC),
@@ -104,12 +108,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_BSPC_C_BSPC]    = ACTION_TAP_DANCE_TAP_HOLD(KC_BSPC, LCTL(KC_BSPC))
 };
 
-const uint16_t PROGMEM combo_comm_dot[] = {KC_COMM, KC_DOT, COMBO_END};
-const uint16_t PROGMEM combo_u_h[] = {LSFT_T(KC_U), LSFT_T(KC_H), COMBO_END};
-combo_t key_combos[COMBO_COUNT] = {
-	COMBO(combo_comm_dot, KC_ESC),
-    COMBO(combo_u_h, CAPSWRD)
-};
 
 #define DRK_LAYER 0
 #define CYR_LAYER 1
@@ -119,27 +117,40 @@ combo_t key_combos[COMBO_COUNT] = {
 #define FNK_LAYER 5
 #define STN_LAYER 6
 
+const uint16_t PROGMEM combo_comm_dot[] = {KC_COMM, KC_DOT, COMBO_END};
+const uint16_t PROGMEM combo_p_y[] = {KC_P, KC_Y, COMBO_END};
+const uint16_t PROGMEM combo_u_h[] = {LSFT_T(KC_U), LSFT_T(KC_H), COMBO_END};
+const uint16_t PROGMEM combo_f_g[] = {KC_F, KC_G, COMBO_END};
+const uint16_t PROGMEM combo_c_r[] = {KC_C, KC_R, COMBO_END};
+combo_t key_combos[COMBO_COUNT] = {
+	COMBO(combo_comm_dot, KC_ESC),
+    COMBO(combo_p_y, SCROLL_LOCK_TG_CYR),
+    COMBO(combo_u_h, CAPSWRD),
+    COMBO(combo_f_g, TG(STN_LAYER)),
+    COMBO(combo_c_r, TG(QWE_LAYER))
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [DRK_LAYER] = LAYOUT_split_3x6_3
-    (TG(STN_LAYER), KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y,
-     KC_F,          KC_G,    KC_C,    KC_R,   KC_L, KC_NO,
+    (KC_NO, KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y,
+     KC_F,  KC_G,    KC_C,    KC_R,   KC_L, KC_NO,
 
-     SCROLL_LOCK_TG_CYR, LGUI_T(KC_A), LCTL_T(KC_O), LALT_T(KC_E), LSFT_T(KC_U), KC_I,
-     KC_D,               LSFT_T(KC_H), LALT_T(KC_T), LCTL_T(KC_N), LGUI_T(KC_S), KC_NO,
+     KC_NO, LGUI_T(KC_A), LCTL_T(KC_O), LALT_T(KC_E), LSFT_T(KC_U), KC_I,
+     KC_D,  LSFT_T(KC_H), LALT_T(KC_T), LCTL_T(KC_N), LGUI_T(KC_S), KC_NO,
 
-     TG(QWE_LAYER), KC_SCLN, KC_Q, KC_J, KC_K, KC_X,
-     KC_B,          KC_M,    KC_W, KC_V, KC_Z, OSM(MOD_RALT),
+     KC_NO, KC_SCLN, KC_Q, KC_J, KC_K, KC_X,
+     KC_B,  KC_M,    KC_W, KC_V, KC_Z, KC_NO,
 
      KC_NO,                 LT(FNK_LAYER, KC_SPC), TD(TD_BSPC_C_BSPC),
      LT(NAV_LAYER, KC_TAB), LT(SYM_LAYER, KC_ENT), KC_NO
      ),
 
     [CYR_LAYER] = LAYOUT_split_3x6_3
-    (KC_TRNS, TD(TD_Q_GRAVE),  TD(TD_W_QUES), TD(TD_E_SLASH), KC_R, KC_T,
-     KC_Y,    TD(TD_U_RALT_U), KC_I,          KC_O,           KC_P, KC_LBRC,
+    (KC_NO, TD(TD_Q_GRAVE),  TD(TD_W_QUES), TD(TD_E_SLASH), KC_R,          TD(TD_T_RALT_QUOT),
+     KC_Y,  TD(TD_U_RALT_U), KC_I,          KC_O,           TD(TD_P_LBRC), KC_NO,
 
-     SCROLL_LOCK_TG_CYR, LGUI_T(KC_A), RALT(KC_S),   LALT_T(KC_D), LSFT_T(KC_F),    KC_G,
-     KC_H,               LSFT_T(KC_J), LALT_T(KC_K), LCTL_T(KC_L), LGUI_T(KC_SCLN), RALT(KC_QUOT),
+     KC_NO, LGUI_T(KC_A), RALT(KC_S),   LALT_T(KC_D), LSFT_T(KC_F),    KC_G,
+     KC_H,  LSFT_T(KC_J), LALT_T(KC_K), LCTL_T(KC_L), LGUI_T(KC_SCLN), KC_NO,
 
      KC_NO, KC_Z, KC_X,    KC_C,   KC_V,          KC_B,
      KC_N,  KC_M, KC_COMM, KC_DOT, RALT(KC_RBRC), KC_TRNS,
@@ -157,17 +168,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_NO, KC_NO,      KC_NO
      ),
 
-    /* TODO: place the mods */
     [QWE_LAYER] = LAYOUT_split_3x6_3
-    (KC_LSFT, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,    KC_O,   KC_P,    KC_LBRC,
-     KC_TAB,  KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, KC_QUOT,
-     KC_TRNS, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_RBRC, KC_TRNS,
-     KC_TRNS, KC_TRNS, KC_TRNS,
-     KC_TRNS, KC_TRNS, KC_TRNS
+    (KC_LSFT,  KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,    KC_O,   KC_P,    KC_LBRC,
+     KC_TAB,   KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, KC_QUOT,
+     KC_LCTRL, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_RBRC, KC_TRNS,
+     KC_LALT,  KC_SPC,  LT(FNK_LAYER, KC_BSPC),
+     KC_TRNS,  KC_TRNS, KC_TRNS
      ),
 
+    /* TODO: organize those better,
+       right now the symbols just follow the numbers
+    */
     [SYM_LAYER] = LAYOUT_split_3x6_3
-    (TO(6), KC_1, KC_2, KC_3, KC_4, KC_5,
+    (KC_NO, KC_1, KC_2, KC_3, KC_4, KC_5,
      KC_6,  KC_7, KC_8, KC_9, KC_0, KC_NO,
 
      /* TODO: gui and shift */
@@ -175,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_CIRC, KC_AMPR, TD(TD_ASTR_ALT), TD(TD_LPAREN_CTRL), KC_RPRN, KC_NO,
 
      /* TODO: remove dances */
-     TO(3),            TD(TD_EQL_PLUS), TD(TD_GRAVE_TILDE), TD(TD_SLASH_QUES), KC_MINS, KC_UNDS,
+     KC_NO,            TD(TD_EQL_PLUS), TD(TD_GRAVE_TILDE), TD(TD_SLASH_QUES), KC_MINS, KC_UNDS,
      TD(TD_BSLS_PIPE), KC_LCBR,         KC_RCBR,            KC_LBRC,           KC_RBRC, KC_NO,
 
      KC_TRNS, KC_TRNS, KC_DEL,
@@ -197,8 +210,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ),
 
     [STN_LAYER] = LAYOUT_split_3x6_3
-    (KC_TRNS, STN_N1, STN_N2, STN_N3, STN_N4, STN_N5,
-     STN_N6,  STN_N7, STN_N8, STN_N9, STN_N9, STN_N9,
+    (KC_NO,  STN_N1, STN_N2, STN_N3, STN_N4, STN_N5,
+     STN_N6, STN_N7, STN_N8, STN_N9, STN_N9, STN_N9,
 
      KC_NO,   STN_S1, STN_TL, STN_PL, STN_HL, STN_ST1,
      STN_ST3, STN_FR, STN_PR, STN_LR, STN_TR, STN_DR,
