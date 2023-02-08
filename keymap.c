@@ -14,18 +14,13 @@ enum {
     TD_Q_GRAVE,
     TD_W_QUES,
     TD_E_SLASH,
-    TD_T_RALT_QUOT,
-    TD_T_RALT_T,
-    TD_U_RALT_U,
+    TD_T_QUOT,
+    TD_U_BSLS,
     TD_P_LBRC,
-    TD_RALT_S_S,
-    TD_RALT_QUOT_QUOT,
-    TD_M_RBRC,
     TD_BSPC_C_BSPC
 };
 
 enum macros_keycodes {
-    /* Scroll lock and toggle layer 1 */
     SCROLL_LOCK_TG_CYR = SAFE_RANGE,
 };
 
@@ -94,20 +89,15 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_Q_GRAVE]        = ACTION_TAP_DANCE_TAP_HOLD(KC_Q, KC_GRAVE),
     [TD_W_QUES]         = ACTION_TAP_DANCE_TAP_HOLD(KC_W, KC_QUES),
     [TD_E_SLASH]        = ACTION_TAP_DANCE_TAP_HOLD(KC_E, KC_SLASH),
-    [TD_T_RALT_QUOT]    = ACTION_TAP_DANCE_TAP_HOLD(KC_T, RALT(KC_QUOT)),
-    [TD_T_RALT_T]       = ACTION_TAP_DANCE_TAP_HOLD(KC_T, RALT(KC_T)),
-    [TD_U_RALT_U]       = ACTION_TAP_DANCE_TAP_HOLD(KC_U, RALT(KC_U)),
+    [TD_T_QUOT]         = ACTION_TAP_DANCE_TAP_HOLD(KC_T, KC_QUOT),
+    [TD_U_BSLS]         = ACTION_TAP_DANCE_TAP_HOLD(KC_U, KC_BSLS),
     [TD_P_LBRC]         = ACTION_TAP_DANCE_TAP_HOLD(KC_P, KC_LBRC),
-    [TD_RALT_S_S]       = ACTION_TAP_DANCE_TAP_HOLD(RALT(KC_S), KC_S),
-    [TD_RALT_QUOT_QUOT] = ACTION_TAP_DANCE_TAP_HOLD(RALT(KC_QUOT), KC_QUOT),
-    [TD_M_RBRC]         = ACTION_TAP_DANCE_TAP_HOLD(KC_M, KC_RBRC),
     [TD_EQL_PLUS]       = ACTION_TAP_DANCE_TAP_HOLD(KC_EQL, KC_PLUS),
     [TD_GRAVE_TILDE]    = ACTION_TAP_DANCE_TAP_HOLD(KC_GRAVE, KC_TILDE),
     [TD_SLASH_QUES]     = ACTION_TAP_DANCE_TAP_HOLD(KC_SLASH, KC_QUES),
     [TD_BSLS_PIPE]      = ACTION_TAP_DANCE_TAP_HOLD(KC_BSLS, KC_PIPE),
     [TD_BSPC_C_BSPC]    = ACTION_TAP_DANCE_TAP_HOLD(KC_BSPC, LCTL(KC_BSPC))
 };
-
 
 #define DRK_LAYER 0
 #define CYR_LAYER 1
@@ -146,14 +136,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ),
 
     [CYR_LAYER] = LAYOUT_split_3x6_3
-    (KC_NO, TD(TD_Q_GRAVE),  TD(TD_W_QUES), TD(TD_E_SLASH), KC_R,          TD(TD_T_RALT_QUOT),
-     KC_Y,  TD(TD_U_RALT_U), KC_I,          KC_O,           TD(TD_P_LBRC), KC_NO,
+    (KC_NO, TD(TD_Q_GRAVE), TD(TD_W_QUES), TD(TD_E_SLASH), KC_R,          TD(TD_T_QUOT),
+     KC_Y,  TD(TD_U_BSLS),  KC_I,          KC_O,           TD(TD_P_LBRC), KC_NO,
 
-     KC_NO, LGUI_T(KC_A), RALT(KC_S),   LALT_T(KC_D), LSFT_T(KC_F),    KC_G,
+     KC_NO, LGUI_T(KC_A), LCTL_T(KC_S), LALT_T(KC_D), LSFT_T(KC_F),    KC_G,
      KC_H,  LSFT_T(KC_J), LALT_T(KC_K), LCTL_T(KC_L), LGUI_T(KC_SCLN), KC_NO,
 
-     KC_NO, KC_Z, KC_X,    KC_C,   KC_V,          KC_B,
-     KC_N,  KC_M, KC_COMM, KC_DOT, RALT(KC_RBRC), KC_TRNS,
+     KC_NO, KC_Z, KC_X,    KC_C,   KC_V,    KC_B,
+     KC_N,  KC_M, KC_COMM, KC_DOT, KC_RBRC, KC_TRNS,
 
      KC_TRNS, KC_TRNS, KC_TRNS,
      KC_TRNS, KC_TRNS, KC_TRNS
