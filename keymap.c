@@ -1,15 +1,15 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 #include <keymap_steno.h>
+#include "features/adaptive_keys.h"
 
 #define ALPHA_LAYER 0
-#define HANDS_DOWN_LAYER 1
-#define CYRILLIC_LAYER 2
-#define NAVIGATION_LAYER 3
-#define GAMING_LAYER 4
-#define SYMBOL_LAYER 5
-#define NUMPAD_LAYER 6
-#define STENO_LAYER 7
+#define CYRILLIC_LAYER 1
+#define NAVIGATION_LAYER 2
+#define GAMING_LAYER 3
+#define SYMBOL_LAYER 4
+#define NUMPAD_LAYER 5
+#define STENO_LAYER 6
 
 enum {
     TD_ASTR_GUI,
@@ -21,8 +21,7 @@ enum {
     TD_E_SLASH,
     TD_T_QUOT,
     TD_U_BSLS,
-    TD_P_LBRC,
-    TD_BSPC_C_BSPC
+    TD_P_LBRC
 };
 
 enum macros_keycodes {
@@ -36,6 +35,9 @@ typedef struct {
 } tap_dance_tap_hold_t;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_adaptive_key(keycode, record)) {
+        return false;
+    }
     qk_tap_dance_action_t *action;
 
     switch (keycode) {
@@ -45,7 +47,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_invert(CYRILLIC_LAYER);
         }
         break;
-    case TD(TD_ASTR_GUI) ... TD(TD_BSPC_C_BSPC):
+    case TD(TD_ASTR_GUI) ... TD(TD_P_LBRC):
         action = &tap_dance_actions[TD_INDEX(keycode)];
         if (!record->event.pressed && action->state.count && !action->state.finished) {
             tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
@@ -96,16 +98,16 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_E_SLASH]     = ACTION_TAP_DANCE_TAP_HOLD(KC_E, KC_SLASH),
     [TD_T_QUOT]      = ACTION_TAP_DANCE_TAP_HOLD(KC_T, KC_QUOT),
     [TD_U_BSLS]      = ACTION_TAP_DANCE_TAP_HOLD(KC_U, KC_BSLS),
-    [TD_P_LBRC]      = ACTION_TAP_DANCE_TAP_HOLD(KC_P, KC_LBRC),
-    [TD_BSPC_C_BSPC] = ACTION_TAP_DANCE_TAP_HOLD(KC_BSPC, LCTL(KC_BSPC))
+    [TD_P_LBRC]      = ACTION_TAP_DANCE_TAP_HOLD(KC_P, KC_LBRC)
 };
 
 enum combo_events {
     COMBO_ESC,
+    COMBO_TAB,
     COMBO_CYRILLIC,
     COMBO_STENO,
     COMBO_GAMING,
-    COMBO_HANDS_DOWN,
+    COMBO_NAVIGATION,
     COMBO_CAPSWRD,
     COMBO_COPY,
     COMBO_PASTE,
@@ -113,26 +115,28 @@ enum combo_events {
     COMBO_LENGTH
 };
 
-const uint16_t PROGMEM combo_comm_dot[] = {KC_COMM, KC_DOT, COMBO_END};
-const uint16_t PROGMEM combo_p_y[]      = {KC_P, KC_Y, COMBO_END};
-const uint16_t PROGMEM combo_u_h[]      = {LSFT_T(KC_U), LSFT_T(KC_H), COMBO_END};
-const uint16_t PROGMEM combo_f_g[]      = {KC_F, KC_G, COMBO_END};
-const uint16_t PROGMEM combo_c_r[]      = {KC_C, KC_R, COMBO_END};
-const uint16_t PROGMEM combo_quot_r[]   = {KC_COMM, KC_R, COMBO_END};
-const uint16_t PROGMEM combo_scln_q[]   = {KC_SCLN, KC_Q, COMBO_END};
-const uint16_t PROGMEM combo_q_j[]      = {KC_Q, KC_J, COMBO_END};
-const uint16_t PROGMEM combo_j_k[]      = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM combo_esc[] = {LGUI_T(KC_R), LSFT_T(KC_T), COMBO_END};
+const uint16_t PROGMEM combo_tab[] = {LGUI_T(KC_R), LCTL_T(KC_S), COMBO_END};
+const uint16_t PROGMEM combo_cyrillic[] = {KC_P, KC_B, COMBO_END};
+const uint16_t PROGMEM combo_capswrd[] = {LSFT_T(KC_T), LSFT_T(KC_A), COMBO_END};
+const uint16_t PROGMEM combo_steno[] = {KC_COMM, KC_Z, COMBO_END};
+const uint16_t PROGMEM combo_gaming[] = {KC_Q, KC_J, COMBO_END};
+const uint16_t PROGMEM combo_navigation[] = {KC_C, KC_L, KC_D, COMBO_END};
+const uint16_t PROGMEM combo_copy[] = {KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM combo_paste[] = {KC_C, KC_L, COMBO_END};
+const uint16_t PROGMEM combo_cut[] = {KC_L, KC_D, COMBO_END};
 combo_t key_combos[] = {
-	[COMBO_ESC] = COMBO(combo_comm_dot, KC_ESC),
-    [COMBO_CAPSWRD] = COMBO(combo_u_h, CAPSWRD),
-    [COMBO_COPY] = COMBO(combo_scln_q, LCTL(KC_C)),
-    [COMBO_PASTE] = COMBO(combo_q_j, LCTL(KC_V)),
-    [COMBO_CUT] = COMBO(combo_j_k, LCTL(KC_X)),
+	[COMBO_ESC] = COMBO(combo_esc, KC_ESC),
+    [COMBO_TAB] = COMBO(combo_tab, KC_TAB),
+    [COMBO_CAPSWRD] = COMBO(combo_capswrd, CAPSWRD),
+    [COMBO_COPY] = COMBO(combo_copy, LCTL(KC_C)),
+    [COMBO_PASTE] = COMBO(combo_paste, LCTL(KC_V)),
+    [COMBO_CUT] = COMBO(combo_cut, LCTL(KC_X)),
     /* Layer-related combos */
-    [COMBO_CYRILLIC] = COMBO(combo_p_y, SCROLL_LOCK_TG_CYRILLIC),
-    [COMBO_STENO] = COMBO(combo_f_g, TG(STENO_LAYER)),
-    [COMBO_GAMING] = COMBO(combo_c_r, TG(GAMING_LAYER)),
-    [COMBO_HANDS_DOWN] = COMBO(combo_quot_r, TG(HANDS_DOWN_LAYER)),
+    [COMBO_CYRILLIC] = COMBO(combo_cyrillic, SCROLL_LOCK_TG_CYRILLIC),
+    [COMBO_STENO] = COMBO(combo_steno, TG(STENO_LAYER)),
+    [COMBO_GAMING] = COMBO(combo_gaming, TG(GAMING_LAYER)),
+    [COMBO_NAVIGATION] = COMBO(combo_navigation, TG(NAVIGATION_LAYER)),
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
@@ -140,23 +144,18 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
     if (layer_state_is(STENO_LAYER) && combo_index != COMBO_STENO)
         return false;
 
-    if (layer_state_is(NAVIGATION_LAYER)) {
+    if (layer_state_is(NAVIGATION_LAYER) && combo_index != COMBO_NAVIGATION) {
         return false;
     }
 
     switch (combo_index) {
     case COMBO_CYRILLIC:
-        if (!(layer_state_is(ALPHA_LAYER) || layer_state_is(HANDS_DOWN_LAYER) || layer_state_is(CYRILLIC_LAYER))) {
+        if (!(layer_state_is(ALPHA_LAYER) || layer_state_is(CYRILLIC_LAYER))) {
             return false;
         }
         break;
     case COMBO_GAMING:
-        if (!(layer_state_is(ALPHA_LAYER) || layer_state_is(HANDS_DOWN_LAYER) || layer_state_is(GAMING_LAYER))) {
-            return false;
-        }
-        break;
-    case COMBO_HANDS_DOWN:
-        if (!(layer_state_is(ALPHA_LAYER) || layer_state_is(HANDS_DOWN_LAYER))) {
+        if (!(layer_state_is(ALPHA_LAYER) || layer_state_is(GAMING_LAYER))) {
             return false;
         }
         break;
@@ -165,22 +164,19 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
     return true;
 }
 
+const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, LT(NUMPAD_LAYER, KC_BSPC), KC_DEL);
+const key_override_t ques_key_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_COMM, KC_QUES, 0b1);
+const key_override_t exlm_key_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT, KC_EXLM, 0b1);
+
+const key_override_t **key_overrides = (const key_override_t *[]) {
+    &delete_key_override,
+    &ques_key_override,
+    &exlm_key_override,
+    NULL
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALPHA_LAYER] = LAYOUT_split_3x6_3
-    (KC_NO, KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y,
-     KC_F,  KC_G,    KC_C,    KC_R,   KC_L, KC_NO,
-
-     KC_NO, LGUI_T(KC_A), LCTL_T(KC_O), LALT_T(KC_E), LSFT_T(KC_U), KC_I,
-     KC_D,  LSFT_T(KC_H), LALT_T(KC_T), LCTL_T(KC_N), LGUI_T(KC_S), KC_NO,
-
-     KC_NO, KC_SCLN, KC_Q, KC_J, KC_K, KC_X,
-     KC_B,  KC_M,    KC_W, KC_V, KC_Z, KC_NO,
-
-     KC_NO,                        KC_SPC,                   LT(NUMPAD_LAYER, KC_BSPC),
-     LT(NAVIGATION_LAYER, KC_TAB), LT(SYMBOL_LAYER, KC_ENT), KC_NO
-     ),
-
-    [HANDS_DOWN_LAYER] = LAYOUT_split_3x6_3
     (KC_NO, KC_W, KC_F, KC_M, KC_P,  KC_V,
      KC_NO, KC_Z, KC_Q, KC_J, KC_NO, KC_NO,
 
@@ -190,8 +186,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_NO,  KC_X, KC_C, KC_L, KC_D, KC_G,
      KC_DOT, KC_U, KC_O, KC_Y, KC_K, KC_NO,
 
-     KC_TRNS, KC_TRNS, KC_TRNS,
-     KC_TRNS, KC_TRNS, KC_TRNS
+     KC_NO,  LT(NAVIGATION_LAYER, KC_SPC), LT(NUMPAD_LAYER, KC_BSPC),
+     KC_NO,  LT(SYMBOL_LAYER, KC_ENT),     KC_NO
      ),
 
     [CYRILLIC_LAYER] = LAYOUT_split_3x6_3
@@ -209,32 +205,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ),
 
     [NAVIGATION_LAYER] = LAYOUT_split_3x6_3
-    (KC_NO, KC_NO,      KC_WH_D, KC_MS_U, KC_WH_U, KC_NO, KC_NO, KC_VOLD, KC_UP,   KC_VOLU, KC_NO, KC_NO,
-     KC_NO, KC_MS_BTN3, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO, KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO, KC_NO,
-     KC_NO, KC_NO,      KC_HOME, KC_NO,   KC_END,  KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,
+    (KC_NO, KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,
+     KC_NO, KC_NO,      KC_WH_D, KC_MS_U, KC_WH_U, KC_HOME, KC_NO, KC_VOLD, KC_UP,   KC_VOLU, KC_NO, KC_NO,
+     KC_NO, KC_MS_BTN3, KC_MS_L, KC_MS_D, KC_MS_R, KC_END,  KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO, KC_NO,
 
-     KC_NO, KC_MS_BTN1, KC_MS_BTN2,
-     KC_NO, KC_NO,      KC_NO
+     KC_NO,      KC_MS_BTN1, KC_MS_BTN2,
+     KC_MS_BTN1, KC_MS_BTN2, KC_NO
      ),
 
-    /* TODO: remove stuff from the outer columns */
     [GAMING_LAYER] = LAYOUT_split_3x6_3
-    (KC_LSFT,  KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,    KC_O,   KC_P,    KC_LBRC,
-     KC_TAB,   KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, KC_QUOT,
+    (KC_TAB,   KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,    KC_O,   KC_P,    KC_LBRC,
+     KC_LSFT,  KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, KC_QUOT,
      KC_LCTRL, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_RBRC, KC_TRNS,
-     KC_LALT,  KC_TRNS, KC_TRNS,
+     KC_LALT,  KC_SPC,  KC_TRNS,
      KC_TRNS,  KC_TRNS, KC_TRNS
      ),
 
     [SYMBOL_LAYER] = LAYOUT_split_3x6_3
-    (KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    (KC_NO, KC_NO, KC_LT, KC_GT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 
-     KC_NO,   LGUI_T(KC_SCLN),   LCTL_T(KC_MINS),   LALT_T(KC_EQL),   LSFT_T(KC_QUOT), KC_PERC,
+     KC_NO,   LGUI_T(KC_MINS),   LCTL_T(KC_QUOT),   LALT_T(KC_SCLN),  LSFT_T(KC_EQL),  KC_PERC,
      KC_CIRC, TD(TD_AMPR_SHIFT), TD(TD_LPAREN_ALT), TD(TD_RPRN_CTRL), TD(TD_ASTR_GUI), KC_NO,
 
-     KC_NO, KC_DLR, KC_GRAVE, KC_SLASH, KC_BSLS, KC_AT, KC_EXLM, KC_LBRC, KC_LCBR, KC_RCBR, KC_RBRC, KC_NO,
+     KC_NO, KC_DLR, KC_GRAVE, KC_SLASH, KC_BSLS, KC_AT, KC_NO, KC_LBRC, KC_LCBR, KC_RCBR, KC_RBRC, KC_NO,
 
-     KC_TRNS, KC_HASH, KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS
+     KC_TRNS, KC_HASH,          KC_TRNS,
+     KC_TRNS, TG(SYMBOL_LAYER), KC_TRNS
      ),
 
     [NUMPAD_LAYER] = LAYOUT_split_3x6_3
