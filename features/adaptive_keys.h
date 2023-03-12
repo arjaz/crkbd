@@ -1,6 +1,7 @@
 static uint8_t prior_saved_mods = 0;
 static uint16_t prior_keycode = KC_NO;
 static uint32_t prior_keydown = 0;
+static bool prior_key_adapted = false;
 
 bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 
@@ -57,7 +58,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 
 #include "adaptive_keys.def"
                 default:
-                    return_state = true;
+
                     tap_code(first);
                 }
             }
@@ -71,6 +72,10 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     add_weak_mods(MOD_BIT(KC_LSFT));
                 }
                 tap_code(second);
+                /* FIXME: the first key is sent lowercase for capsword in mv -> mb
+                   Moreover, all ms are not capsworded
+                 */
+                prior_key_adapted = true;
             }
         }
         switch (keycode) {
@@ -106,7 +111,7 @@ void matrix_scan_user(void) {
 #undef AK_BOTH_START
 #define AK_BOTH_START(key, default_key)         \
             case key:                           \
-                tap_code(default_key);          \
+                if (!prior_key_adapted) tap_code(default_key);          \
                 break;
 
 #include "adaptive_keys.def"

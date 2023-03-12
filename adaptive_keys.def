@@ -34,12 +34,10 @@ AK_SND_ONLY_START(KC_O)
 AK_SND_ONLY_START(KC_U)
   R_SND(KC_DOT, KC_A)
 
-AK_SND_ONLY_START(KC_J)
-  R_SND(KC_Z, KC_U)
-  R_SND(KC_Q, KC_O)
-
 /* TODO:
-   Fix home-row modifiers
+   Fix home-row modifiers, they're not fired from adaptive keys
+
+   j + something other than z or q can't be rolled.
 
    Unfortunately, sending something like mv would break if we handle v separately
    mf -> lf

@@ -109,26 +109,29 @@ enum combo_events {
     COMBO_GAMING,
     COMBO_NAVIGATION,
     COMBO_CAPSWRD,
+    COMBO_RALT,
     COMBO_COPY,
     COMBO_PASTE,
     COMBO_CUT,
     COMBO_LENGTH
 };
 
-const uint16_t PROGMEM combo_esc[] = {LGUI_T(KC_R), LSFT_T(KC_T), COMBO_END};
+const uint16_t PROGMEM combo_esc[] = {LGUI_T(KC_R), KC_T, COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {LGUI_T(KC_R), LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM combo_cyrillic[] = {KC_P, KC_B, COMBO_END};
-const uint16_t PROGMEM combo_capswrd[] = {LSFT_T(KC_T), LSFT_T(KC_A), COMBO_END};
+const uint16_t PROGMEM combo_ralt[] = {LALT_T(KC_N), LALT_T(KC_E), COMBO_END};
+const uint16_t PROGMEM combo_capswrd[] = {KC_U, LT(SYMBOL_LAYER, KC_O), KC_Y, COMBO_END};
 const uint16_t PROGMEM combo_steno[] = {KC_COMM, KC_Z, COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {KC_Q, KC_J, COMBO_END};
-const uint16_t PROGMEM combo_navigation[] = {KC_C, KC_L, KC_D, COMBO_END};
+const uint16_t PROGMEM combo_navigation[] = {KC_C, LT(SYMBOL_LAYER, KC_L), KC_D, COMBO_END};
 const uint16_t PROGMEM combo_copy[] = {KC_X, KC_C, COMBO_END};
-const uint16_t PROGMEM combo_paste[] = {KC_C, KC_L, COMBO_END};
-const uint16_t PROGMEM combo_cut[] = {KC_L, KC_D, COMBO_END};
+const uint16_t PROGMEM combo_paste[] = {KC_C, LT(SYMBOL_LAYER, KC_L), COMBO_END};
+const uint16_t PROGMEM combo_cut[] = {LT(SYMBOL_LAYER, KC_L), KC_D, COMBO_END};
 combo_t key_combos[] = {
 	[COMBO_ESC] = COMBO(combo_esc, KC_ESC),
     [COMBO_TAB] = COMBO(combo_tab, KC_TAB),
     [COMBO_CAPSWRD] = COMBO(combo_capswrd, CAPSWRD),
+    [COMBO_RALT] = COMBO(combo_ralt, KC_RALT),
     [COMBO_COPY] = COMBO(combo_copy, LCTL(KC_C)),
     [COMBO_PASTE] = COMBO(combo_paste, LCTL(KC_V)),
     [COMBO_CUT] = COMBO(combo_cut, LCTL(KC_X)),
@@ -164,41 +167,30 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
     return true;
 }
 
-const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, LT(NUMPAD_LAYER, KC_BSPC), KC_DEL);
-const key_override_t ques_key_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_COMM, KC_QUES, 0b1);
-const key_override_t exlm_key_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT, KC_EXLM, 0b1);
-
-const key_override_t **key_overrides = (const key_override_t *[]) {
-    &delete_key_override,
-    &ques_key_override,
-    &exlm_key_override,
-    NULL
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALPHA_LAYER] = LAYOUT_split_3x6_3
     (KC_NO, KC_W, KC_F, KC_M, KC_P,  KC_V,
      KC_NO, KC_Z, KC_Q, KC_J, KC_NO, KC_NO,
 
-     KC_NO,   LGUI_T(KC_R), LCTL_T(KC_S), LALT_T(KC_N), LSFT_T(KC_T), KC_B,
-     KC_COMM, LSFT_T(KC_A), LALT_T(KC_E), LCTL_T(KC_I), LGUI_T(KC_H), KC_NO,
+     KC_NO,   LGUI_T(KC_R), LCTL_T(KC_S), LALT_T(KC_N), KC_T,         KC_B,
+     KC_COMM, KC_A,         LALT_T(KC_E), LCTL_T(KC_I), LGUI_T(KC_H), KC_NO,
 
-     KC_NO,  KC_X, KC_C, KC_L, KC_D, KC_G,
-     KC_DOT, KC_U, KC_O, KC_Y, KC_K, KC_NO,
+     KC_NO,  KC_X,                         KC_C, LT(SYMBOL_LAYER, KC_L), KC_D, KC_G,
+     KC_DOT, KC_U, LT(SYMBOL_LAYER, KC_O), KC_Y,                         KC_K, KC_NO,
 
-     KC_NO,  LT(NAVIGATION_LAYER, KC_SPC), LT(NUMPAD_LAYER, KC_BSPC),
-     KC_NO,  LT(SYMBOL_LAYER, KC_ENT),     KC_NO
+     KC_NO,         LT(NAVIGATION_LAYER, KC_SPC), LT(NUMPAD_LAYER, KC_BSPC),
+     OSM(MOD_LSFT), KC_ENT,                       KC_NO
      ),
 
     [CYRILLIC_LAYER] = LAYOUT_split_3x6_3
     (KC_NO, TD(TD_Q_GRAVE), TD(TD_W_QUES), TD(TD_E_SLASH), KC_R,          TD(TD_T_QUOT),
      KC_Y,  TD(TD_U_BSLS),  KC_I,          KC_O,           TD(TD_P_LBRC), KC_NO,
 
-     KC_NO, LGUI_T(KC_A), LCTL_T(KC_S), LALT_T(KC_D), LSFT_T(KC_F),    KC_G,
-     KC_H,  LSFT_T(KC_J), LALT_T(KC_K), LCTL_T(KC_L), LGUI_T(KC_SCLN), KC_NO,
+     KC_NO, LGUI_T(KC_A), LCTL_T(KC_S), LALT_T(KC_D), KC_F,            KC_G,
+     KC_H,  KC_J,         LALT_T(KC_K), LCTL_T(KC_L), LGUI_T(KC_SCLN), KC_NO,
 
-     KC_NO, KC_Z, KC_X,    KC_C,   KC_V,    KC_B,
-     KC_N,  KC_M, KC_COMM, KC_DOT, KC_RBRC, KC_TRNS,
+     KC_NO, KC_Z, KC_X,                      LT(SYMBOL_LAYER, KC_C), KC_V,    KC_B,
+     KC_N,  KC_M, LT(SYMBOL_LAYER, KC_COMM), KC_DOT,                 KC_RBRC, KC_TRNS,
 
      KC_TRNS, KC_TRNS, KC_TRNS,
      KC_TRNS, KC_TRNS, KC_TRNS
@@ -224,23 +216,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [SYMBOL_LAYER] = LAYOUT_split_3x6_3
     (KC_NO, KC_NO, KC_LT, KC_GT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 
-     KC_NO,   LGUI_T(KC_MINS),   LCTL_T(KC_QUOT),   LALT_T(KC_SCLN),  LSFT_T(KC_EQL),  KC_PERC,
-     KC_CIRC, TD(TD_AMPR_SHIFT), TD(TD_LPAREN_ALT), TD(TD_RPRN_CTRL), TD(TD_ASTR_GUI), KC_NO,
+     KC_NO,   LGUI_T(KC_MINS), LCTL_T(KC_QUOT),   LALT_T(KC_SCLN),  KC_EQL,          KC_PERC,
+     KC_CIRC, KC_AMPR,         TD(TD_LPAREN_ALT), TD(TD_RPRN_CTRL), TD(TD_ASTR_GUI), KC_NO,
 
-     KC_NO, KC_DLR, KC_GRAVE, KC_SLASH, KC_BSLS, KC_AT, KC_NO, KC_LBRC, KC_LCBR, KC_RCBR, KC_RBRC, KC_NO,
+     KC_NO, KC_DLR, KC_GRAVE, KC_SLASH, KC_BSLS, KC_AT, KC_EXLM, KC_LBRC, KC_LCBR, KC_RCBR, KC_RBRC, KC_NO,
 
-     KC_TRNS, KC_HASH,          KC_TRNS,
-     KC_TRNS, TG(SYMBOL_LAYER), KC_TRNS
+     KC_TRNS, KC_HASH, KC_TRNS,
+     KC_TRNS, KC_TRNS, KC_TRNS
      ),
 
     [NUMPAD_LAYER] = LAYOUT_split_3x6_3
-    (KC_NO, KC_NO, KC_7, KC_8,  KC_9, KC_NO, KC_NO, KC_F7, KC_F8, KC_F9, KC_F10, KC_NO,
+    (KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 
-     KC_NO, LGUI_T(KC_0),  LCTL_T(KC_4),  LALT_T(KC_5),  LSFT_T(KC_6),   KC_NO,
-     KC_NO, LSFT_T(KC_F4), LALT_T(KC_F5), LCTL_T(KC_F6), LGUI_T(KC_F11), KC_NO,
+     KC_NO, LGUI_T(KC_5), LCTL_T(KC_6), LALT_T(KC_7), KC_8, KC_9, KC_NO, KC_F4, LALT_T(KC_F5), LCTL_T(KC_F6), LGUI_T(KC_F11), KC_NO,
+     KC_NO, KC_0,         KC_1,         KC_2,         KC_3, KC_4, KC_NO, KC_F1, KC_F2,         KC_F3,         KC_F12,         KC_NO,
 
-     KC_NO, KC_NO, KC_1, KC_2,  KC_3, KC_NO, KC_NO, KC_F1, KC_F2, KC_F3, KC_F12, KC_NO,
-     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
+     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
      ),
 
     [STENO_LAYER] = LAYOUT_split_3x6_3
