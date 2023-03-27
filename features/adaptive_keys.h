@@ -5,11 +5,11 @@ static bool prior_key_adapted = false;
 
 bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 
-#ifdef ADAPTIVE_ONLY_FROM_LAYER
-    if (!layer_state_is(ADAPTIVE_ONLY_FROM_LAYER)) {
-        return true;
-    }
-#endif
+// #ifdef ADAPTIVE_ONLY_FROM_LAYER
+//     if (!layer_state_is(ADAPTIVE_ONLY_FROM_LAYER)) {
+//         return true;
+//     }
+// #endif
 
     bool return_state = true;
 

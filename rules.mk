@@ -7,3 +7,5 @@ STENO_ENABLE        = yes
 STENO_PROTOCOL      = geminipr
 RGBLIGHT_ENABLE     = no
 BOOTLOADER          = caterina
+
+SRC += features/tap_hold_dance.c

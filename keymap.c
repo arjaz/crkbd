@@ -3,6 +3,7 @@
 #include <keymap_steno.h>
 #include <keymap_ukrainian.h>
 #include "features/adaptive_keys.h"
+#include "features/tap_hold_dance.h"
 
 #define ALPHA1_LAYER 0
 #define ALPHA2_LAYER 1
@@ -33,11 +34,17 @@ enum macros_keycodes {
     SCROLL_LOCK_TG_CYRILLIC2
 };
 
-typedef struct {
-    uint16_t tap;
-    uint16_t hold;
-    uint16_t held;
-} tap_dance_tap_hold_t;
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    /* that one doesn't work */
+    /* case OSL(ALPHA2_LAYER): */
+    case OSM(MOD_LSFT):
+        return 10000;
+    default:
+        return TAPPING_TERM;
+    }
+}
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_adaptive_key(keycode, record)) {
@@ -68,36 +75,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-
-void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
-    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
-
-    if (state->pressed) {
-        if (state->count == 1
-#ifndef PERMISSIVE_HOLD
-            && !state->interrupted
-#endif
-        ) {
-            register_code16(tap_hold->hold);
-            tap_hold->held = tap_hold->hold;
-        } else {
-            register_code16(tap_hold->tap);
-            tap_hold->held = tap_hold->tap;
-        }
-    }
-}
-
-void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
-    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
-
-    if (tap_hold->held) {
-        unregister_code16(tap_hold->held);
-        tap_hold->held = 0;
-    }
-}
-
-#define ACTION_TAP_DANCE_TAP_HOLD(tap, hold) \
-    { .fn = {NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, .user_data = (void *)&((tap_dance_tap_hold_t){tap, hold, 0}), }
 
 tap_dance_action_t tap_dance_actions[] = {
     [TD_Q_GRAVE]     = ACTION_TAP_DANCE_TAP_HOLD(KC_Q, KC_GRAVE),
@@ -131,12 +108,12 @@ enum combo_events {
 const uint16_t PROGMEM combo_esc[] = {LGUI_T(KC_R), KC_T, COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {LGUI_T(KC_R), LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM combo_enter[] = {LGUI_T(KC_H), LCTL_T(KC_I), COMBO_END};
-const uint16_t PROGMEM combo_capswrd[] = {LT(NUMBER_LAYER, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
+const uint16_t PROGMEM combo_capswrd[] = {LALT_T(KC_E), LCTL_T(KC_I), COMBO_END};
 const uint16_t PROGMEM combo_cyrillic[] = {KC_P, KC_B, COMBO_END};
-const uint16_t PROGMEM combo_cyrillic2[] = {KC_P, KC_G, COMBO_END};
+const uint16_t PROGMEM combo_cyrillic2[] = {LALT_T(KC_N), LT(NUMBER_LAYER, KC_D), COMBO_END};
 const uint16_t PROGMEM combo_ralt[] = {LALT_T(KC_N), LALT_T(KC_E), COMBO_END};
-const uint16_t PROGMEM combo_steno[] = {KC_COMM, KC_Z, COMBO_END};
-const uint16_t PROGMEM combo_gaming[] = {KC_Q, KC_J, COMBO_END};
+const uint16_t PROGMEM combo_steno[] = {KC_Q, KC_J, COMBO_END};
+const uint16_t PROGMEM combo_gaming[] = {LT(NUMBER_LAYER, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
 const uint16_t PROGMEM combo_navigation[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NUMBER_LAYER, KC_D), COMBO_END};
 const uint16_t PROGMEM combo_copy[] = {LT(NAVIGATION_LAYER, KC_X), LT(SYMBOL1_LAYER, KC_C), COMBO_END};
 const uint16_t PROGMEM combo_paste[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
