@@ -42,7 +42,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_adaptive_key(keycode, record)) {
         return false;
@@ -105,14 +104,14 @@ enum combo_events {
 const uint16_t PROGMEM combo_esc[] = {LGUI_T(KC_R), KC_T, COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {LGUI_T(KC_R), LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM combo_enter[] = {LGUI_T(KC_H), LCTL_T(KC_I), COMBO_END};
-const uint16_t PROGMEM combo_capswrd[] = {LALT_T(KC_E), LCTL_T(KC_I), COMBO_END};
+const uint16_t PROGMEM combo_capswrd[] = {OSM(MOD_LSFT), KC_BSPC, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic[] = {KC_P, KC_B, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic2[] = {KC_P, KC_G, COMBO_END};
 const uint16_t PROGMEM combo_ralt[] = {LALT_T(KC_N), LALT_T(KC_E), COMBO_END};
 const uint16_t PROGMEM combo_steno[] = {KC_Z, KC_COMM, COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {LT(NUMBER_LAYER, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
 const uint16_t PROGMEM combo_navigation[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NUMBER_LAYER, KC_D), COMBO_END};
-const uint16_t PROGMEM combo_copy[] = {LT(NAVIGATION_LAYER, KC_X), LT(SYMBOL1_LAYER, KC_C), COMBO_END};
+const uint16_t PROGMEM combo_copy[] = {LT(NAVIGATION_LAYER, KC_X), LT(NUMBER_LAYER, KC_D), COMBO_END};
 const uint16_t PROGMEM combo_paste[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
 const uint16_t PROGMEM combo_cut[] = {LT(SYMBOL2_LAYER, KC_L), LT(NUMBER_LAYER, KC_D), COMBO_END};
 combo_t key_combos[] = {
@@ -122,8 +121,8 @@ combo_t key_combos[] = {
     [COMBO_CAPSWRD] = COMBO(combo_capswrd, CW_TOGG),
     [COMBO_RALT] = COMBO(combo_ralt, KC_RALT),
     [COMBO_COPY] = COMBO(combo_copy, LCTL(KC_C)),
-    [COMBO_PASTE] = COMBO(combo_paste, LCTL(KC_V)),
-    [COMBO_CUT] = COMBO(combo_cut, LCTL(KC_X)),
+    /* [COMBO_PASTE] = COMBO(combo_paste, LCTL(KC_V)), */
+    /* [COMBO_CUT] = COMBO(combo_cut, LCTL(KC_X)), */
     /* Layer-related combos */
     [COMBO_CYRILLIC] = COMBO(combo_cyrillic, SCROLL_LOCK_TG_CYRILLIC),
     [COMBO_CYRILLIC2] = COMBO(combo_cyrillic2, SCROLL_LOCK_TG_CYRILLIC2),
@@ -177,8 +176,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_NO,  LT(NAVIGATION_LAYER, KC_X), LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NUMBER_LAYER, KC_D),     KC_G,
      KC_DOT, LT(NUMBER_LAYER, KC_U),     LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), LT(NAVIGATION_LAYER, KC_K), KC_NO,
 
-     KC_NO,   KC_SPC, OSM(MOD_LSFT),
-     KC_BSPC, KC_NO,  KC_NO
+     KC_NO,   KC_NO,  OSM(MOD_LSFT),
+     KC_BSPC, KC_SPC, KC_NO
      ),
 
     [CYRILLIC_LAYER] = LAYOUT_split_3x6_3
@@ -191,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_NO, LT(NAVIGATION_LAYER, KC_Z), LT(SYMBOL1_LAYER, KC_X),    LT(SYMBOL2_LAYER, KC_C),   LT(NUMBER_LAYER, KC_V),        KC_B,
      KC_N,  LT(NUMBER_LAYER, KC_M),     LT(SYMBOL2_LAYER, KC_COMM), LT(SYMBOL1_LAYER, KC_DOT), LT(NAVIGATION_LAYER, KC_RBRC), KC_NO,
 
-     KC_TRNS, KC_TRNS, KC_LSFT,
+     KC_TRNS, KC_TRNS, KC_TRNS,
      KC_TRNS, KC_TRNS, KC_TRNS
      ),
 
@@ -220,9 +219,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [GAMING_LAYER] = LAYOUT_split_3x6_3
     (KC_NO, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,    KC_O,   KC_P,    KC_NO,
      KC_NO, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, KC_NO,
-     KC_NO, LCTL_T(KC_Z), LALT_T(KC_X), KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_RBRC, KC_NO,
-     KC_LALT, KC_TRNS, KC_TRNS,
-     KC_TRNS, KC_TRNS, KC_TRNS
+     KC_NO, LCTL_T(KC_Z), LALT_T(KC_X), KC_C, LT(NUMBER_LAYER, KC_V), KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_RBRC, KC_NO,
+     KC_NO,   KC_SPC,  KC_LSFT,
+     KC_TRNS, KC_TRNS, KC_NO
      ),
 
     [SYMBOL1_LAYER] = LAYOUT_split_3x6_3
