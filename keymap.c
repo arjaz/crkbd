@@ -6,15 +6,16 @@
 #include "features/tap_hold_dance.h"
 
 #define ALPHA_LAYER 0
-#define CYRILLIC_LAYER 1
-#define CYRILLIC2_LAYER 2
-#define NAVIGATION_LAYER 3
-#define GAMING_LAYER 4
-#define SYMBOL1_LAYER 5
-#define SYMBOL2_LAYER 6
-#define NUMBER_LAYER 7
-#define FN_LAYER 8
-#define STENO_LAYER 9
+#define ALPHA2_LAYER 1
+#define CYRILLIC_LAYER 2
+#define CYRILLIC2_LAYER 3
+#define NAVIGATION_LAYER 4
+#define GAMING_LAYER 5
+#define SYMBOL1_LAYER 6
+#define SYMBOL2_LAYER 7
+#define NUMBER_LAYER 8
+#define FN_LAYER 9
+#define STENO_LAYER 10
 
 enum {
     TD_Q_GRAVE,
@@ -42,6 +43,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+static uint16_t prev_keycode = 0;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_adaptive_key(keycode, record)) {
         return false;
@@ -69,6 +71,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         break;
     }
+
+    /*
+      if the previous key was a one-shot layer key,
+      then we need to clear the one-shot layer key
+     */
+    if (prev_keycode == OSL(ALPHA2_LAYER)) {
+        clear_oneshot_layer_state(ONESHOT_PRESSED);
+    }
+    prev_keycode = keycode;
+
     return true;
 }
 
@@ -176,8 +188,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_NO,  KC_X,                       LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER, KC_D), KC_G,
      KC_DOT, LT(NAVIGATION_LAYER, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), KC_K,                       KC_NO,
 
-     KC_NO,         KC_NO,  KC_BSPC,
-     OSM(MOD_LSFT), KC_SPC, KC_NO
+     KC_NO,         OSL(ALPHA2_LAYER), KC_BSPC,
+     OSM(MOD_LSFT), KC_SPC,            KC_NO
+     ),
+
+    [ALPHA2_LAYER] = LAYOUT_split_3x6_3
+    (KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+     KC_NO, KC_W, KC_F, KC_M, KC_P,    KC_NO,
+     KC_NO, KC_Z, KC_Q, KC_J, KC_SCLN, KC_NO,
+
+     KC_NO, KC_NO,   KC_G,   KC_V,    KC_B,       KC_NO,
+     KC_NO, KC_COMM, KC_DOT, KC_QUOT, S(KC_QUOT), KC_NO,
+
+     KC_TRNS, KC_TRNS, KC_TRNS,
+     KC_TRNS, KC_TRNS, KC_TRNS
      ),
 
     [CYRILLIC_LAYER] = LAYOUT_split_3x6_3
