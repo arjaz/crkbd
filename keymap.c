@@ -167,8 +167,8 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALPHA_LAYER] = LAYOUT_split_3x6_3
-    (KC_NO,   KC_W, KC_F, KC_M, KC_P,  KC_V,
-     KC_QUOT, KC_Z, KC_Q, KC_J, KC_NO, KC_NO,
+    (KC_NO,   KC_W, KC_F, KC_M, KC_P,    KC_V,
+     KC_QUOT, KC_Z, KC_Q, KC_J, KC_SCLN, KC_NO,
 
      KC_NO,   LGUI_T(KC_R), LCTL_T(KC_S), LALT_T(KC_N), KC_T,         KC_B,
      KC_COMM, KC_A,         LALT_T(KC_E), LCTL_T(KC_I), LGUI_T(KC_H), KC_NO,
