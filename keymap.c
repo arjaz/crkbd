@@ -101,19 +101,19 @@ enum combo_events {
     COMBO_LENGTH
 };
 
-const uint16_t PROGMEM combo_esc[] = {KC_R, LGUI_T(KC_T), COMBO_END};
+const uint16_t PROGMEM combo_esc[] = {KC_R, LGUI_T(KC_D), COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {KC_R, LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM combo_enter[] = {KC_H, LCTL_T(KC_I), COMBO_END};
 const uint16_t PROGMEM combo_capswrd[] = {OSM(MOD_LSFT), KC_BSPC, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic[] = {KC_P, KC_B, COMBO_END};
-const uint16_t PROGMEM combo_cyrillic2[] = {KC_P, KC_G, COMBO_END};
+const uint16_t PROGMEM combo_cyrillic2[] = {KC_P, KC_W, COMBO_END};
 const uint16_t PROGMEM combo_ralt[] = {LALT_T(KC_N), LALT_T(KC_E), COMBO_END};
 const uint16_t PROGMEM combo_steno[] = {KC_Z, KC_COMM, COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {LT(NAVIGATION_LAYER, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
-const uint16_t PROGMEM combo_navigation[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER, KC_D), COMBO_END};
-const uint16_t PROGMEM combo_copy[] = {LT(NUMBER_LAYER, KC_X), LT(NAVIGATION_LAYER, KC_D), COMBO_END};
-const uint16_t PROGMEM combo_paste[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
-const uint16_t PROGMEM combo_cut[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER, KC_D), COMBO_END};
+const uint16_t PROGMEM combo_navigation[] = {LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER, KC_C), COMBO_END};
+const uint16_t PROGMEM combo_copy[] = {LT(NUMBER_LAYER, KC_X), LT(NAVIGATION_LAYER, KC_C), COMBO_END};
+const uint16_t PROGMEM combo_paste[] = {LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
+const uint16_t PROGMEM combo_cut[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER, KC_C), COMBO_END};
 combo_t key_combos[] = {
 	[COMBO_ESC] = COMBO(combo_esc, KC_ESC),
     [COMBO_TAB] = COMBO(combo_tab, KC_TAB),
@@ -167,16 +167,16 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALPHA_LAYER] = LAYOUT_split_3x6_3
-    (KC_NO,   KC_W, KC_F, KC_M, KC_P,    KC_V,
-     KC_QUOT, KC_Z, KC_Q, KC_J, KC_SCLN, KC_NO,
+    (KC_NO,   KC_J, KC_G, KC_M,    KC_P,    KC_V,
+     KC_QUOT, KC_Z, KC_Q, KC_MINS, KC_SCLN, KC_NO,
 
-     KC_NO,   KC_R,         LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_T), KC_B,
+     KC_NO,   KC_R,         LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_D), KC_B,
      KC_COMM, LGUI_T(KC_A), LALT_T(KC_E), LCTL_T(KC_I), KC_H,         KC_NO,
 
-     KC_NO,  LT(NUMBER_LAYER, KC_X),     LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER, KC_D), KC_G,
+     KC_NO,  LT(NUMBER_LAYER, KC_X),     LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER, KC_C), KC_W,
      KC_DOT, LT(NAVIGATION_LAYER, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), LT(NUMBER_LAYER, KC_K),     KC_NO,
 
-     KC_NO,         KC_NO,  KC_BSPC,
+     KC_NO,         KC_T,   KC_BSPC,
      OSM(MOD_LSFT), KC_SPC, KC_NO
      ),
 
