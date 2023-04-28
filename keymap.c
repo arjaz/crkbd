@@ -132,7 +132,7 @@ combo_t key_combos[] = {
     [COMBO_ENTER] = COMBO(combo_enter, KC_ENT),
     [COMBO_CAPSWRD] = COMBO(combo_capswrd, CW_TOGG),
     [COMBO_RALT] = COMBO(combo_ralt, KC_RALT),
-    [COMBO_COPY] = COMBO(combo_copy, LCTL(KC_C)),
+    /* [COMBO_COPY] = COMBO(combo_copy, LCTL(KC_C)), */
     /* [COMBO_PASTE] = COMBO(combo_paste, LCTL(KC_V)), */
     /* [COMBO_CUT] = COMBO(combo_cut, LCTL(KC_X)), */
     /* Layer-related combos */
@@ -185,8 +185,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_NO,   LT(NUMBER_LAYER, KC_R), LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_T),           KC_B,
      KC_COMM, LGUI_T(KC_A),           LALT_T(KC_E), LCTL_T(KC_I), LT(NUMBER_LAYER, KC_H), KC_NO,
 
-     KC_NO,  KC_X,                       LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER, KC_D), KC_G,
-     KC_DOT, LT(NAVIGATION_LAYER, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), KC_K,                       KC_NO,
+     KC_NO,  KC_G,                       LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER, KC_D), KC_G,
+     KC_DOT, LT(NAVIGATION_LAYER, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), KC_F,                       KC_NO,
 
      KC_NO,         OSL(ALPHA2_LAYER), KC_BSPC,
      OSM(MOD_LSFT), KC_SPC,            KC_NO
@@ -196,10 +196,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     (KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 
-     KC_NO, KC_W, KC_F, KC_M, KC_P,    KC_NO,
-     KC_NO, KC_Z, KC_Q, KC_J, KC_SCLN, KC_NO,
+     KC_NO, KC_W, KC_X, KC_M, KC_P, KC_NO,
+     KC_NO, KC_Z, KC_Q, KC_J, KC_K, KC_NO,
 
-     KC_NO, KC_NO,   KC_G,   KC_V,    KC_B,       KC_NO,
+     KC_NO, KC_NO,   KC_NO,  KC_V,    KC_B,       KC_NO,
      KC_NO, KC_COMM, KC_DOT, KC_QUOT, S(KC_QUOT), KC_NO,
 
      KC_TRNS, KC_TRNS, KC_TRNS,
