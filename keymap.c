@@ -9,13 +9,14 @@
 #define ALPHA2_LAYER 1
 #define CYRILLIC_LAYER 2
 #define CYRILLIC2_LAYER 3
-#define NAVIGATION_LAYER 4
-#define GAMING_LAYER 5
-#define SYMBOL1_LAYER 6
-#define SYMBOL2_LAYER 7
-#define NUMBER_LAYER 8
-#define FN_LAYER 9
-#define STENO_LAYER 10
+#define CYRILLIC3_LAYER 4
+#define NAVIGATION_LAYER 5
+#define GAMING_LAYER 6
+#define SYMBOL1_LAYER 7
+#define SYMBOL2_LAYER 8
+#define NUMBER_LAYER 9
+#define FN_LAYER 10
+#define STENO_LAYER 11
 
 enum {
     TD_Q_GRAVE,
@@ -76,7 +77,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if the previous key was a one-shot layer key,
       then we need to clear the one-shot layer key
      */
-    if (prev_keycode == OSL(ALPHA2_LAYER)) {
+    if (prev_keycode == OSL(ALPHA2_LAYER) || prev_keycode == OSL(CYRILLIC3_LAYER)) {
         clear_oneshot_layer_state(ONESHOT_PRESSED);
     }
     prev_keycode = keycode;
@@ -228,6 +229,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
      KC_NO, LT(NUMBER_LAYER, UA_ZE), LT(SYMBOL1_LAYER, UA_BE), LT(SYMBOL2_LAYER, UA_PE), LT(NAVIGATION_LAYER, UA_DE), TD(HE_GE),
      UA_CHE, LT(NAVIGATION_LAYER, UA_EL), LT(SYMBOL2_LAYER, UA_YA), LT(SYMBOL1_LAYER, UA_E), LT(NUMBER_LAYER, UA_YI), KC_NO,
+
+     KC_TRNS, OSL(CYRILLIC3_LAYER), KC_TRNS,
+     KC_TRNS, KC_TRNS,              KC_TRNS
+     ),
+
+    [CYRILLIC3_LAYER] = LAYOUT_split_3x6_3
+    (KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+     KC_NO, UA_ZHE, TD(YOT_SOFT), UA_KA, TD(KHA_EF), KC_NO, KC_NO, UA_YE,   UA_A,   UA_U,   UA_YU, KC_NO,
+     KC_NO, KC_NO,  UA_TSE,       UA_EM, TD(HE_GE),  KC_NO, KC_NO, UA_SHCH, UA_SHA, UA_CHE, KC_NO, KC_NO,
 
      KC_TRNS, KC_TRNS, KC_TRNS,
      KC_TRNS, KC_TRNS, KC_TRNS
