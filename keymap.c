@@ -203,8 +203,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_NO, KC_NO,   KC_NO,  KC_V,    KC_B,       KC_NO,
      KC_NO, KC_COMM, KC_DOT, KC_QUOT, S(KC_QUOT), KC_NO,
 
-     KC_TRNS, KC_TRNS, KC_TRNS,
-     KC_TRNS, KC_TRNS, KC_TRNS
+     KC_TRNS, KC_TRNS,                  KC_TRNS,
+     KC_TRNS, SCROLL_LOCK_TG_CYRILLIC2, KC_TRNS
      ),
 
     [CYRILLIC_LAYER] = LAYOUT_split_3x6_3
@@ -237,11 +237,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [CYRILLIC3_LAYER] = LAYOUT_split_3x6_3
     (KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 
-     KC_NO, UA_ZHE, TD(YOT_SOFT), UA_KA, TD(KHA_EF), KC_NO, KC_NO, UA_YE,   UA_A,   UA_U,   UA_YU, KC_NO,
-     KC_NO, KC_NO,  UA_TSE,       UA_EM, TD(HE_GE),  KC_NO, KC_NO, UA_SHCH, UA_SHA, UA_CHE, KC_NO, KC_NO,
+     KC_NO, UA_ZHE, UA_YOT, UA_KA, UA_KHA, KC_NO, KC_NO, UA_YE,   UA_A,   UA_U,   UA_YU,   KC_NO,
+     KC_NO, UA_EF,  UA_TSE, UA_EM, UA_HE,  KC_NO, KC_NO, UA_SHCH, UA_SHA, UA_CHE, UA_SOFT, KC_NO,
 
-     KC_TRNS, KC_TRNS, KC_TRNS,
-     KC_TRNS, KC_TRNS, KC_TRNS
+     KC_TRNS, KC_TRNS,                  KC_TRNS,
+     KC_TRNS, SCROLL_LOCK_TG_CYRILLIC2, KC_TRNS
      ),
 
     [NAVIGATION_LAYER] = LAYOUT_split_3x6_3
