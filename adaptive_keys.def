@@ -28,6 +28,10 @@ AK_SND_ONLY_START(KC_O)
 AK_SND_ONLY_START(KC_Q)
   R_SND(KC_Z, KC_U)
 
+AK_SND_ONLY_START(KC_J)
+  R_SND(KC_Z, KC_U)
+  R_SND(KC_Q, KC_O)
+
 /* That's to combat a problem where the last key can't be rolled with other keys */
 AK_SND_ONLY_START(KC_DOT)
   R_SND(KC_DOT, KC_DOT)
