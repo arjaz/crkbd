@@ -178,6 +178,11 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
     return true;
 }
 
+/* It may be worthwhile to shift the right hand by one column
+
+   aeih  ->  haei
+   uoyf  ->  fuoy
+ */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALPHA_LAYER] = LAYOUT_split_3x6_3
     (KC_NO, KC_NO, KC_NO, KC_NO, KC_P, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
