@@ -10,13 +10,14 @@
 #define CYRILLIC_LAYER 2
 #define CYRILLIC2_LAYER 3
 #define CYRILLIC3_LAYER 4
-#define NAVIGATION_LAYER 5
-#define GAMING_LAYER 6
-#define SYMBOL1_LAYER 7
-#define SYMBOL2_LAYER 8
-#define NUMBER_LAYER 9
-#define FN_LAYER 10
-#define STENO_LAYER 11
+#define NAVIGATION_LAYER1 5
+#define NAVIGATION_LAYER2 6
+#define GAMING_LAYER 7
+#define SYMBOL1_LAYER 8
+#define SYMBOL2_LAYER 9
+#define NUMBER_LAYER 10
+#define FN_LAYER 11
+#define STENO_LAYER 12
 
 enum {
     TD_Q_GRAVE,
@@ -122,11 +123,11 @@ const uint16_t PROGMEM combo_cyrillic[] = {KC_P, KC_B, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic2[] = {KC_P, KC_G, COMBO_END};
 const uint16_t PROGMEM combo_ralt[] = {LALT_T(KC_N), LALT_T(KC_E), COMBO_END};
 const uint16_t PROGMEM combo_steno[] = {KC_Z, KC_COMM, COMBO_END};
-const uint16_t PROGMEM combo_gaming[] = {LT(NAVIGATION_LAYER, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
-const uint16_t PROGMEM combo_navigation[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER, KC_D), COMBO_END};
-const uint16_t PROGMEM combo_copy[] = {LT(NUMBER_LAYER, KC_X), LT(NAVIGATION_LAYER, KC_D), COMBO_END};
+const uint16_t PROGMEM combo_gaming[] = {LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
+const uint16_t PROGMEM combo_navigation[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+const uint16_t PROGMEM combo_copy[] = {LT(NUMBER_LAYER, KC_X), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 const uint16_t PROGMEM combo_paste[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
-const uint16_t PROGMEM combo_cut[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER, KC_D), COMBO_END};
+const uint16_t PROGMEM combo_cut[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 combo_t key_combos[] = {
 	[COMBO_ESC] = COMBO(combo_esc, KC_ESC),
     [COMBO_TAB] = COMBO(combo_tab, KC_TAB),
@@ -141,7 +142,7 @@ combo_t key_combos[] = {
     [COMBO_CYRILLIC2] = COMBO(combo_cyrillic2, SCROLL_LOCK_TG_CYRILLIC2),
     [COMBO_STENO] = COMBO(combo_steno, TG(STENO_LAYER)),
     [COMBO_GAMING] = COMBO(combo_gaming, TG(GAMING_LAYER)),
-    [COMBO_NAVIGATION] = COMBO(combo_navigation, TG(NAVIGATION_LAYER)),
+    [COMBO_NAVIGATION] = COMBO(combo_navigation, TG(NAVIGATION_LAYER2)),
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
@@ -149,7 +150,7 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
     if (layer_state_is(STENO_LAYER) && combo_index != COMBO_STENO)
         return false;
 
-    if (layer_state_is(NAVIGATION_LAYER) && combo_index != COMBO_NAVIGATION) {
+    if (layer_state_is(NAVIGATION_LAYER1) && combo_index != COMBO_NAVIGATION) {
         return false;
     }
 
@@ -190,8 +191,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_NO, LT(NUMBER_LAYER, KC_R), LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_T),           KC_B,
      KC_NO, LGUI_T(KC_A),           LALT_T(KC_E), LCTL_T(KC_I), LT(NUMBER_LAYER, KC_H), KC_NO,
 
-     KC_NO, KC_G,                       LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER, KC_D), KC_NO,
-     KC_NO, LT(NAVIGATION_LAYER, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), KC_F,                       KC_NO,
+     KC_NO, KC_G,                       LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), KC_NO,
+     KC_NO, LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), KC_F,                       KC_NO,
 
      KC_NO,         OSL(ALPHA2_LAYER), KC_BSPC,
      OSM(MOD_LSFT), KC_SPC,            KC_NO
@@ -218,8 +219,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_NO, LT(NUMBER_LAYER, KC_A), LCTL_T(KC_S), LALT_T(KC_D), LGUI_T(KC_F),              KC_G,
      KC_H,  LGUI_T(KC_J),           LALT_T(KC_K), LCTL_T(KC_L), LT(NUMBER_LAYER, KC_SCLN), KC_NO,
 
-     KC_NO, KC_Z,                       LT(SYMBOL1_LAYER, KC_X),    LT(SYMBOL2_LAYER, KC_C),   LT(NAVIGATION_LAYER, KC_V), KC_B,
-     KC_N,  LT(NAVIGATION_LAYER, KC_M), LT(SYMBOL2_LAYER, KC_COMM), LT(SYMBOL1_LAYER, KC_DOT), KC_RBRC,                    KC_NO,
+     KC_NO, KC_Z,                        LT(SYMBOL1_LAYER, KC_X),    LT(SYMBOL2_LAYER, KC_C),   LT(NAVIGATION_LAYER1, KC_V), KC_B,
+     KC_N,  LT(NAVIGATION_LAYER2, KC_M), LT(SYMBOL2_LAYER, KC_COMM), LT(SYMBOL1_LAYER, KC_DOT), KC_RBRC,                     KC_NO,
 
      KC_TRNS, KC_TRNS, KC_TRNS,
      KC_TRNS, KC_TRNS, KC_TRNS
@@ -231,8 +232,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_NO, LGUI_T(UA_ES), LCTL_T(UA_VE), LALT_T(UA_EN), UA_TE, UA_EM,
      UA_SHA, UA_ER, LALT_T(UA_O), LCTL_T(UA_I), LGUI_T(UA_Y), KC_NO,
 
-     KC_NO, LT(NUMBER_LAYER, UA_ZE), LT(SYMBOL1_LAYER, UA_BE), LT(SYMBOL2_LAYER, UA_PE), LT(NAVIGATION_LAYER, UA_DE), TD(HE_GE),
-     UA_CHE, LT(NAVIGATION_LAYER, UA_EL), LT(SYMBOL2_LAYER, UA_YA), LT(SYMBOL1_LAYER, UA_E), LT(NUMBER_LAYER, UA_YI), KC_NO,
+     KC_NO, LT(NUMBER_LAYER, UA_ZE), LT(SYMBOL1_LAYER, UA_BE), LT(SYMBOL2_LAYER, UA_PE), LT(NAVIGATION_LAYER1, UA_DE), TD(HE_GE),
+     UA_CHE, LT(NAVIGATION_LAYER2, UA_EL), LT(SYMBOL2_LAYER, UA_YA), LT(SYMBOL1_LAYER, UA_E), LT(NUMBER_LAYER, UA_YI), KC_NO,
 
      KC_TRNS, OSL(CYRILLIC3_LAYER), KC_TRNS,
      KC_TRNS, KC_TRNS,              KC_TRNS
@@ -248,7 +249,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TRNS, SCROLL_LOCK_TG_CYRILLIC2, KC_TRNS
      ),
 
-    [NAVIGATION_LAYER] = LAYOUT_split_3x6_3
+    [NAVIGATION_LAYER1] = LAYOUT_split_3x6_3
+    (KC_NO, KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO,  KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,
+     KC_NO, KC_NO, KC_LCTL, KC_LALT, KC_NO, KC_NO,  KC_NO, KC_VOLD, KC_UP,   KC_VOLU, KC_NO,      KC_NO,
+     KC_NO, KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO,  KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_MS_BTN3, KC_NO,
+
+     KC_NO,      KC_MS_BTN1, KC_MS_BTN2,
+     KC_MS_BTN1, KC_MS_BTN2, KC_NO
+     ),
+
+    [NAVIGATION_LAYER2] = LAYOUT_split_3x6_3
     (KC_NO, KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,
      KC_NO, KC_NO,      KC_WH_D, KC_MS_U, KC_WH_U, KC_HOME, KC_NO, KC_VOLD, KC_UP,   KC_VOLU, KC_NO,      KC_NO,
      KC_NO, KC_MS_BTN3, KC_MS_L, KC_MS_D, KC_MS_R, KC_END,  KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_MS_BTN3, KC_NO,
