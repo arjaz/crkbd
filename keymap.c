@@ -250,21 +250,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ),
 
     [NAVIGATION_LAYER1] = LAYOUT_split_3x6_3
-    (KC_NO, KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO,  KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,
-     KC_NO, KC_NO, KC_LCTL, KC_LALT, KC_NO, KC_NO,  KC_NO, KC_VOLD, KC_UP,   KC_VOLU, KC_NO,      KC_NO,
-     KC_NO, KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO,  KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_MS_BTN3, KC_NO,
+    (KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,
+     KC_NO, KC_NO, KC_LCTL, KC_LALT, KC_NO, KC_NO, KC_NO, KC_VOLD, KC_UP,   KC_VOLU, KC_NO, KC_NO,
+     KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO, KC_NO,
 
-     KC_NO,      KC_MS_BTN1, KC_MS_BTN2,
-     KC_MS_BTN1, KC_MS_BTN2, KC_NO
+     KC_NO, KC_MS_BTN1, KC_MS_BTN2,
+     KC_NO, KC_NO,      KC_NO
      ),
 
     [NAVIGATION_LAYER2] = LAYOUT_split_3x6_3
-    (KC_NO, KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,
-     KC_NO, KC_NO,      KC_WH_D, KC_MS_U, KC_WH_U, KC_HOME, KC_NO, KC_VOLD, KC_UP,   KC_VOLU, KC_NO,      KC_NO,
-     KC_NO, KC_MS_BTN3, KC_MS_L, KC_MS_D, KC_MS_R, KC_END,  KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_MS_BTN3, KC_NO,
+    (KC_NO, KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,
+     KC_NO, KC_NO,      KC_WH_D, KC_MS_U, KC_WH_U, KC_NO, KC_NO, KC_VOLD, KC_UP,   KC_VOLU, KC_NO, KC_NO,
+     KC_NO, KC_MS_BTN3, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO, KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO, KC_NO,
 
-     KC_NO,      KC_MS_BTN1, KC_MS_BTN2,
-     KC_MS_BTN1, KC_MS_BTN2, KC_NO
+     KC_NO, KC_MS_BTN1, KC_MS_BTN2,
+     KC_NO, KC_NO,      KC_NO
      ),
 
     [GAMING_LAYER] = LAYOUT_split_3x6_3
