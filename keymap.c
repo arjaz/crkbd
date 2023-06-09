@@ -202,10 +202,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     (KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 
-     KC_NO, KC_W, KC_X, KC_M, KC_P, KC_NO,
+     KC_NO, KC_W, KC_V, KC_M, KC_P, KC_NO,
      KC_NO, KC_Z, KC_Q, KC_J, KC_K, KC_NO,
 
-     KC_NO, KC_NO,   KC_NO,  KC_V,    KC_B,       KC_NO,
+     KC_NO, KC_X,    KC_NO,  KC_NO,   KC_B,       KC_NO,
      KC_NO, KC_COMM, KC_DOT, KC_QUOT, S(KC_QUOT), KC_NO,
 
      KC_TRNS, KC_TRNS,                  KC_TRNS,
