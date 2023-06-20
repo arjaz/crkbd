@@ -179,11 +179,6 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
     return true;
 }
 
-/* It may be worthwhile to shift the right hand by one column
-
-   aeih  ->  haei
-   uoyf  ->  fuoy
- */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALPHA_LAYER] = LAYOUT_split_3x6_3
     (KC_NO, KC_NO, KC_NO, KC_NO, KC_P, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -191,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_NO, LT(NUMBER_LAYER, KC_R), LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_T),           KC_B,
      KC_NO, LGUI_T(KC_A),           LALT_T(KC_E), LCTL_T(KC_I), LT(NUMBER_LAYER, KC_H), KC_NO,
 
-     KC_NO, KC_G,                       LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), KC_NO,
+     KC_NO, KC_X,                        LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), KC_NO,
      KC_NO, LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), KC_F,                       KC_NO,
 
      KC_NO,         OSL(ALPHA2_LAYER), KC_BSPC,
@@ -205,7 +200,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_NO, KC_W, KC_V, KC_M, KC_P, KC_NO,
      KC_NO, KC_Z, KC_Q, KC_J, KC_K, KC_NO,
 
-     KC_NO, KC_X,    KC_NO,  KC_NO,   KC_B,       KC_NO,
+     KC_NO, KC_NO,   KC_G,   KC_NO,   KC_B,       KC_NO,
      KC_NO, KC_COMM, KC_DOT, KC_QUOT, S(KC_QUOT), KC_NO,
 
      KC_TRNS, KC_TRNS,                  KC_TRNS,
