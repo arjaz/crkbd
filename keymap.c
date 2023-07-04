@@ -104,7 +104,7 @@ enum combo_events {
 
 const uint16_t PROGMEM combo_esc[] = {LT(NUMBER_LAYER, KC_R), LGUI_T(KC_D), COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {LT(NUMBER_LAYER, KC_R), LCTL_T(KC_S), COMBO_END};
-const uint16_t PROGMEM combo_enter[] = {LT(NUMBER_LAYER, KC_H), LCTL_T(KC_I), COMBO_END};
+const uint16_t PROGMEM combo_enter[] = {LT(SYMBOL1_LAYER, KC_Y), KC_K, COMBO_END};
 const uint16_t PROGMEM combo_capswrd[] = {OSM(MOD_LSFT), KC_BSPC, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic[] = {KC_P, KC_B, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic2[] = {KC_P, KC_W, COMBO_END};
@@ -218,9 +218,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ),
 
     [NAVIGATION_LAYER2] = LAYOUT_split_3x6_3
-    (KC_NO, KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,
-     KC_NO, KC_NO,      KC_WH_D, KC_MS_U, KC_WH_U, KC_NO, KC_NO, KC_VOLD, KC_UP,   KC_VOLU, KC_NO, KC_NO,
-     KC_NO, KC_MS_BTN3, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO, KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO, KC_NO,
+    (KC_NO, KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,
+     KC_NO, KC_NO,      KC_WH_D, KC_MS_U, KC_WH_U, KC_HOME, KC_NO, KC_VOLD, KC_UP,   KC_VOLU, KC_NO, KC_NO,
+     KC_NO, KC_MS_BTN3, KC_MS_L, KC_MS_D, KC_MS_R, KC_END,  KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO, KC_NO,
 
      KC_NO, KC_MS_BTN1, KC_MS_BTN2,
      KC_NO, KC_NO,      KC_NO
