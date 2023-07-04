@@ -117,7 +117,7 @@ enum combo_events {
 
 const uint16_t PROGMEM combo_esc[] = {LT(NUMBER_LAYER, KC_R), LGUI_T(KC_T), COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {LT(NUMBER_LAYER, KC_R), LCTL_T(KC_S), COMBO_END};
-const uint16_t PROGMEM combo_enter[] = {LT(NUMBER_LAYER, KC_H), LCTL_T(KC_I), COMBO_END};
+const uint16_t PROGMEM combo_enter[] = {LT(SYMBOL1_LAYER, KC_Y), KC_F, COMBO_END};
 const uint16_t PROGMEM combo_capswrd[] = {OSM(MOD_LSFT), KC_BSPC, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic[] = {KC_P, KC_B, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic2[] = {KC_P, KC_G, COMBO_END};
