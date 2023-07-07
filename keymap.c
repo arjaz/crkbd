@@ -112,8 +112,18 @@ enum combo_events {
     COMBO_COPY,
     COMBO_PASTE,
     COMBO_CUT,
+    COMBO_TH,
+    COMBO_CH,
+    COMBO_SH,
     COMBO_LENGTH
 };
+
+// nt = th
+const uint16_t PROGMEM combo_th[] = {LGUI_T(KC_T), LALT_T(KC_N), COMBO_END};
+// cl = ch
+const uint16_t PROGMEM combo_ch[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
+// sn = sh
+const uint16_t PROGMEM combo_sh[] = {LCTL_T(KC_S), LALT_T(KC_N), COMBO_END};
 
 const uint16_t PROGMEM combo_esc[] = {LT(NUMBER_LAYER, KC_R), LGUI_T(KC_T), COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {LT(NUMBER_LAYER, KC_R), LCTL_T(KC_S), COMBO_END};
@@ -143,8 +153,34 @@ combo_t key_combos[] = {
     [COMBO_STENO] = COMBO(combo_steno, TG(STENO_LAYER)),
     [COMBO_GAMING] = COMBO(combo_gaming, TG(GAMING_LAYER)),
     [COMBO_NAVIGATION] = COMBO(combo_navigation, TG(NAVIGATION_LAYER2)),
+    [COMBO_TH] = COMBO_ACTION(combo_th),
+    [COMBO_CH] = COMBO_ACTION(combo_ch),
+    [COMBO_SH] = COMBO_ACTION(combo_sh),
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+	switch (combo_index) {
+	case COMBO_TH:
+		if (pressed) {
+			set_capsword_press(KC_T);
+            set_capsword_press(KC_H);
+		}
+		break;
+	case COMBO_CH:
+		if (pressed) {
+            set_capsword_press(KC_C);
+            set_capsword_press(KC_H);
+		}
+		break;
+	case COMBO_SH:
+		if (pressed) {
+            set_capsword_press(KC_S);
+            set_capsword_press(KC_H);
+		}
+		break;
+	}
+}
 
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
     if (layer_state_is(STENO_LAYER) && combo_index != COMBO_STENO)

@@ -58,6 +58,14 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
                     break;
 				}
 				break;
+            case KC_N:
+                switch (prior_keycode) {
+                case KC_H:
+                    tap_code(KC_BSPC);
+                    set_capsword_press(KC_G);
+                    break;
+                }
+                break;
             case KC_R:
                 switch (prior_keycode) {
                 case KC_H:
