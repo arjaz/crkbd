@@ -99,8 +99,27 @@ enum combo_events {
     COMBO_COPY,
     COMBO_PASTE,
     COMBO_CUT,
+    COMBO_TH,
+    COMBO_CH,
+    COMBO_SH,
+    COMBO_GH,
+    COMBO_PH,
+    COMBO_WH,
     COMBO_LENGTH
 };
+
+// nd = th
+const uint16_t PROGMEM combo_th[] = {LGUI_T(KC_D), LALT_T(KC_N), COMBO_END};
+// cl = ch
+const uint16_t PROGMEM combo_ch[] = {LT(NAVIGATION_LAYER1, KC_C), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
+// sn = sh
+const uint16_t PROGMEM combo_sh[] = {LCTL_T(KC_S), LALT_T(KC_N), COMBO_END};
+// gm = gh
+const uint16_t PROGMEM combo_gh[] = {KC_G, KC_M, COMBO_END};
+// pm = ph
+const uint16_t PROGMEM combo_ph[] = {KC_P, KC_M, COMBO_END};
+// wc = wh
+const uint16_t PROGMEM combo_wh[] = {KC_W, LT(NAVIGATION_LAYER1, KC_C), COMBO_END};
 
 const uint16_t PROGMEM combo_esc[] = {LT(NUMBER_LAYER, KC_R), LGUI_T(KC_D), COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {LT(NUMBER_LAYER, KC_R), LCTL_T(KC_S), COMBO_END};
@@ -112,7 +131,7 @@ const uint16_t PROGMEM combo_ralt[] = {LALT_T(KC_N), LALT_T(KC_E), COMBO_END};
 const uint16_t PROGMEM combo_steno[] = {KC_Z, KC_COMM, COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {LT(NAVIGATION_LAYER2, KC_U), LALT_T(KC_E), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
 const uint16_t PROGMEM combo_navigation[] = {LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_C), COMBO_END};
-const uint16_t PROGMEM combo_copy[] = {LT(NUMBER_LAYER, KC_X), LT(NAVIGATION_LAYER1, KC_C), COMBO_END};
+const uint16_t PROGMEM combo_copy[] = {KC_X, LT(NAVIGATION_LAYER1, KC_C), COMBO_END};
 const uint16_t PROGMEM combo_paste[] = {LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
 const uint16_t PROGMEM combo_cut[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_C), COMBO_END};
 combo_t key_combos[] = {
@@ -121,7 +140,7 @@ combo_t key_combos[] = {
     [COMBO_ENTER] = COMBO(combo_enter, KC_ENT),
     [COMBO_CAPSWRD] = COMBO(combo_capswrd, CW_TOGG),
     [COMBO_RALT] = COMBO(combo_ralt, KC_RALT),
-    [COMBO_COPY] = COMBO(combo_copy, LCTL(KC_C)),
+    /* [COMBO_COPY] = COMBO(combo_copy, LCTL(KC_C)), */
     /* [COMBO_PASTE] = COMBO(combo_paste, LCTL(KC_V)), */
     /* [COMBO_CUT] = COMBO(combo_cut, LCTL(KC_X)), */
     /* Layer-related combos */
@@ -130,8 +149,55 @@ combo_t key_combos[] = {
     [COMBO_STENO] = COMBO(combo_steno, TG(STENO_LAYER)),
     [COMBO_GAMING] = COMBO(combo_gaming, TG(GAMING_LAYER)),
     [COMBO_NAVIGATION] = COMBO(combo_navigation, TG(NAVIGATION_LAYER2)),
+    [COMBO_TH] = COMBO_ACTION(combo_th),
+    [COMBO_CH] = COMBO_ACTION(combo_ch),
+    [COMBO_SH] = COMBO_ACTION(combo_sh),
+    [COMBO_GH] = COMBO_ACTION(combo_gh),
+    [COMBO_PH] = COMBO_ACTION(combo_ph),
+    [COMBO_WH] = COMBO_ACTION(combo_wh),
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+	switch (combo_index) {
+	case COMBO_TH:
+		if (pressed) {
+			set_capsword_press(KC_T);
+            set_capsword_press(KC_H);
+		}
+		break;
+	case COMBO_CH:
+		if (pressed) {
+            set_capsword_press(KC_C);
+            set_capsword_press(KC_H);
+		}
+		break;
+	case COMBO_SH:
+		if (pressed) {
+            set_capsword_press(KC_S);
+            set_capsword_press(KC_H);
+		}
+		break;
+	case COMBO_GH:
+		if (pressed) {
+            set_capsword_press(KC_G);
+            set_capsword_press(KC_H);
+		}
+		break;
+	case COMBO_PH:
+		if (pressed) {
+            set_capsword_press(KC_P);
+            set_capsword_press(KC_H);
+		}
+		break;
+    case COMBO_WH:
+        if (pressed) {
+            set_capsword_press(KC_W);
+            set_capsword_press(KC_H);
+        }
+        break;
+	}
+}
 
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
     if (layer_state_is(STENO_LAYER) && combo_index != COMBO_STENO)
