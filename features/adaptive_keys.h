@@ -1,129 +1,126 @@
+#pragma once
+
 static uint8_t prior_saved_mods = 0;
 static uint16_t prior_keycode = KC_NO;
 static uint32_t prior_keydown = 0;
-static bool prior_key_adapted = false;
+
+void set_capsword_press(uint16_t keycode) {
+    if (is_caps_word_on() && !caps_word_press_user(keycode)) {
+        add_weak_mods(MOD_MASK_SHIFT);
+    }
+    tap_code(keycode);
+}
 
 bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
-
 #ifdef ADAPTIVE_ONLY_FROM_LAYER
-    if (!(layer_state_is(ADAPTIVE_ONLY_FROM_LAYER) || layer_state_is(ADAPTIVE_ONLY_FROM_LAYER + 1))) {
-        return true;
-    }
+	if (!(layer_state_is(ADAPTIVE_ONLY_FROM_LAYER) || layer_state_is(ADAPTIVE_ONLY_FROM_LAYER + 1))) {
+		return true;
+	}
 #endif
+	bool return_state = true;
 
-    bool return_state = true;
-
-    if (record->event.pressed) {
-        uint8_t saved_mods = get_mods();
-        if (saved_mods & MOD_MASK_CAG) {
-            // don't interfere if modifiers are involved
-            return true;
-        }
-        if (timer_elapsed32(prior_keydown) < ADAPTIVE_TERM) {
-            return_state = true;
-            unregister_code(KC_LSFT);
-            unregister_code(KC_RSFT);
-            keycode = keycode & 0xFF;
-            uint16_t first = KC_NO;
-            uint16_t second = KC_NO;
-            switch (prior_keycode) {
-            case KC_NO:
-                switch (keycode) {
-
-#define AK_BOTH_START(key, def_key)             \
-                    default:                    \
-                        return_state = true;    \
-                    tap_code(first);            \
-                }                               \
-                    break;                      \
-            case key:                           \
-                first = def_key;                \
-                return_state = false;           \
-                switch (keycode) {
-
-#define AK_SND_ONLY_START(key) AK_BOTH_START(key, KC_NO)
-
-#define R_BTH(second_key, replaced_key_1, replaced_key_2)   \
-                    case second_key:                        \
-                        first = replaced_key_1;             \
-                        second = replaced_key_2;            \
-                        break;
-
-#define R_FST(second_key, replaced_key) R_BTH(second_key, replaced_key, keycode)
-
-#define R_SND(second_key, replaced_key)         \
-                    case second_key:            \
-                        second = replaced_key;  \
-                        break;
-
-#include "adaptive_keys.def"
-                default:
-
-                    tap_code(first);
+	if (record->event.pressed) {
+		uint8_t saved_mods = get_mods();
+		if (saved_mods & MOD_MASK_CAG) {
+			// don't interfere if modifiers are involved
+			return true;
+		}
+		if (timer_elapsed32(prior_keydown) < ADAPTIVE_TERM) {
+			if (!is_caps_word_on()) {
+				unregister_mods(MOD_MASK_SHIFT);
+			}
+			switch (keycode & 0xFF) {
+			case KC_T:
+				switch (prior_keycode) {
+				case KC_M:
+					set_capsword_press(KC_P);
+					return_state = false;
+					break;
+				}
+				break;
+			case KC_D:
+				switch (prior_keycode) {
+				case KC_M:
+					set_capsword_press(KC_B);
+					return_state = false;
+					break;
+				}
+				break;
+			case KC_X:
+				switch (prior_keycode) {
+				case KC_S:
+					set_capsword_press(KC_C);
+					return_state = false;
+					break;
+                case KC_C:
+                    set_capsword_press(KC_S);
+                    return_state = false;
+                    break;
+				}
+				break;
+            case KC_R:
+                switch (prior_keycode) {
+                case KC_H:
+                    tap_code(KC_BSPC);
+                    set_capsword_press(KC_G);
+                    break;
                 }
-            }
-            if (return_state) {
-                set_mods(saved_mods);
-            } else {
-                set_mods(prior_saved_mods);
-                tap_code(first);
-                clear_mods();
-                if (is_caps_word_on() && !caps_word_press_user(second)) {
-                    add_weak_mods(MOD_BIT(KC_LSFT));
+                break;
+            case KC_L:
+                switch (prior_keycode) {
+                case KC_H:
+                    tap_code(KC_BSPC);
+                    set_capsword_press(KC_G);
+                    break;
                 }
-                tap_code(second);
-                /* FIXME: the first key is sent lowercase for capsword in mv -> mb
-                   Moreover, all ms are not capsworded
-                 */
-                prior_key_adapted = true;
-            }
-        }
-        switch (keycode) {
-#undef AK_BOTH_START
-#undef AK_SND_ONLY_START
-#undef R_BTH
-#undef R_FST
-#undef R_SND
-#define AK_BOTH_START(key, ...)                 \
-            case key:                           \
-                return_state = false;           \
                 break;
-#define AK_SND_ONLY_START(...)
-#define R_BTH(...)
-#define R_FST(...)
-#define R_SND(...)
-#include "adaptive_keys.def"
-        }
-        // Restore mods
-        prior_saved_mods = saved_mods;
+			case KC_H:
+				switch (prior_keycode) {
+				case KC_N:
+					set_capsword_press(KC_G);
+					return_state = false;
+					break;
+				case KC_R:
+					set_capsword_press(KC_G);
+					return_state = false;
+					break;
+				case KC_L:
+					set_capsword_press(KC_G);
+					return_state = false;
+					break;
+				case KC_A:
+					set_capsword_press(KC_U);
+					return_state = false;
+					break;
+				case KC_E:
+				    set_capsword_press(KC_O);
+				    return_state = false;
+				    break;
+				case KC_U:
+					set_capsword_press(KC_A);
+					return_state = false;
+					break;
+				case KC_O:
+				    set_capsword_press(KC_E);
+				    return_state = false;
+				    break;
+				}
+				break;
+			}
 
-        // this keycode is stripped of mods+taps
-        prior_keycode = keycode;
-        // (re)start prior_key timing
-        prior_keydown = timer_read32();
-    }
-    return return_state;
+			if (return_state) {
+				set_mods(saved_mods);
+				prior_keycode = KC_NO;
+				prior_keydown = 0;
+				prior_saved_mods = 0;
+			}
+		}
+		// Restore mods
+		prior_saved_mods = saved_mods;
+		// this keycode is stripped of mods+taps
+		prior_keycode = keycode & 0xFF;
+		// (re)start prior_key timing
+		prior_keydown = timer_read32();
+	}
+	return return_state;
 }
-
-void matrix_scan_user(void) {
-    if (timer_elapsed32(prior_keydown) >= ADAPTIVE_TERM) {
-        switch (prior_keycode) {
-#undef AK_BOTH_START
-#define AK_BOTH_START(key, default_key)         \
-            case key:                           \
-                if (!prior_key_adapted) tap_code(default_key);          \
-                break;
-
-#include "adaptive_keys.def"
-        }
-        prior_keydown = timer_read32();
-        prior_keycode = KC_NO;
-        prior_key_adapted = false;
-    }
-}
-
-#undef AK_BOTH_START
-#undef AK_SND_ONLY_START
-#undef R_BTH
-#undef R_FST
-#undef R_SND
