@@ -27,6 +27,10 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 					tap_code(KC_B);
 					return_state = false;
 					break;
+                case KC_P:
+                    tap_code(KC_BSPC);
+                    tap_code(KC_L);
+                    break;
 				}
 				break;
 			case KC_D:
@@ -37,6 +41,22 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 					break;
 				}
 				break;
+            case KC_B:
+                switch (prior_keycode) {
+                case KC_D:
+                    tap_code(KC_BSPC);
+                    tap_code(KC_L);
+                    break;
+                }
+                break;
+            case KC_G:
+                switch (prior_keycode) {
+                case KC_M:
+                    tap_code(KC_BSPC);
+                    set_capsword_press(KC_L);
+                    break;
+                }
+                break;
 			case KC_M:
 				switch (prior_keycode) {
 				case KC_G:
@@ -47,6 +67,14 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 					break;
 				}
 				break;
+            case KC_P:
+                switch (prior_keycode) {
+                case KC_G:
+                    tap_code(KC_BSPC);
+                    tap_code(KC_L);
+                    break;
+                }
+                break;
 			case KC_H:
 				switch (prior_keycode) {
 				case KC_A:
