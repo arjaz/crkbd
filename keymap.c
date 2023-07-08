@@ -227,6 +227,17 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
             return false;
         }
         break;
+    case COMBO_TH:
+    case COMBO_CH:
+    case COMBO_SH:
+    case COMBO_GH:
+    case COMBO_PH:
+    case COMBO_WH:
+        if (!layer_state_is(ALPHA_LAYER)) {
+            return false;
+        }
+        break;
+
     }
 
     return true;
