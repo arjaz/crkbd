@@ -118,14 +118,15 @@ enum combo_events {
     COMBO_LENGTH
 };
 
-// nt = th
+// nt = th, but also ph when on the second layer
 const uint16_t PROGMEM combo_th[] = {LGUI_T(KC_T), LALT_T(KC_N), COMBO_END};
-// cl = ch
+// cl = ch, but also gh when on the second layer
 const uint16_t PROGMEM combo_ch[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
 // sn = sh
 const uint16_t PROGMEM combo_sh[] = {LCTL_T(KC_S), LALT_T(KC_N), COMBO_END};
 
 const uint16_t PROGMEM combo_esc[] = {LT(NUMBER_LAYER, KC_R), LGUI_T(KC_T), COMBO_END};
+// rs = tab, but also wh when on the second layer
 const uint16_t PROGMEM combo_tab[] = {LT(NUMBER_LAYER, KC_R), LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM combo_enter[] = {LT(SYMBOL1_LAYER, KC_Y), KC_F, COMBO_END};
 const uint16_t PROGMEM combo_capswrd[] = {OSM(MOD_LSFT), KC_BSPC, COMBO_END};
@@ -140,7 +141,7 @@ const uint16_t PROGMEM combo_paste[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYE
 const uint16_t PROGMEM combo_cut[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 combo_t key_combos[] = {
 	[COMBO_ESC] = COMBO(combo_esc, KC_ESC),
-    [COMBO_TAB] = COMBO(combo_tab, KC_TAB),
+    [COMBO_TAB] = COMBO_ACTION(combo_tab),
     [COMBO_ENTER] = COMBO(combo_enter, KC_ENT),
     [COMBO_CAPSWRD] = COMBO(combo_capswrd, CW_TOGG),
     [COMBO_RALT] = COMBO(combo_ralt, KC_RALT),
@@ -161,16 +162,42 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
 	switch (combo_index) {
+	case COMBO_TAB:
+		if (pressed) {
+			if (layer_state_is(ALPHA2_LAYER)) {
+                reset_oneshot_layer();
+                layer_move(ALPHA_LAYER);
+                set_capsword_press(KC_W);
+				set_capsword_press(KC_H);
+			} else {
+				tap_code(KC_TAB);
+			}
+		}
+		break;
 	case COMBO_TH:
 		if (pressed) {
-			set_capsword_press(KC_T);
-            set_capsword_press(KC_H);
+            if (layer_state_is(ALPHA2_LAYER)) {
+                reset_oneshot_layer();
+                layer_move(ALPHA_LAYER);
+                set_capsword_press(KC_P);
+                set_capsword_press(KC_H);
+            } else {
+                set_capsword_press(KC_T);
+                set_capsword_press(KC_H);
+            }
 		}
 		break;
 	case COMBO_CH:
 		if (pressed) {
-            set_capsword_press(KC_C);
-            set_capsword_press(KC_H);
+            if (layer_state_is(ALPHA2_LAYER)) {
+                reset_oneshot_layer();
+                layer_move(ALPHA_LAYER);
+                set_capsword_press(KC_G);
+                set_capsword_press(KC_H);
+            } else {
+                set_capsword_press(KC_C);
+                set_capsword_press(KC_H);
+            }
 		}
 		break;
 	case COMBO_SH:
@@ -212,12 +239,15 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
         break;
     case COMBO_TH:
     case COMBO_CH:
+        if (!(layer_state_is(ALPHA_LAYER) || layer_state_is(ALPHA2_LAYER))) {
+            return false;
+        }
+        break;
     case COMBO_SH:
         if (!layer_state_is(ALPHA_LAYER)) {
             return false;
         }
         break;
-
     }
 
     return true;
