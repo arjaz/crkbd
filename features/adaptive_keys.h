@@ -30,16 +30,12 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 				unregister_mods(MOD_MASK_SHIFT);
 			}
 			switch (keycode & 0xFF) {
-			case KC_V:
+			case KC_X:
 				switch (prior_keycode) {
-				case KC_M:
-                    set_capsword_press(KC_B);
+				case KC_J:
+                    set_capsword_press(KC_U);
 					return_state = false;
 					break;
-                case KC_P:
-                    tap_code(KC_BSPC);
-                    set_capsword_press(KC_L);
-                    break;
 				}
 				break;
             case KC_G:
@@ -54,7 +50,6 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 				switch (prior_keycode) {
 				case KC_G:
 				case KC_P:
-				case KC_V:
                     set_capsword_press(KC_L);
 					return_state = false;
 					break;
@@ -88,16 +83,7 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 				    break;
 				}
 				break;
-			case KC_Z:
-				switch (prior_keycode) {
-				case KC_J:
-				case KC_Q:
-				    set_capsword_press(KC_U);
-				    return_state = false;
-				    break;
-				}
-				break;
-			case KC_Q:
+			case KC_QUOT:
 				switch (prior_keycode) {
 				case KC_J:
 				    set_capsword_press(KC_O);
