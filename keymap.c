@@ -102,6 +102,9 @@ enum combo_events {
     COMBO_GH,
     COMBO_PH,
     COMBO_WH,
+    COMBO_Z,
+    COMBO_QU,
+    COMBO_Q,
     COMBO_LENGTH
 };
 
@@ -115,8 +118,15 @@ const uint16_t PROGMEM combo_sh[] = {LCTL_T(KC_S), LALT_T(KC_N), COMBO_END};
 const uint16_t PROGMEM combo_gh[] = {KC_G, KC_M, COMBO_END};
 // pm = ph
 const uint16_t PROGMEM combo_ph[] = {KC_P, KC_M, COMBO_END};
-// wc = wh
+// wd = wh
 const uint16_t PROGMEM combo_wh[] = {KC_W, LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+
+// fl = z
+const uint16_t PROGMEM combo_z[] = {LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
+// you = q
+const uint16_t PROGMEM combo_q[] = {LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
+// yu = qu
+const uint16_t PROGMEM combo_qu[] = {LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
 
 const uint16_t PROGMEM combo_esc[] = {LT(NUMBER_LAYER, KC_C), LGUI_T(KC_T), COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {LT(NUMBER_LAYER, KC_C), LCTL_T(KC_S), COMBO_END};
@@ -150,6 +160,9 @@ combo_t key_combos[] = {
     [COMBO_GH] = COMBO_ACTION(combo_gh),
     [COMBO_PH] = COMBO_ACTION(combo_ph),
     [COMBO_WH] = COMBO_ACTION(combo_wh),
+    [COMBO_Z] = COMBO(combo_z, KC_Z),
+    [COMBO_Q] = COMBO(combo_q, KC_Q),
+    [COMBO_QU] = COMBO_ACTION(combo_qu),
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
@@ -191,6 +204,12 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             set_capsword_press(KC_H);
         }
         break;
+    case COMBO_QU:
+        if (pressed) {
+            set_capsword_press(KC_Q);
+            set_capsword_press(KC_U);
+        }
+        break;
 	}
 }
 
@@ -225,6 +244,9 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
     case COMBO_GH:
     case COMBO_PH:
     case COMBO_WH:
+    case COMBO_QU:
+    case COMBO_Z:
+    case COMBO_Q:
         if (!layer_state_is(ALPHA_LAYER)) {
             return false;
         }
@@ -237,13 +259,13 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALPHA_LAYER] = LAYOUT_split_3x6_3
-    (KC_NO,   KC_NO, KC_G, KC_M, KC_P,  KC_V,
-     KC_QUOT, KC_Z,  KC_Q, KC_J, KC_NO, KC_NO,
+    (KC_NO, KC_NO, KC_G,    KC_M, KC_P,  KC_NO,
+     KC_NO, KC_X,  KC_QUOT, KC_J, KC_NO, KC_NO,
 
      KC_NO,   LT(NUMBER_LAYER, KC_C), LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_T),           KC_K,
      KC_COMM, LGUI_T(KC_A),           LALT_T(KC_E), LCTL_T(KC_I), LT(NUMBER_LAYER, KC_H), KC_NO,
 
-     KC_NO,  KC_X,                        LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), KC_W,
+     KC_NO,  KC_V,                        LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), KC_W,
      KC_DOT, LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), KC_B,                       KC_NO,
 
      KC_NO,         KC_R,   KC_BSPC,
