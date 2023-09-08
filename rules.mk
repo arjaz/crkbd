@@ -5,5 +5,6 @@ CAPS_WORD_ENABLE    = yes
 COMBO_ENABLE        = yes
 RGBLIGHT_ENABLE     = no
 BOOTLOADER          = caterina
+KEY_OVERRIDE_ENABLE = yes
 
 SRC += features/tap_hold_dance.c
