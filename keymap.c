@@ -112,6 +112,8 @@ enum combo_events {
     COMBO_TH,
     COMBO_CH,
     COMBO_SH,
+    COMBO_QU,
+    COMBO_Q,
     COMBO_LENGTH
 };
 
@@ -121,6 +123,10 @@ const uint16_t PROGMEM combo_th[] = {LGUI_T(KC_T), LALT_T(KC_N), COMBO_END};
 const uint16_t PROGMEM combo_ch[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
 // sn = sh
 const uint16_t PROGMEM combo_sh[] = {LCTL_T(KC_S), LALT_T(KC_N), COMBO_END};
+// you = q
+const uint16_t PROGMEM combo_q[] = {LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
+// yu = qu
+const uint16_t PROGMEM combo_qu[] = {LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
 
 const uint16_t PROGMEM combo_esc[] = {LT(NUMBER_LAYER, KC_R), LGUI_T(KC_T), COMBO_END};
 // rs = tab, but also wh when on the second layer
@@ -152,6 +158,8 @@ combo_t key_combos[] = {
     [COMBO_TH] = COMBO_ACTION(combo_th),
     [COMBO_CH] = COMBO_ACTION(combo_ch),
     [COMBO_SH] = COMBO_ACTION(combo_sh),
+    [COMBO_Q] = COMBO(combo_q, KC_Q),
+    [COMBO_QU] = COMBO_ACTION(combo_qu),
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
@@ -201,6 +209,12 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             set_capsword_press(KC_H);
 		}
 		break;
+    case COMBO_QU:
+        if (pressed) {
+            set_capsword_press(KC_Q);
+            set_capsword_press(KC_U);
+        }
+        break;
 	}
 }
 
@@ -236,6 +250,7 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
         }
         break;
     case COMBO_SH:
+    case COMBO_QU:
         if (!layer_state_is(ALPHA_LAYER)) {
             return false;
         }
@@ -263,11 +278,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     (KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 
-     KC_NO, KC_W, KC_V, KC_M, KC_P, KC_NO,
-     KC_NO, KC_Z, KC_Q, KC_J, KC_K, KC_NO,
+     KC_NO, KC_W, KC_V,    KC_M, KC_P, KC_NO,
+     KC_NO, KC_Z, KC_QUOT, KC_J, KC_K, KC_NO,
 
-     KC_NO, KC_NO,   KC_G,   KC_NO,   KC_B,       KC_NO,
-     KC_NO, KC_COMM, KC_DOT, KC_QUOT, S(KC_QUOT), KC_NO,
+     KC_NO, KC_NO,  KC_G,    KC_NO,      KC_B,  KC_NO,
+     KC_NO, KC_DOT, KC_COMM, S(KC_QUOT), KC_NO, KC_NO,
 
      KC_TRNS, KC_TRNS,                  KC_TRNS,
      KC_TRNS, SCROLL_LOCK_TG_CYRILLIC2, KC_TRNS
