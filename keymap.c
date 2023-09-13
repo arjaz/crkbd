@@ -114,19 +114,22 @@ enum combo_events {
     COMBO_SH,
     COMBO_QU,
     COMBO_Q,
+    COMBO_Z,
     COMBO_LENGTH
 };
 
 // nt = th, but also ph when on the second layer
 const uint16_t PROGMEM combo_th[] = {LGUI_T(KC_T), LALT_T(KC_N), COMBO_END};
-// cl = ch, but also gh when on the second layer
-const uint16_t PROGMEM combo_ch[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
+// cn = ch, but also gh when on the second layer
+const uint16_t PROGMEM combo_ch[] = {LT(SYMBOL1_LAYER, KC_C), LALT_T(KC_N), COMBO_END};
 // sn = sh
 const uint16_t PROGMEM combo_sh[] = {LCTL_T(KC_S), LALT_T(KC_N), COMBO_END};
 // you = q
 const uint16_t PROGMEM combo_q[] = {LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
 // yu = qu
 const uint16_t PROGMEM combo_qu[] = {LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
+// cl = z
+const uint16_t PROGMEM combo_z[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
 
 const uint16_t PROGMEM combo_esc[] = {LT(NUMBER_LAYER, KC_R), LGUI_T(KC_T), COMBO_END};
 // rs = tab, but also wh when on the second layer
@@ -160,6 +163,7 @@ combo_t key_combos[] = {
     [COMBO_SH] = COMBO_ACTION(combo_sh),
     [COMBO_Q] = COMBO(combo_q, KC_Q),
     [COMBO_QU] = COMBO_ACTION(combo_qu),
+    [COMBO_Z] = COMBO(combo_z, KC_Z),
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
@@ -287,8 +291,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     (KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 
-     KC_NO, KC_W, KC_V,    KC_M, KC_P, KC_NO,
-     KC_NO, KC_Z, KC_QUOT, KC_J, KC_K, KC_NO,
+     KC_NO, KC_W,  KC_V,    KC_M, KC_P, KC_NO,
+     KC_NO, KC_NO, KC_QUOT, KC_J, KC_K, KC_NO,
 
      KC_NO, KC_NO,  KC_G,    KC_NO,      KC_B,  KC_NO,
      KC_NO, KC_DOT, KC_COMM, S(KC_QUOT), KC_NO, KC_NO,
