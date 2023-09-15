@@ -123,10 +123,10 @@ const uint16_t PROGMEM combo_wh[] = {KC_W, LT(NAVIGATION_LAYER1, KC_D), COMBO_EN
 
 // fl = z
 const uint16_t PROGMEM combo_z[] = {LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
-// you = q
-const uint16_t PROGMEM combo_q[] = {LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
-// yu = qu
-const uint16_t PROGMEM combo_qu[] = {LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
+// fld = q
+const uint16_t PROGMEM combo_q[] = {LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+// ld = qu
+const uint16_t PROGMEM combo_qu[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 
 const uint16_t PROGMEM combo_esc[] = {LT(NUMBER_LAYER, KC_C), LGUI_T(KC_T), COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {LT(NUMBER_LAYER, KC_C), LCTL_T(KC_S), COMBO_END};
@@ -136,7 +136,7 @@ const uint16_t PROGMEM combo_cyrillic[] = {KC_P, KC_K, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic2[] = {KC_P, KC_W, COMBO_END};
 const uint16_t PROGMEM combo_ralt[] = {LALT_T(KC_N), LALT_T(KC_E), COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {LT(NAVIGATION_LAYER2, KC_U), LALT_T(KC_E), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
-const uint16_t PROGMEM combo_navigation[] = {LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+const uint16_t PROGMEM combo_navigation[] = {LT(SYMBOL1_LAYER, KC_F), LALT_T(KC_N), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 const uint16_t PROGMEM combo_copy[] = {KC_X, LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 const uint16_t PROGMEM combo_paste[] = {LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
 const uint16_t PROGMEM combo_cut[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
