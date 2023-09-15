@@ -255,6 +255,8 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
         break;
     case COMBO_SH:
     case COMBO_QU:
+    case COMBO_Q:
+    case COMBO_Z:
         if (!layer_state_is(ALPHA_LAYER)) {
             return false;
         }
