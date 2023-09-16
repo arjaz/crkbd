@@ -112,6 +112,10 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 				    set_capsword_press(KC_E);
 				    return_state = false;
 				    break;
+                case KC_C:
+                    set_capsword_press(KC_K);
+                    return_state = false;
+                    break;
 				}
 				break;
 			}
