@@ -30,72 +30,8 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 				unregister_mods(MOD_MASK_SHIFT);
 			}
 			switch (keycode & 0xFF) {
-			case KC_T:
-				switch (prior_keycode) {
-				case KC_M:
-					set_capsword_press(KC_P);
-					return_state = false;
-					break;
-				}
-				break;
-			case KC_D:
-				switch (prior_keycode) {
-				case KC_M:
-					set_capsword_press(KC_B);
-					return_state = false;
-					break;
-				}
-				break;
-			case KC_X:
-				switch (prior_keycode) {
-				case KC_S:
-					set_capsword_press(KC_C);
-					return_state = false;
-					break;
-                case KC_C:
-                    set_capsword_press(KC_S);
-                    return_state = false;
-                    break;
-				}
-				break;
-            case KC_N:
-                switch (prior_keycode) {
-                case KC_H:
-                    tap_code(KC_BSPC);
-                    set_capsword_press(KC_G);
-                    break;
-                }
-                break;
-            case KC_R:
-                switch (prior_keycode) {
-                case KC_H:
-                    tap_code(KC_BSPC);
-                    set_capsword_press(KC_G);
-                    break;
-                }
-                break;
-            case KC_L:
-                switch (prior_keycode) {
-                case KC_H:
-                    tap_code(KC_BSPC);
-                    set_capsword_press(KC_G);
-                    break;
-                }
-                break;
 			case KC_H:
 				switch (prior_keycode) {
-				case KC_N:
-					set_capsword_press(KC_G);
-					return_state = false;
-					break;
-				case KC_R:
-					set_capsword_press(KC_G);
-					return_state = false;
-					break;
-				case KC_L:
-					set_capsword_press(KC_G);
-					return_state = false;
-					break;
 				case KC_A:
 					set_capsword_press(KC_U);
 					return_state = false;
@@ -112,10 +48,6 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 				    set_capsword_press(KC_E);
 				    return_state = false;
 				    break;
-                case KC_C:
-                    set_capsword_press(KC_K);
-                    return_state = false;
-                    break;
 				}
 				break;
 			}

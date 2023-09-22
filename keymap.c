@@ -5,17 +5,15 @@
 #include "features/tap_hold_dance.h"
 
 #define ALPHA_LAYER 0
-#define ALPHA2_LAYER 1
-#define CYRILLIC_LAYER 2
-#define CYRILLIC2_LAYER 3
-#define CYRILLIC3_LAYER 4
-#define NAVIGATION_LAYER1 5
-#define NAVIGATION_LAYER2 6
-#define GAMING_LAYER 7
-#define SYMBOL1_LAYER 8
-#define SYMBOL2_LAYER 9
-#define NUMBER_LAYER 10
-#define FN_LAYER 11
+#define CYRILLIC_LAYER 1
+#define CYRILLIC2_LAYER 2
+#define NAVIGATION_LAYER1 3
+#define NAVIGATION_LAYER2 4
+#define GAMING_LAYER 5
+#define SYMBOL1_LAYER 6
+#define SYMBOL2_LAYER 7
+#define NUMBER_LAYER 8
+#define FN_LAYER 9
 
 enum {
     TD_Q_GRAVE,
@@ -43,7 +41,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-static uint16_t prev_keycode = 0;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_adaptive_key(keycode, record)) {
         return false;
@@ -57,12 +54,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_invert(CYRILLIC_LAYER);
         }
         break;
-    case SCROLL_LOCK_TG_CYRILLIC2:
-        if (record->event.pressed) {
-            tap_code(KC_SCROLL_LOCK);
-            layer_invert(CYRILLIC2_LAYER);
-        }
-        break;
     case TD(TD_Q_GRAVE) ... TD(TD_P_LBRC):
         action = &tap_dance_actions[TD_INDEX(keycode)];
         if (!record->event.pressed && action->state.count && !action->state.finished) {
@@ -71,15 +62,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         break;
     }
-
-    /*
-      if the previous key was a one-shot layer key,
-      then we need to clear the one-shot layer key
-     */
-    if (prev_keycode == OSL(ALPHA2_LAYER) || prev_keycode == OSL(CYRILLIC3_LAYER)) {
-        clear_oneshot_layer_state(ONESHOT_PRESSED);
-    }
-    prev_keycode = keycode;
 
     return true;
 }
@@ -115,35 +97,62 @@ enum combo_events {
     COMBO_QU,
     COMBO_Q,
     COMBO_Z,
+    COMBO_V,
+    COMBO_W,
+    COMBO_J,
+    COMBO_K,
+    COMBO_M,
+    COMBO_P,
+    COMBO_B,
+    COMBO_MP,
+    COMBO_MB,
     COMBO_LENGTH
 };
 
 // nt = th, but also ph when on the second layer
-const uint16_t PROGMEM combo_th[] = {LGUI_T(KC_T), LALT_T(KC_N), COMBO_END};
+/* const uint16_t PROGMEM combo_th[] = {LGUI_T(KC_T), LALT_T(KC_N), COMBO_END}; */
 // cn = ch, but also gh when on the second layer
-const uint16_t PROGMEM combo_ch[] = {LT(SYMBOL1_LAYER, KC_C), LALT_T(KC_N), COMBO_END};
+/* const uint16_t PROGMEM combo_ch[] = {LT(SYMBOL1_LAYER, KC_C), LALT_T(KC_N), COMBO_END}; */
 // sn = sh
-const uint16_t PROGMEM combo_sh[] = {LCTL_T(KC_S), LALT_T(KC_N), COMBO_END};
-// cld = q
-const uint16_t PROGMEM combo_q[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
-// ld = qu
-const uint16_t PROGMEM combo_qu[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
-// cl = z
-const uint16_t PROGMEM combo_z[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
+/* const uint16_t PROGMEM combo_sh[] = {LCTL_T(KC_S), LALT_T(KC_N), COMBO_END}; */
 
-const uint16_t PROGMEM combo_esc[] = {LT(NUMBER_LAYER, KC_R), LGUI_T(KC_T), COMBO_END};
-// rs = tab, but also wh when on the second layer
-const uint16_t PROGMEM combo_tab[] = {LT(NUMBER_LAYER, KC_R), LCTL_T(KC_S), COMBO_END};
+// gld -> q
+const uint16_t PROGMEM combo_q[] = {LT(SYMBOL1_LAYER, KC_G), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+// ld -> qu
+const uint16_t PROGMEM combo_qu[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+// lt -> w
+const uint16_t PROGMEM combo_w[] = {LT(SYMBOL2_LAYER, KC_L), LGUI_T(KC_T), COMBO_END};
+// gl -> z
+const uint16_t PROGMEM combo_z[] = {LT(SYMBOL1_LAYER, KC_G), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
+// nt -> k
+const uint16_t PROGMEM combo_k[] = {LGUI_T(KC_T), LALT_T(KC_N), COMBO_END};
+// xd -> j
+const uint16_t PROGMEM combo_j[] = {KC_X, LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+// xg -> v
+const uint16_t PROGMEM combo_v[] = {KC_X, LT(SYMBOL1_LAYER, KC_G), COMBO_END};
+// st -> p
+const uint16_t PROGMEM combo_p[] = {LCTL_T(KC_S), LGUI_T(KC_T), COMBO_END};
+// sd -> b
+const uint16_t PROGMEM combo_b[] = {LCTL_T(KC_S), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+// sn -> m
+const uint16_t PROGMEM combo_m[] = {LCTL_T(KC_S), LALT_T(KC_N), COMBO_END};
+// snt -> mp
+const uint16_t PROGMEM combo_mp[] = {LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_T), COMBO_END};
+// snd -> mb
+const uint16_t PROGMEM combo_mb[] = {LCTL_T(KC_S), LALT_T(KC_N), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+
+const uint16_t PROGMEM combo_esc[] = {LT(NUMBER_LAYER, KC_C), LGUI_T(KC_T), COMBO_END};
+const uint16_t PROGMEM combo_tab[] = {LT(NUMBER_LAYER, KC_C), LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM combo_enter[] = {LT(SYMBOL1_LAYER, KC_Y), KC_F, COMBO_END};
 const uint16_t PROGMEM combo_capswrd[] = {OSM(MOD_LSFT), KC_BSPC, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic[] = {KC_P, KC_B, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic2[] = {KC_P, KC_G, COMBO_END};
 const uint16_t PROGMEM combo_ralt[] = {LALT_T(KC_N), LALT_T(KC_E), COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {LT(NAVIGATION_LAYER2, KC_U), LALT_T(KC_E), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
-const uint16_t PROGMEM combo_navigation[] = {LT(SYMBOL1_LAYER, KC_C), LALT_T(KC_N), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
-const uint16_t PROGMEM combo_copy[] = {LT(NUMBER_LAYER, KC_X), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
-const uint16_t PROGMEM combo_paste[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
-const uint16_t PROGMEM combo_cut[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+const uint16_t PROGMEM combo_navigation[] = {LT(SYMBOL1_LAYER, KC_G), LALT_T(KC_N), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+/* const uint16_t PROGMEM combo_copy[] = {LT(NUMBER_LAYER, KC_X), LT(NAVIGATION_LAYER1, KC_D), COMBO_END}; */
+/* const uint16_t PROGMEM combo_paste[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), COMBO_END}; */
+/* const uint16_t PROGMEM combo_cut[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END}; */
 combo_t key_combos[] = {
 	[COMBO_ESC] = COMBO(combo_esc, KC_ESC),
     [COMBO_TAB] = COMBO_ACTION(combo_tab),
@@ -158,12 +167,21 @@ combo_t key_combos[] = {
     [COMBO_CYRILLIC2] = COMBO(combo_cyrillic2, SCROLL_LOCK_TG_CYRILLIC2),
     [COMBO_GAMING] = COMBO(combo_gaming, TG(GAMING_LAYER)),
     [COMBO_NAVIGATION] = COMBO(combo_navigation, TG(NAVIGATION_LAYER2)),
-    [COMBO_TH] = COMBO_ACTION(combo_th),
-    [COMBO_CH] = COMBO_ACTION(combo_ch),
-    [COMBO_SH] = COMBO_ACTION(combo_sh),
+    /* [COMBO_TH] = COMBO_ACTION(combo_th), */
+    /* [COMBO_CH] = COMBO_ACTION(combo_ch), */
+    /* [COMBO_SH] = COMBO_ACTION(combo_sh), */
     [COMBO_Q] = COMBO(combo_q, KC_Q),
     [COMBO_QU] = COMBO_ACTION(combo_qu),
+    [COMBO_MP] = COMBO_ACTION(combo_mp),
+    [COMBO_MB] = COMBO_ACTION(combo_mb),
     [COMBO_Z] = COMBO(combo_z, KC_Z),
+    [COMBO_V] = COMBO(combo_v, KC_V),
+    [COMBO_K] = COMBO(combo_k, KC_K),
+    [COMBO_M] = COMBO(combo_m, KC_M),
+    [COMBO_P] = COMBO(combo_p, KC_P),
+    [COMBO_B] = COMBO(combo_b, KC_B),
+    [COMBO_J] = COMBO(combo_j, KC_J),
+    [COMBO_W] = COMBO(combo_w, KC_W),
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
@@ -171,40 +189,19 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 	switch (combo_index) {
 	case COMBO_TAB:
 		if (pressed) {
-			if (layer_state_is(ALPHA2_LAYER)) {
-                reset_oneshot_layer();
-                layer_move(ALPHA_LAYER);
-                set_capsword_press(KC_W);
-				set_capsword_press(KC_H);
-			} else {
-				tap_code(KC_TAB);
-			}
+			tap_code(KC_TAB);
 		}
 		break;
 	case COMBO_TH:
 		if (pressed) {
-            if (layer_state_is(ALPHA2_LAYER)) {
-                reset_oneshot_layer();
-                layer_move(ALPHA_LAYER);
-                set_capsword_press(KC_P);
-                set_capsword_press(KC_H);
-            } else {
-                set_capsword_press(KC_T);
-                set_capsword_press(KC_H);
-            }
+            set_capsword_press(KC_T);
+            set_capsword_press(KC_H);
 		}
 		break;
 	case COMBO_CH:
 		if (pressed) {
-            if (layer_state_is(ALPHA2_LAYER)) {
-                reset_oneshot_layer();
-                layer_move(ALPHA_LAYER);
-                set_capsword_press(KC_G);
-                set_capsword_press(KC_H);
-            } else {
-                set_capsword_press(KC_C);
-                set_capsword_press(KC_H);
-            }
+            set_capsword_press(KC_C);
+            set_capsword_press(KC_H);
 		}
 		break;
 	case COMBO_SH:
@@ -217,6 +214,18 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         if (pressed) {
             set_capsword_press(KC_Q);
             set_capsword_press(KC_U);
+        }
+        break;
+    case COMBO_MB:
+        if (pressed) {
+            set_capsword_press(KC_M);
+            set_capsword_press(KC_B);
+        }
+        break;
+    case COMBO_MP:
+        if (pressed) {
+            set_capsword_press(KC_M);
+            set_capsword_press(KC_P);
         }
         break;
 	}
@@ -249,10 +258,6 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
         break;
     case COMBO_TH:
     case COMBO_CH:
-        if (!(layer_state_is(ALPHA_LAYER) || layer_state_is(ALPHA2_LAYER))) {
-            return false;
-        }
-        break;
     case COMBO_SH:
     case COMBO_QU:
     case COMBO_Q:
@@ -279,28 +284,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALPHA_LAYER] = LAYOUT_split_3x6_3
     (KC_NO, KC_NO, KC_NO, KC_NO, KC_P, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 
-     KC_NO, LT(NUMBER_LAYER, KC_R), LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_T),           KC_B,
+     KC_NO, LT(NUMBER_LAYER, KC_C), LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_T),           KC_B,
      KC_NO, LGUI_T(KC_A),           LALT_T(KC_E), LCTL_T(KC_I), LT(NUMBER_LAYER, KC_H), KC_NO,
 
-     KC_NO, KC_X,                        LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), KC_NO,
-     KC_NO, LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), KC_F,                       KC_NO,
+     KC_NO, KC_X,                        LT(SYMBOL1_LAYER, KC_G), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), KC_NO,
+     KC_NO, LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), KC_F,                        KC_NO,
 
-     KC_NO,         OSL(ALPHA2_LAYER), KC_BSPC,
-     OSM(MOD_LSFT), KC_SPC,            KC_NO
-     ),
-
-    [ALPHA2_LAYER] = LAYOUT_split_3x6_3
-    (KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-
-     KC_NO, KC_W,  KC_V,    KC_M, KC_P, KC_NO,
-     KC_NO, KC_NO, KC_QUOT, KC_J, KC_K, KC_NO,
-
-     KC_NO, KC_NO,  KC_G,    KC_NO,      KC_B,  KC_NO,
-     KC_NO, KC_DOT, KC_COMM, S(KC_QUOT), KC_NO, KC_NO,
-
-     KC_TRNS, KC_TRNS,                  KC_TRNS,
-     KC_TRNS, SCROLL_LOCK_TG_CYRILLIC2, KC_TRNS
+     KC_NO,         KC_R,   KC_BSPC,
+     OSM(MOD_LSFT), KC_SPC, KC_NO
      ),
 
     [CYRILLIC_LAYER] = LAYOUT_split_3x6_3
@@ -326,18 +317,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_NO, LT(NUMBER_LAYER, UA_ZE), LT(SYMBOL1_LAYER, UA_BE), LT(SYMBOL2_LAYER, UA_PE), LT(NAVIGATION_LAYER1, UA_DE), TD(HE_GE),
      UA_CHE, LT(NAVIGATION_LAYER2, UA_EL), LT(SYMBOL2_LAYER, UA_YA), LT(SYMBOL1_LAYER, UA_E), LT(NUMBER_LAYER, UA_YI), KC_NO,
 
-     KC_TRNS, OSL(CYRILLIC3_LAYER), KC_TRNS,
-     KC_TRNS, KC_TRNS,              KC_TRNS
-     ),
-
-    [CYRILLIC3_LAYER] = LAYOUT_split_3x6_3
-    (KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-
-     KC_NO, UA_ZHE, UA_YOT, UA_KA, UA_KHA, KC_NO, KC_NO, UA_YE,   UA_A,   UA_U,   UA_YU,   KC_NO,
-     KC_NO, UA_EF,  UA_TSE, UA_EM, UA_HE,  KC_NO, KC_NO, UA_SHCH, UA_SHA, UA_CHE, UA_SOFT, KC_NO,
-
-     KC_TRNS, KC_TRNS,                  KC_TRNS,
-     KC_TRNS, SCROLL_LOCK_TG_CYRILLIC2, KC_TRNS
+     KC_TRNS, KC_TRNS, KC_TRNS,
+     KC_TRNS, KC_TRNS, KC_TRNS
      ),
 
     [NAVIGATION_LAYER1] = LAYOUT_split_3x6_3
