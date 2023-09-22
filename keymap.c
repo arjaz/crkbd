@@ -94,6 +94,9 @@ enum combo_events {
     COMBO_TH,
     COMBO_CH,
     COMBO_SH,
+    COMBO_PH,
+    COMBO_WH,
+    COMBO_GH,
     COMBO_QU,
     COMBO_Q,
     COMBO_Z,
@@ -112,12 +115,18 @@ enum combo_events {
     COMBO_LENGTH
 };
 
-// nt = th, but also ph when on the second layer
-/* const uint16_t PROGMEM combo_th[] = {LGUI_T(KC_T), LALT_T(KC_N), COMBO_END}; */
-// cn = ch, but also gh when on the second layer
-/* const uint16_t PROGMEM combo_ch[] = {LT(SYMBOL1_LAYER, KC_C), LALT_T(KC_N), COMBO_END}; */
-// sn = sh
-/* const uint16_t PROGMEM combo_sh[] = {LCTL_T(KC_S), LALT_T(KC_N), COMBO_END}; */
+// tr -> th
+const uint16_t PROGMEM combo_th[] = {LGUI_T(KC_T), KC_R, COMBO_END};
+// cr -> ch
+const uint16_t PROGMEM combo_ch[] = {LT(NUMBER_LAYER, KC_C), KC_R, COMBO_END};
+// sr -> sh
+const uint16_t PROGMEM combo_sh[] = {LCTL_T(KC_S), KC_R, COMBO_END};
+// gr -> gh
+const uint16_t PROGMEM combo_gh[] = {LT(SYMBOL1_LAYER, KC_G), KC_R, COMBO_END};
+// ltr -> wr -> wh
+const uint16_t PROGMEM combo_wh[] = {LT(SYMBOL2_LAYER, KC_L), LGUI_T(KC_T), KC_R, COMBO_END};
+// ntr -> pr -> ph
+const uint16_t PROGMEM combo_ph[] = {LGUI_T(KC_T), LALT_T(KC_N), KC_R, COMBO_END};
 
 // gld -> q
 const uint16_t PROGMEM combo_q[] = {LT(SYMBOL1_LAYER, KC_G), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
@@ -177,9 +186,12 @@ combo_t key_combos[] = {
     [COMBO_CYRILLIC2] = COMBO(combo_cyrillic2, SCROLL_LOCK_TG_CYRILLIC2),
     [COMBO_GAMING] = COMBO(combo_gaming, TG(GAMING_LAYER)),
     [COMBO_NAVIGATION] = COMBO(combo_navigation, TG(NAVIGATION_LAYER2)),
-    /* [COMBO_TH] = COMBO_ACTION(combo_th), */
-    /* [COMBO_CH] = COMBO_ACTION(combo_ch), */
-    /* [COMBO_SH] = COMBO_ACTION(combo_sh), */
+    [COMBO_TH] = COMBO_ACTION(combo_th),
+    [COMBO_CH] = COMBO_ACTION(combo_ch),
+    [COMBO_SH] = COMBO_ACTION(combo_sh),
+    [COMBO_GH] = COMBO_ACTION(combo_gh),
+    [COMBO_PH] = COMBO_ACTION(combo_ph),
+    [COMBO_WH] = COMBO_ACTION(combo_wh),
     [COMBO_Q] = COMBO(combo_q, KC_Q),
     [COMBO_QU] = COMBO_ACTION(combo_qu),
     [COMBO_MP] = COMBO_ACTION(combo_mp),
@@ -220,6 +232,24 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 	case COMBO_SH:
 		if (pressed) {
             set_capsword_press(KC_S);
+            set_capsword_press(KC_H);
+		}
+		break;
+	case COMBO_GH:
+		if (pressed) {
+            set_capsword_press(KC_G);
+            set_capsword_press(KC_H);
+		}
+		break;
+	case COMBO_PH:
+		if (pressed) {
+            set_capsword_press(KC_P);
+            set_capsword_press(KC_H);
+		}
+		break;
+	case COMBO_WH:
+		if (pressed) {
+            set_capsword_press(KC_W);
             set_capsword_press(KC_H);
 		}
 		break;
