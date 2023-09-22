@@ -106,6 +106,9 @@ enum combo_events {
     COMBO_B,
     COMBO_MP,
     COMBO_MB,
+    COMBO_DOT,
+    COMBO_COMM,
+    COMBO_QUOT,
     COMBO_LENGTH
 };
 
@@ -140,6 +143,13 @@ const uint16_t PROGMEM combo_m[] = {LCTL_T(KC_S), LALT_T(KC_N), COMBO_END};
 const uint16_t PROGMEM combo_mp[] = {LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_T), COMBO_END};
 // snd -> mb
 const uint16_t PROGMEM combo_mb[] = {LCTL_T(KC_S), LALT_T(KC_N), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+
+// eu -> .
+const uint16_t PROGMEM combo_dot[] = {LT(NAVIGATION_LAYER2, KC_U), LALT_T(KC_E), COMBO_END};
+// ea -> ,
+const uint16_t PROGMEM combo_comm[] = {LGUI_T(KC_A), LALT_T(KC_E), COMBO_END};
+// ie -> '
+const uint16_t PROGMEM combo_quot[] = {LCTL_T(KC_I), LALT_T(KC_E), COMBO_END};
 
 const uint16_t PROGMEM combo_esc[] = {LT(NUMBER_LAYER, KC_C), LGUI_T(KC_T), COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {LT(NUMBER_LAYER, KC_C), LCTL_T(KC_S), COMBO_END};
@@ -182,6 +192,9 @@ combo_t key_combos[] = {
     [COMBO_B] = COMBO(combo_b, KC_B),
     [COMBO_J] = COMBO(combo_j, KC_J),
     [COMBO_W] = COMBO(combo_w, KC_W),
+    [COMBO_DOT] = COMBO(combo_dot, KC_DOT),
+    [COMBO_COMM] = COMBO(combo_comm, KC_COMM),
+    [COMBO_QUOT] = COMBO(combo_quot, KC_QUOT),
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
