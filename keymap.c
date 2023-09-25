@@ -109,6 +109,8 @@ enum combo_events {
     COMBO_B,
     COMBO_MP,
     COMBO_MB,
+    COMBO_PL,
+    COMBO_BL,
     COMBO_DOT,
     COMBO_COMM,
     COMBO_QUOT,
@@ -125,8 +127,8 @@ const uint16_t PROGMEM combo_sh[] = {LCTL_T(KC_S), KC_R, COMBO_END};
 const uint16_t PROGMEM combo_gh[] = {LT(SYMBOL1_LAYER, KC_G), KC_R, COMBO_END};
 // ltr -> wr -> wh
 const uint16_t PROGMEM combo_wh[] = {LT(SYMBOL2_LAYER, KC_L), LGUI_T(KC_T), KC_R, COMBO_END};
-// ntr -> pr -> ph
-const uint16_t PROGMEM combo_ph[] = {LGUI_T(KC_T), LALT_T(KC_N), KC_R, COMBO_END};
+// str -> pr -> ph
+const uint16_t PROGMEM combo_ph[] = {LGUI_T(KC_T), LCTL_T(KC_S), KC_R, COMBO_END};
 
 // gld -> q
 const uint16_t PROGMEM combo_q[] = {LT(SYMBOL1_LAYER, KC_G), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
@@ -152,6 +154,10 @@ const uint16_t PROGMEM combo_m[] = {LCTL_T(KC_S), LALT_T(KC_N), COMBO_END};
 const uint16_t PROGMEM combo_mp[] = {LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_T), COMBO_END};
 // snd -> mb
 const uint16_t PROGMEM combo_mb[] = {LCTL_T(KC_S), LALT_T(KC_N), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+// stl -> pl
+const uint16_t PROGMEM combo_pl[] = {LCTL_T(KC_S), LGUI_T(KC_T), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
+// sdl -> bl
+const uint16_t PROGMEM combo_bl[] = {LCTL_T(KC_S), LT(NAVIGATION_LAYER1, KC_D), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
 
 // eu -> .
 const uint16_t PROGMEM combo_dot[] = {LT(NAVIGATION_LAYER2, KC_U), LALT_T(KC_E), COMBO_END};
@@ -196,6 +202,8 @@ combo_t key_combos[] = {
     [COMBO_QU] = COMBO_ACTION(combo_qu),
     [COMBO_MP] = COMBO_ACTION(combo_mp),
     [COMBO_MB] = COMBO_ACTION(combo_mb),
+    [COMBO_PL] = COMBO_ACTION(combo_pl),
+    [COMBO_BL] = COMBO_ACTION(combo_bl),
     [COMBO_Z] = COMBO(combo_z, KC_Z),
     [COMBO_V] = COMBO(combo_v, KC_V),
     [COMBO_K] = COMBO(combo_k, KC_K),
@@ -269,6 +277,18 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         if (pressed) {
             set_capsword_press(KC_M);
             set_capsword_press(KC_P);
+        }
+        break;
+    case COMBO_PL:
+        if (pressed) {
+            set_capsword_press(KC_P);
+            set_capsword_press(KC_L);
+        }
+        break;
+    case COMBO_BL:
+        if (pressed) {
+            set_capsword_press(KC_B);
+            set_capsword_press(KC_L);
         }
         break;
 	}
