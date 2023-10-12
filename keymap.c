@@ -102,6 +102,7 @@ enum combo_events {
     COMBO_GH,
     COMBO_PH,
     COMBO_WH,
+    COMBO_V,
     COMBO_Z,
     COMBO_QU,
     COMBO_Q,
@@ -121,6 +122,8 @@ const uint16_t PROGMEM combo_ph[] = {KC_P, KC_M, COMBO_END};
 // wd = wh
 const uint16_t PROGMEM combo_wh[] = {KC_W, LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 
+// xf = v
+const uint16_t PROGMEM combo_v[] = {KC_X, LT(SYMBOL1_LAYER, KC_F), COMBO_END};
 // fl = z
 const uint16_t PROGMEM combo_z[] = {LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
 // fld = q
@@ -160,6 +163,7 @@ combo_t key_combos[] = {
     [COMBO_GH] = COMBO_ACTION(combo_gh),
     [COMBO_PH] = COMBO_ACTION(combo_ph),
     [COMBO_WH] = COMBO_ACTION(combo_wh),
+    [COMBO_V] = COMBO(combo_v, KC_V),
     [COMBO_Z] = COMBO(combo_z, KC_Z),
     [COMBO_Q] = COMBO(combo_q, KC_Q),
     [COMBO_QU] = COMBO_ACTION(combo_qu),
@@ -245,6 +249,7 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
     case COMBO_PH:
     case COMBO_WH:
     case COMBO_QU:
+    case COMBO_V:
     case COMBO_Z:
     case COMBO_Q:
         if (!layer_state_is(ALPHA_LAYER)) {
@@ -268,13 +273,13 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALPHA_LAYER] = LAYOUT_split_3x6_3
-    (KC_NO, KC_NO, KC_G,    KC_M, KC_P,  KC_NO,
-     KC_NO, KC_X,  KC_QUOT, KC_J, KC_NO, KC_NO,
+    (KC_NO, KC_NO,   KC_G,    KC_M, KC_P,  KC_NO,
+     KC_NO, KC_MINS, KC_QUOT, KC_J, KC_NO, KC_NO,
 
      KC_NO,   LT(NUMBER_LAYER, KC_C), LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_T),           KC_K,
      KC_COMM, LGUI_T(KC_A),           LALT_T(KC_E), LCTL_T(KC_I), LT(NUMBER_LAYER, KC_H), KC_NO,
 
-     KC_NO,  KC_V,                        LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), KC_W,
+     KC_NO,  KC_X,                        LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), KC_W,
      KC_DOT, LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), KC_B,                       KC_NO,
 
      KC_NO,         KC_R,   KC_BSPC,
@@ -355,7 +360,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ),
 
     [NUMBER_LAYER] = LAYOUT_split_3x6_3
-    (KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    (KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,
+     /*     it's -                            */
+     KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO,
 
      KC_NO, KC_8, KC_7, KC_6, KC_5, KC_NO, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_NO,
      KC_NO, KC_4, KC_3, KC_2, KC_1, KC_NO, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,  KC_NO,
