@@ -102,6 +102,7 @@ enum combo_events {
     COMBO_GH,
     COMBO_PH,
     COMBO_WH,
+    COMBO_J,
     COMBO_V,
     COMBO_Z,
     COMBO_QU,
@@ -122,10 +123,12 @@ const uint16_t PROGMEM combo_ph[] = {KC_P, KC_M, COMBO_END};
 // wd = wh
 const uint16_t PROGMEM combo_wh[] = {KC_W, LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 
+// fd = z
+const uint16_t PROGMEM combo_z[] = {LT(SYMBOL1_LAYER, KC_F), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 // xf = v
 const uint16_t PROGMEM combo_v[] = {KC_X, LT(SYMBOL1_LAYER, KC_F), COMBO_END};
-// fl = z
-const uint16_t PROGMEM combo_z[] = {LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
+// fl = j
+const uint16_t PROGMEM combo_j[] = {LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
 // fld = q
 const uint16_t PROGMEM combo_q[] = {LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 // ld = qu
@@ -163,6 +166,7 @@ combo_t key_combos[] = {
     [COMBO_GH] = COMBO_ACTION(combo_gh),
     [COMBO_PH] = COMBO_ACTION(combo_ph),
     [COMBO_WH] = COMBO_ACTION(combo_wh),
+    [COMBO_J] = COMBO(combo_j, KC_J),
     [COMBO_V] = COMBO(combo_v, KC_V),
     [COMBO_Z] = COMBO(combo_z, KC_Z),
     [COMBO_Q] = COMBO(combo_q, KC_Q),
@@ -249,6 +253,7 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
     case COMBO_PH:
     case COMBO_WH:
     case COMBO_QU:
+    case COMBO_J:
     case COMBO_V:
     case COMBO_Z:
     case COMBO_Q:
@@ -273,8 +278,8 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALPHA_LAYER] = LAYOUT_split_3x6_3
-    (KC_NO, KC_NO,   KC_G,    KC_M, KC_P,  KC_NO,
-     KC_NO, KC_MINS, KC_QUOT, KC_J, KC_NO, KC_NO,
+    (KC_NO, KC_NO,   KC_G,    KC_M,     KC_P,  KC_NO,
+     KC_NO, KC_MINS, KC_QUOT, KC_SLASH, KC_NO, KC_NO,
 
      KC_NO,   LT(NUMBER_LAYER, KC_C), LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_T),           KC_K,
      KC_COMM, LGUI_T(KC_A),           LALT_T(KC_E), LCTL_T(KC_I), LT(NUMBER_LAYER, KC_H), KC_NO,
