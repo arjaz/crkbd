@@ -112,6 +112,7 @@ enum combo_events {
 
 // nt = th
 const uint16_t PROGMEM combo_th[] = {LGUI_T(KC_T), LALT_T(KC_N), COMBO_END};
+// FIXME: I don't like it at all
 // nc = ch
 const uint16_t PROGMEM combo_ch[] = {LALT_T(KC_N), LT(NUMBER_LAYER, KC_C), COMBO_END};
 // sn = sh
@@ -161,7 +162,7 @@ combo_t key_combos[] = {
     [COMBO_GAMING] = COMBO(combo_gaming, TG(GAMING_LAYER)),
     [COMBO_NAVIGATION] = COMBO(combo_navigation, TG(NAVIGATION_LAYER2)),
     [COMBO_TH] = COMBO_ACTION(combo_th),
-    [COMBO_CH] = COMBO_ACTION(combo_ch),
+    /* [COMBO_CH] = COMBO_ACTION(combo_ch), */
     [COMBO_SH] = COMBO_ACTION(combo_sh),
     [COMBO_GH] = COMBO_ACTION(combo_gh),
     [COMBO_PH] = COMBO_ACTION(combo_ph),
