@@ -136,12 +136,12 @@ const uint16_t PROGMEM combo_q[] = {LT(SYMBOL1_LAYER, KC_G), LT(SYMBOL2_LAYER, K
 const uint16_t PROGMEM combo_qu[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 // lt -> w
 const uint16_t PROGMEM combo_w[] = {LT(SYMBOL2_LAYER, KC_L), LGUI_T(KC_T), COMBO_END};
-// gl -> z
-const uint16_t PROGMEM combo_z[] = {LT(SYMBOL1_LAYER, KC_G), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
+// gl -> j
+const uint16_t PROGMEM combo_j[] = {LT(SYMBOL1_LAYER, KC_G), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
 // nt -> k
 const uint16_t PROGMEM combo_k[] = {LGUI_T(KC_T), LALT_T(KC_N), COMBO_END};
-// xd -> j
-const uint16_t PROGMEM combo_j[] = {KC_X, LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+// gd -> z
+const uint16_t PROGMEM combo_z[] = {LT(SYMBOL1_LAYER, KC_G), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 // xg -> v
 const uint16_t PROGMEM combo_v[] = {KC_X, LT(SYMBOL1_LAYER, KC_G), COMBO_END};
 // st -> p
