@@ -175,18 +175,16 @@ const uint16_t PROGMEM combo_cyrillic2[] = {KC_P, KC_G, COMBO_END};
 const uint16_t PROGMEM combo_ralt[] = {LALT_T(KC_N), LALT_T(KC_E), COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {LT(NAVIGATION_LAYER2, KC_U), LALT_T(KC_E), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
 const uint16_t PROGMEM combo_navigation[] = {LT(SYMBOL1_LAYER, KC_G), LALT_T(KC_N), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
-/* const uint16_t PROGMEM combo_copy[] = {LT(NUMBER_LAYER, KC_X), LT(NAVIGATION_LAYER1, KC_D), COMBO_END}; */
-/* const uint16_t PROGMEM combo_paste[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), COMBO_END}; */
-/* const uint16_t PROGMEM combo_cut[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END}; */
+
+const uint16_t PROGMEM combo_paste[] = {KC_X, LT(SYMBOL1_LAYER, KC_G), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+
 combo_t key_combos[] = {
 	[COMBO_ESC] = COMBO(combo_esc, KC_ESC),
     [COMBO_TAB] = COMBO_ACTION(combo_tab),
     [COMBO_ENTER] = COMBO(combo_enter, KC_ENT),
     [COMBO_CAPSWRD] = COMBO(combo_capswrd, CW_TOGG),
     [COMBO_RALT] = COMBO(combo_ralt, KC_RALT),
-    /* [COMBO_COPY] = COMBO(combo_copy, LCTL(KC_C)), */
-    /* [COMBO_PASTE] = COMBO(combo_paste, LCTL(KC_V)), */
-    /* [COMBO_CUT] = COMBO(combo_cut, LCTL(KC_X)), */
+    [COMBO_PASTE] = COMBO(combo_paste, LCTL(KC_V)),
     /* Layer-related combos */
     [COMBO_CYRILLIC] = COMBO(combo_cyrillic, SCROLL_LOCK_TG_CYRILLIC),
     [COMBO_CYRILLIC2] = COMBO(combo_cyrillic2, SCROLL_LOCK_TG_CYRILLIC2),
