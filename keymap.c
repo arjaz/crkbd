@@ -124,26 +124,26 @@ const uint16_t PROGMEM combo_ch[] = {LT(NUMBER_LAYER, KC_C), KC_R, COMBO_END};
 // sr -> sh
 const uint16_t PROGMEM combo_sh[] = {LCTL_T(KC_S), KC_R, COMBO_END};
 // gr -> gh
-const uint16_t PROGMEM combo_gh[] = {LT(SYMBOL1_LAYER, KC_G), KC_R, COMBO_END};
+const uint16_t PROGMEM combo_gh[] = {KC_G, KC_R, COMBO_END};
 // ndr -> wr -> wh
 const uint16_t PROGMEM combo_wh[] = {KC_R, LT(NAVIGATION_LAYER1, KC_D), LALT_T(KC_N), COMBO_END};
 // str -> pr -> ph
 const uint16_t PROGMEM combo_ph[] = {LGUI_T(KC_T), LCTL_T(KC_S), KC_R, COMBO_END};
 
-// gld -> q
-const uint16_t PROGMEM combo_q[] = {LT(SYMBOL1_LAYER, KC_G), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+// fld -> q
+const uint16_t PROGMEM combo_q[] = {LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 // ld -> qu
 const uint16_t PROGMEM combo_qu[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 // nd -> w
 const uint16_t PROGMEM combo_w[] = {LT(NAVIGATION_LAYER1, KC_D), LALT_T(KC_N), COMBO_END};
-// gl -> j
-const uint16_t PROGMEM combo_j[] = {LT(SYMBOL1_LAYER, KC_G), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
+// fl -> j
+const uint16_t PROGMEM combo_j[] = {LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
 // nt -> k
 const uint16_t PROGMEM combo_k[] = {LGUI_T(KC_T), LALT_T(KC_N), COMBO_END};
-// gd -> z
-const uint16_t PROGMEM combo_z[] = {LT(SYMBOL1_LAYER, KC_G), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
-// xg -> v
-const uint16_t PROGMEM combo_v[] = {KC_X, LT(SYMBOL1_LAYER, KC_G), COMBO_END};
+// fd -> z
+const uint16_t PROGMEM combo_z[] = {LT(SYMBOL1_LAYER, KC_F), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+// xf -> v
+const uint16_t PROGMEM combo_v[] = {KC_X, LT(SYMBOL1_LAYER, KC_F), COMBO_END};
 // st -> p
 const uint16_t PROGMEM combo_p[] = {LCTL_T(KC_S), LGUI_T(KC_T), COMBO_END};
 // sd -> b
@@ -168,7 +168,7 @@ const uint16_t PROGMEM combo_quot[] = {LCTL_T(KC_I), LALT_T(KC_E), COMBO_END};
 
 const uint16_t PROGMEM combo_esc[] = {LT(NUMBER_LAYER, KC_C), LGUI_T(KC_T), COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {LT(NUMBER_LAYER, KC_C), LCTL_T(KC_S), COMBO_END};
-const uint16_t PROGMEM combo_enter[] = {LT(SYMBOL1_LAYER, KC_Y), KC_F, COMBO_END};
+const uint16_t PROGMEM combo_enter[] = {LT(SYMBOL1_LAYER, KC_Y), KC_G, COMBO_END};
 const uint16_t PROGMEM combo_capswrd[] = {OSM(MOD_LSFT), KC_BSPC, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic[] = {KC_P, KC_B, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic2[] = {KC_P, KC_G, COMBO_END};
@@ -176,7 +176,7 @@ const uint16_t PROGMEM combo_ralt[] = {LALT_T(KC_N), LALT_T(KC_E), COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {LT(NAVIGATION_LAYER2, KC_U), LALT_T(KC_E), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
 const uint16_t PROGMEM combo_navigation[] = {LT(SYMBOL1_LAYER, KC_G), LALT_T(KC_N), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 
-const uint16_t PROGMEM combo_paste[] = {KC_X, LT(SYMBOL1_LAYER, KC_G), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+const uint16_t PROGMEM combo_paste[] = {KC_X, LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 
 combo_t key_combos[] = {
 	[COMBO_ESC] = COMBO(combo_esc, KC_ESC),
@@ -348,8 +348,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_NO, LT(NUMBER_LAYER, KC_C), LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_T),           KC_B,
      KC_NO, LGUI_T(KC_A),           LALT_T(KC_E), LCTL_T(KC_I), LT(NUMBER_LAYER, KC_H), KC_NO,
 
-     KC_NO, KC_X,                        LT(SYMBOL1_LAYER, KC_G), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), KC_NO,
-     KC_NO, LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), KC_F,                        KC_NO,
+     KC_NO, KC_X,                        LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), KC_NO,
+     KC_NO, LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), KC_G,                        KC_NO,
 
      KC_NO,         KC_R,   KC_BSPC,
      OSM(MOD_LSFT), KC_SPC, KC_NO
