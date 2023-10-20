@@ -279,8 +279,8 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALPHA_LAYER] = LAYOUT_split_3x6_3
-    (KC_NO, KC_NO,   KC_G,    KC_M,     KC_P,  KC_NO,
-     KC_NO, KC_MINS, KC_QUOT, KC_SLASH, KC_NO, KC_NO,
+    (KC_NO, KC_NO,   KC_G,    KC_M,   KC_P,  KC_NO,
+     KC_NO, KC_MINS, KC_QUOT, KC_EQL, KC_NO, KC_NO,
 
      KC_NO,   LT(NUMBER_LAYER, KC_C), LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_T),           KC_K,
      KC_COMM, LGUI_T(KC_A),           LALT_T(KC_E), LCTL_T(KC_I), LT(NUMBER_LAYER, KC_H), KC_NO,
