@@ -93,6 +93,7 @@ enum combo_events {
     COMBO_GAMING,
     COMBO_NAVIGATION,
     COMBO_RALT,
+    COMBO_COPY,
     COMBO_PASTE,
     COMBO_TH,
     COMBO_CH,
@@ -143,6 +144,7 @@ const uint16_t PROGMEM combo_ralt[] = {LALT_T(KC_N), LALT_T(KC_E), COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {LT(NAVIGATION_LAYER2, KC_U), LALT_T(KC_E), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
 const uint16_t PROGMEM combo_navigation[] = {LT(SYMBOL1_LAYER, KC_F), LALT_T(KC_N), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 
+const uint16_t PROGMEM combo_copy[] = {KC_X, LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
 const uint16_t PROGMEM combo_paste[] = {KC_X, LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 
 combo_t key_combos[] = {
@@ -153,6 +155,7 @@ combo_t key_combos[] = {
     [COMBO_CAPSWRD] = COMBO(combo_capswrd, CW_TOGG),
     [COMBO_RALT] = COMBO(combo_ralt, KC_RALT),
     /* Useful shortcuts */
+    [COMBO_COPY] = COMBO(combo_copy, LCTL(KC_C)),
     [COMBO_PASTE] = COMBO(combo_paste, LCTL(KC_V)),
     /* Layer-switching combos */
     [COMBO_CYRILLIC] = COMBO(combo_cyrillic, SCROLL_LOCK_TG_CYRILLIC),
