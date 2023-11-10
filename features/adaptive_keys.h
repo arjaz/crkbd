@@ -30,6 +30,14 @@ bool process_adaptive_key(uint16_t keycode, const keyrecord_t *record) {
 				unregister_mods(MOD_MASK_SHIFT);
 			}
 			switch (keycode & 0xFF) {
+            case KC_V:
+                switch (prior_keycode) {
+                case KC_P:
+                    tap_code(KC_BSPC);
+                    set_capsword_press(KC_L);
+                    break;
+                }
+                break;
             case KC_G:
                 switch (prior_keycode) {
                 case KC_M:
