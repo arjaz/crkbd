@@ -110,7 +110,6 @@ enum combo_events {
 
 // nt = th
 const uint16_t PROGMEM combo_th[] = {LGUI_T(KC_T), LALT_T(KC_N), COMBO_END};
-// FIXME: I don't like it at all
 // nc = ch
 const uint16_t PROGMEM combo_ch[] = {LALT_T(KC_N), LT(NUMBER_LAYER, KC_C), COMBO_END};
 // sn = sh
@@ -268,10 +267,12 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 
 const key_override_t dot_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, S(KC_SCLN));
 const key_override_t comm_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_SCLN);
+const key_override_t slash_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_SLASH, KC_BSLS);
 
 const key_override_t **key_overrides = (const key_override_t *[]){
     &dot_key_override,
     &comm_key_override,
+    &slash_key_override,
     NULL
 };
 
