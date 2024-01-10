@@ -102,7 +102,6 @@ enum combo_events {
     COMBO_PH,
     COMBO_WH,
     COMBO_Z,
-    COMBO_QU,
     COMBO_Q,
     COMBO_SLASH,
     COMBO_LENGTH
@@ -123,10 +122,8 @@ const uint16_t PROGMEM combo_wh[] = {KC_W, LT(NAVIGATION_LAYER1, KC_D), COMBO_EN
 
 // fd = z
 const uint16_t PROGMEM combo_z[] = {LT(SYMBOL1_LAYER, KC_F), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
-// fld = q
-const uint16_t PROGMEM combo_q[] = {LT(SYMBOL1_LAYER, KC_F), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
-// ld = qu
-const uint16_t PROGMEM combo_qu[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+// ld = q
+const uint16_t PROGMEM combo_q[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 
 // =' = /
 const uint16_t PROGMEM combo_slash[] = {KC_QUOTE, KC_EQL, COMBO_END};
@@ -169,7 +166,6 @@ combo_t key_combos[] = {
     /* Missing keys */
     [COMBO_Z] = COMBO(combo_z, KC_Z),
     [COMBO_Q] = COMBO(combo_q, KC_Q),
-    [COMBO_QU] = COMBO_ACTION(combo_qu),
     [COMBO_SLASH] = COMBO(combo_slash, KC_SLASH),
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
@@ -212,12 +208,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             set_capsword_press(KC_H);
         }
         break;
-    case COMBO_QU:
-        if (pressed) {
-            set_capsword_press(KC_Q);
-            set_capsword_press(KC_U);
-        }
-        break;
 	}
 }
 
@@ -252,7 +242,6 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
     case COMBO_GH:
     case COMBO_PH:
     case COMBO_WH:
-    case COMBO_QU:
     case COMBO_Z:
     case COMBO_Q:
         if (!layer_state_is(ALPHA_LAYER)) {
