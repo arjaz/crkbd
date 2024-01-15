@@ -32,15 +32,6 @@ enum macros_keycodes {
     SCROLL_LOCK_TG_CYRILLIC2
 };
 
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-    case OSM(MOD_LSFT):
-        return 10000;
-    default:
-        return TAPPING_TERM;
-    }
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_adaptive_key(keycode, record)) {
         return false;
