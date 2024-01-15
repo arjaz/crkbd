@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 #include <keymap_ukrainian.h>
+#include <keymap_steno.h>
 #include "features/adaptive_keys.h"
 #include "features/tap_hold_dance.h"
 
@@ -14,6 +15,7 @@
 #define SYMBOL2_LAYER 7
 #define NUMBER_LAYER 8
 #define FN_LAYER 9
+#define STENO_LAYER 10
 
 enum {
     TD_Q_GRAVE,
@@ -81,6 +83,7 @@ enum combo_events {
     COMBO_CAPSWRD,
     COMBO_CYRILLIC,
     COMBO_CYRILLIC2,
+    COMBO_STENO,
     COMBO_GAMING,
     COMBO_NAVIGATION,
     COMBO_RALT,
@@ -126,6 +129,7 @@ const uint16_t PROGMEM combo_capswrd[] = {OSM(MOD_LSFT), KC_BSPC, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic[] = {KC_P, KC_K, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic2[] = {KC_P, KC_W, COMBO_END};
 const uint16_t PROGMEM combo_ralt[] = {LALT_T(KC_N), LALT_T(KC_E), COMBO_END};
+const uint16_t PROGMEM combo_steno[] = {KC_MINS, KC_COMM, COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {LT(NAVIGATION_LAYER2, KC_U), LALT_T(KC_E), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
 const uint16_t PROGMEM combo_navigation[] = {LT(SYMBOL1_LAYER, KC_F), LALT_T(KC_N), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
 
@@ -145,6 +149,7 @@ combo_t key_combos[] = {
     /* Layer-switching combos */
     [COMBO_CYRILLIC] = COMBO(combo_cyrillic, SCROLL_LOCK_TG_CYRILLIC),
     [COMBO_CYRILLIC2] = COMBO(combo_cyrillic2, SCROLL_LOCK_TG_CYRILLIC2),
+    [COMBO_STENO] = COMBO(combo_steno, TG(STENO_LAYER)),
     [COMBO_GAMING] = COMBO(combo_gaming, TG(GAMING_LAYER)),
     [COMBO_NAVIGATION] = COMBO(combo_navigation, TG(NAVIGATION_LAYER2)),
     /* Alpha + h combos */
@@ -203,6 +208,10 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 }
 
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+    if (layer_state_is(STENO_LAYER) && combo_index != COMBO_STENO) {
+        return false;
+    }
+
     if (layer_state_is(NAVIGATION_LAYER2) && combo_index != COMBO_NAVIGATION) {
         return false;
     }
@@ -350,5 +359,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_4,  KC_3,  KC_2,  KC_1,  KC_NO, KC_TRNS, KC_F1, KC_F2,  KC_F3,  KC_F4,
 
      KC_TRNS, KC_9, KC_0, KC_TRNS, KC_TRNS, KC_TRNS
+     ),
+
+    [STENO_LAYER] = LAYOUT_split_3x5_3
+    (STN_N1, STN_N2, STN_N3, STN_N4, STN_N5,
+     STN_N6, STN_N7, STN_N8, STN_N9, STN_N9,
+
+     STN_S1, STN_TL, STN_PL, STN_HL, STN_ST1,
+     STN_FR, STN_PR, STN_LR, STN_TR, STN_DR,
+
+     STN_S2, STN_KL, STN_WL, STN_RL, STN_ST2,
+     STN_RR, STN_BR, STN_GR, STN_SR, STN_ZR,
+
+     KC_NO, STN_A, STN_O,
+     STN_E, STN_U, KC_NO
      )
 };
