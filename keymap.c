@@ -7,15 +7,14 @@
 
 #define ALPHA_LAYER 0
 #define CYRILLIC_LAYER 1
-#define CYRILLIC2_LAYER 2
-#define NAVIGATION_LAYER1 3
-#define NAVIGATION_LAYER2 4
-#define GAMING_LAYER 5
-#define SYMBOL1_LAYER 6
-#define SYMBOL2_LAYER 7
-#define NUMBER_LAYER 8
-#define FN_LAYER 9
-#define STENO_LAYER 10
+#define NAVIGATION_LAYER1 2
+#define NAVIGATION_LAYER2 3
+#define GAMING_LAYER 4
+#define SYMBOL1_LAYER 5
+#define SYMBOL2_LAYER 6
+#define NUMBER_LAYER 7
+#define FN_LAYER 8
+#define STENO_LAYER 9
 
 #define AR_J KC_J
 #define AR_G KC_G
@@ -66,7 +65,6 @@ enum {
 
 enum macros_keycodes {
     SCROLL_LOCK_TG_CYRILLIC = SAFE_RANGE,
-    SCROLL_LOCK_TG_CYRILLIC2
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -80,12 +78,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             tap_code(KC_SCROLL_LOCK);
             layer_invert(CYRILLIC_LAYER);
-        }
-        break;
-    case SCROLL_LOCK_TG_CYRILLIC2:
-        if (record->event.pressed) {
-            tap_code(KC_SCROLL_LOCK);
-            layer_invert(CYRILLIC2_LAYER);
         }
         break;
     case TD(TD_Q_GRAVE) ... TD(TD_P_LBRC):
@@ -117,7 +109,6 @@ enum combo_events {
     COMBO_ENTER,
     COMBO_CAPSWRD,
     COMBO_CYRILLIC,
-    COMBO_CYRILLIC2,
     COMBO_STENO,
     COMBO_GAMING,
     COMBO_NAVIGATION,
@@ -164,7 +155,6 @@ const uint16_t PROGMEM combo_ralt[] = {AR_N, AR_E, COMBO_END};
 
 const uint16_t PROGMEM combo_capswrd[] = {AR_LSFT, AR_BSPC, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic[] = {AR_P, AR_K, COMBO_END};
-const uint16_t PROGMEM combo_cyrillic2[] = {AR_P, AR_W, COMBO_END};
 const uint16_t PROGMEM combo_steno[] = {AR_MINS, AR_COMM, COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {AR_U, AR_E, AR_Y, COMBO_END};
 const uint16_t PROGMEM combo_navigation[] = {AR_F, AR_N, AR_D, COMBO_END};
@@ -184,7 +174,6 @@ combo_t key_combos[] = {
     [COMBO_PASTE] = COMBO(combo_paste, LCTL(KC_V)),
     /* Layer-switching combos */
     [COMBO_CYRILLIC] = COMBO(combo_cyrillic, SCROLL_LOCK_TG_CYRILLIC),
-    [COMBO_CYRILLIC2] = COMBO(combo_cyrillic2, SCROLL_LOCK_TG_CYRILLIC2),
     [COMBO_STENO] = COMBO(combo_steno, TG(STENO_LAYER)),
     [COMBO_GAMING] = COMBO(combo_gaming, TG(GAMING_LAYER)),
     [COMBO_NAVIGATION] = COMBO(combo_navigation, TG(NAVIGATION_LAYER2)),
@@ -262,11 +251,6 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
             return false;
         }
         break;
-    case COMBO_CYRILLIC2:
-        if (!(layer_state_is(ALPHA_LAYER) || layer_state_is(CYRILLIC2_LAYER))) {
-            return false;
-        }
-        break;
     case COMBO_GAMING:
         if (!(layer_state_is(ALPHA_LAYER) || layer_state_is(GAMING_LAYER))) {
             return false;
@@ -325,19 +309,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
      KC_Z, LT(SYMBOL1_LAYER, KC_X),     LT(SYMBOL2_LAYER, KC_C),    LT(NAVIGATION_LAYER1, KC_V), KC_B,
      KC_N, LT(NAVIGATION_LAYER2, KC_M), LT(SYMBOL2_LAYER, KC_COMM), LT(SYMBOL1_LAYER, KC_DOT),   KC_RBRC,
-
-     KC_TRNS, KC_TRNS, KC_TRNS,
-     KC_TRNS, KC_TRNS, KC_TRNS
-     ),
-
-    [CYRILLIC2_LAYER] = LAYOUT_split_3x5_3
-    (UA_ZHE, TD(YOT_SOFT), UA_KA, TD(KHA_EF), UA_TSE, UA_SHCH, UA_YE, UA_A, UA_U, UA_YU,
-
-     LGUI_T(UA_ES), LCTL_T(UA_VE), LALT_T(UA_EN), UA_TE, UA_EM,
-     UA_SHA, UA_ER, LALT_T(UA_O), LCTL_T(UA_I), LGUI_T(UA_Y),
-
-     LT(NUMBER_LAYER, UA_ZE), LT(SYMBOL1_LAYER, UA_BE), LT(SYMBOL2_LAYER, UA_PE), LT(NAVIGATION_LAYER1, UA_DE), TD(HE_GE),
-     UA_CHE, LT(NAVIGATION_LAYER2, UA_EL), LT(SYMBOL2_LAYER, UA_YA), LT(SYMBOL1_LAYER, UA_E), LT(NUMBER_LAYER, UA_YI),
 
      KC_TRNS, KC_TRNS, KC_TRNS,
      KC_TRNS, KC_TRNS, KC_TRNS
