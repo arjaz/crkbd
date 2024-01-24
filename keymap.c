@@ -104,7 +104,7 @@ enum combo_events {
 // nt = th
 const uint16_t PROGMEM combo_th[] = {LGUI_T(KC_T), LALT_T(KC_N), COMBO_END};
 // nc = ch
-const uint16_t PROGMEM combo_ch[] = {LALT_T(KC_N), LT(NUMBER_LAYER, KC_C), COMBO_END};
+const uint16_t PROGMEM combo_ch[] = {LALT_T(KC_N), KC_C, COMBO_END};
 // sn = sh
 const uint16_t PROGMEM combo_sh[] = {LCTL_T(KC_S), LALT_T(KC_N), COMBO_END};
 // gm = gh
@@ -122,8 +122,8 @@ const uint16_t PROGMEM combo_q[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER
 // =' = /
 const uint16_t PROGMEM combo_slash[] = {KC_QUOTE, KC_EQL, COMBO_END};
 
-const uint16_t PROGMEM combo_esc[] = {LT(NUMBER_LAYER, KC_C), LGUI_T(KC_T), COMBO_END};
-const uint16_t PROGMEM combo_tab[] = {LT(NUMBER_LAYER, KC_C), LCTL_T(KC_S), COMBO_END};
+const uint16_t PROGMEM combo_esc[] = {KC_C, LGUI_T(KC_T), COMBO_END};
+const uint16_t PROGMEM combo_tab[] = {KC_C, LCTL_T(KC_S), COMBO_END};
 const uint16_t PROGMEM combo_enter[] = {LT(SYMBOL1_LAYER, KC_Y), KC_B, COMBO_END};
 const uint16_t PROGMEM combo_capswrd[] = {OSM(MOD_LSFT), KC_BSPC, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic[] = {KC_P, KC_K, COMBO_END};
@@ -270,22 +270,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     (KC_J,    KC_G,    KC_M,    KC_P,   KC_V,
      KC_ASTR, KC_MINS, KC_QUOT, KC_EQL, KC_HASH,
 
-     LT(NUMBER_LAYER, KC_C), LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_T), KC_K,
-     KC_COMM,                LGUI_T(KC_A), LALT_T(KC_E), LCTL_T(KC_I), LT(NUMBER_LAYER, KC_H),
+     KC_C, LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_T), KC_K,
+     KC_COMM,                LGUI_T(KC_A), LALT_T(KC_E), LCTL_T(KC_I), KC_H,
 
      KC_X,   LT(SYMBOL1_LAYER, KC_F),     LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), KC_W,
      KC_DOT, LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y),     KC_B,
 
-     KC_NO,         KC_R,   KC_BSPC,
-     OSM(MOD_LSFT), KC_SPC, KC_NO
+     KC_NO,         LT(NUMBER_LAYER, KC_R),   KC_BSPC,
+     OSM(MOD_LSFT), LT(NUMBER_LAYER, KC_SPC), KC_NO
      ),
 
     [CYRILLIC_LAYER] = LAYOUT_split_3x5_3
     (KC_Q, KC_W,           KC_E, KC_R, TD(TD_T_QUOT),
      KC_Y, TD(TD_U_BSLS),  KC_I, KC_O, TD(TD_P_LBRC),
 
-     LT(NUMBER_LAYER, KC_A), LCTL_T(KC_S), LALT_T(KC_D), LGUI_T(KC_F), KC_G,
-     KC_H,                   LGUI_T(KC_J), LALT_T(KC_K), LCTL_T(KC_L), LT(NUMBER_LAYER, KC_SCLN),
+     KC_A, LCTL_T(KC_S), LALT_T(KC_D), LGUI_T(KC_F), KC_G,
+     KC_H, LGUI_T(KC_J), LALT_T(KC_K), LCTL_T(KC_L), KC_SCLN,
 
      KC_Z, LT(SYMBOL1_LAYER, KC_X),     LT(SYMBOL2_LAYER, KC_C),    LT(NAVIGATION_LAYER1, KC_V), KC_B,
      KC_N, LT(NAVIGATION_LAYER2, KC_M), LT(SYMBOL2_LAYER, KC_COMM), LT(SYMBOL1_LAYER, KC_DOT),   KC_RBRC,
