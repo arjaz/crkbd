@@ -143,7 +143,6 @@ enum combo_events {
     COMBO_TH,
     COMBO_CH,
     COMBO_SH,
-    COMBO_QU,
     COMBO_Q,
     COMBO_Z,
     COMBO_J,
@@ -157,10 +156,8 @@ const uint16_t PROGMEM combo_th[] = {AR_T, AR_N, COMBO_END};
 const uint16_t PROGMEM combo_ch[] = {AR_C, AR_N, COMBO_END};
 // sn = sh, but also gh when on the second layer
 const uint16_t PROGMEM combo_sh[] = {AR_S, AR_N, COMBO_END};
-// cld = q
-const uint16_t PROGMEM combo_q[] = {AR_C, AR_L, AR_D, COMBO_END};
-// ld = qu
-const uint16_t PROGMEM combo_qu[] = {AR_L, AR_D, COMBO_END};
+// ld = q
+const uint16_t PROGMEM combo_q[] = {AR_L, AR_D, COMBO_END};
 // cl = j
 const uint16_t PROGMEM combo_j[] = {AR_C, AR_L, COMBO_END};
 // cd = z
@@ -200,7 +197,6 @@ combo_t key_combos[] = {
     [COMBO_CH] = COMBO_ACTION(combo_ch),
     [COMBO_SH] = COMBO_ACTION(combo_sh),
     [COMBO_Q] = COMBO(combo_q, KC_Q),
-    [COMBO_QU] = COMBO_ACTION(combo_qu),
     [COMBO_Z] = COMBO(combo_z, KC_Z),
     [COMBO_J] = COMBO(combo_j, KC_J),
     [COMBO_V] = COMBO(combo_v, KC_V),
@@ -253,12 +249,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             }
 		}
 		break;
-    case COMBO_QU:
-        if (pressed) {
-            set_capsword_press(KC_Q);
-            set_capsword_press(KC_U);
-        }
-        break;
 	}
 }
 
@@ -294,7 +284,6 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
         }
         break;
     case COMBO_CH:
-    case COMBO_QU:
     case COMBO_Q:
     case COMBO_V:
     case COMBO_J:
