@@ -17,6 +17,37 @@
 #define NUMBER_LAYER 10
 #define FN_LAYER 11
 
+#define AR_R LT(NUMBER_LAYER, KC_R)
+#define AR_S LCTL_T(KC_S)
+#define AR_N LALT_T(KC_N)
+#define AR_T LGUI_T(KC_T)
+#define AR_B KC_B
+#define AR_A LGUI_T(KC_A)
+#define AR_E LALT_T(KC_E)
+#define AR_I LCTL_T(KC_I)
+#define AR_H LT(NUMBER_LAYER, KC_H)
+#define AR_X KC_X
+#define AR_C LT(SYMBOL1_LAYER, KC_C)
+#define AR_L LT(SYMBOL2_LAYER, KC_L)
+#define AR_D LT(NAVIGATION_LAYER1, KC_D)
+#define AR_U LT(NAVIGATION_LAYER2, KC_U)
+#define AR_O LT(SYMBOL2_LAYER, KC_O)
+#define AR_Y LT(SYMBOL1_LAYER, KC_Y)
+#define AR_F KC_F
+#define AR_W KC_W
+#define AR_G KC_G
+#define AR_M KC_M
+#define AR_P KC_P
+#define AR_MINS KC_MINS
+#define AR_QUOT KC_QUOT
+#define AR_EQL KC_EQL
+#define AR_K KC_K
+#define AR_B KC_B
+#define AR_DOT KC_DOT
+#define AR_COMM KC_COMM
+#define AR_BSPC KC_BSPC
+#define AR_SPC KC_SPC
+
 enum {
     TD_Q_GRAVE,
     TD_W_QUES,
@@ -121,35 +152,35 @@ enum combo_events {
 };
 
 // nt = th, but also ph when on the second layer
-const uint16_t PROGMEM combo_th[] = {LGUI_T(KC_T), LALT_T(KC_N), COMBO_END};
+const uint16_t PROGMEM combo_th[] = {AR_T, AR_N, COMBO_END};
 // cn = ch
-const uint16_t PROGMEM combo_ch[] = {LT(SYMBOL1_LAYER, KC_C), LALT_T(KC_N), COMBO_END};
+const uint16_t PROGMEM combo_ch[] = {AR_C, AR_N, COMBO_END};
 // sn = sh, but also gh when on the second layer
-const uint16_t PROGMEM combo_sh[] = {LCTL_T(KC_S), LALT_T(KC_N), COMBO_END};
+const uint16_t PROGMEM combo_sh[] = {AR_S, AR_N, COMBO_END};
 // cld = q
-const uint16_t PROGMEM combo_q[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+const uint16_t PROGMEM combo_q[] = {AR_C, AR_L, AR_D, COMBO_END};
 // ld = qu
-const uint16_t PROGMEM combo_qu[] = {LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+const uint16_t PROGMEM combo_qu[] = {AR_L, AR_D, COMBO_END};
 // cl = j
-const uint16_t PROGMEM combo_j[] = {LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
+const uint16_t PROGMEM combo_j[] = {AR_C, AR_L, COMBO_END};
 // cd = z
-const uint16_t PROGMEM combo_z[] = {LT(SYMBOL1_LAYER, KC_C), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+const uint16_t PROGMEM combo_z[] = {AR_C, AR_D, COMBO_END};
 // xc = v
-const uint16_t PROGMEM combo_v[] = {KC_X, LT(SYMBOL1_LAYER, KC_C), COMBO_END};
+const uint16_t PROGMEM combo_v[] = {AR_X, AR_C, COMBO_END};
 
-const uint16_t PROGMEM combo_esc[] = {LT(NUMBER_LAYER, KC_R), LGUI_T(KC_T), COMBO_END};
+const uint16_t PROGMEM combo_esc[] = {AR_R, AR_T, COMBO_END};
 // rs = tab, but also wh when on the second layer
-const uint16_t PROGMEM combo_tab[] = {LT(NUMBER_LAYER, KC_R), LCTL_T(KC_S), COMBO_END};
-const uint16_t PROGMEM combo_enter[] = {LT(SYMBOL1_LAYER, KC_Y), KC_F, COMBO_END};
-const uint16_t PROGMEM combo_capswrd[] = {OSM(MOD_LSFT), KC_BSPC, COMBO_END};
-const uint16_t PROGMEM combo_cyrillic[] = {KC_P, KC_B, COMBO_END};
-const uint16_t PROGMEM combo_cyrillic2[] = {KC_P, KC_G, COMBO_END};
-const uint16_t PROGMEM combo_ralt[] = {LALT_T(KC_N), LALT_T(KC_E), COMBO_END};
-const uint16_t PROGMEM combo_gaming[] = {LT(NAVIGATION_LAYER2, KC_U), LALT_T(KC_E), LT(SYMBOL1_LAYER, KC_Y), COMBO_END};
-const uint16_t PROGMEM combo_navigation[] = {LT(SYMBOL1_LAYER, KC_C), LALT_T(KC_N), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+const uint16_t PROGMEM combo_tab[] = {AR_R, AR_S, COMBO_END};
+const uint16_t PROGMEM combo_enter[] = {AR_Y, AR_F, COMBO_END};
+const uint16_t PROGMEM combo_capswrd[] = {OSM(MOD_LSFT), AR_BSPC, COMBO_END};
+const uint16_t PROGMEM combo_cyrillic[] = {AR_P, AR_B, COMBO_END};
+const uint16_t PROGMEM combo_cyrillic2[] = {AR_P, AR_G, COMBO_END};
+const uint16_t PROGMEM combo_ralt[] = {AR_N, AR_E, COMBO_END};
+const uint16_t PROGMEM combo_gaming[] = {AR_U, AR_E, AR_Y, COMBO_END};
+const uint16_t PROGMEM combo_navigation[] = {AR_C, AR_N, AR_D, COMBO_END};
 
-const uint16_t PROGMEM combo_copy[] = {KC_X, LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), COMBO_END};
-const uint16_t PROGMEM combo_paste[] = {KC_X, LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), COMBO_END};
+const uint16_t PROGMEM combo_copy[] = {AR_X, AR_C, AR_L, COMBO_END};
+const uint16_t PROGMEM combo_paste[] = {AR_X, AR_C, AR_L, AR_D, COMBO_END};
 
 combo_t key_combos[] = {
 	[COMBO_ESC] = COMBO(combo_esc, KC_ESC),
@@ -290,25 +321,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALPHA_LAYER] = LAYOUT_split_3x6_3
     (KC_NO, KC_NO, KC_NO, KC_NO, KC_P, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 
-     KC_NO, LT(NUMBER_LAYER, KC_R), LCTL_T(KC_S), LALT_T(KC_N), LGUI_T(KC_T),           KC_B,
-     KC_NO, LGUI_T(KC_A),           LALT_T(KC_E), LCTL_T(KC_I), LT(NUMBER_LAYER, KC_H), KC_NO,
+     KC_NO, AR_R, AR_S, AR_N, AR_T, AR_B,
+     KC_NO, AR_A, AR_E, AR_I, AR_H, KC_NO,
 
-     KC_NO, KC_X,                        LT(SYMBOL1_LAYER, KC_C), LT(SYMBOL2_LAYER, KC_L), LT(NAVIGATION_LAYER1, KC_D), KC_NO,
-     KC_NO, LT(NAVIGATION_LAYER2, KC_U), LT(SYMBOL2_LAYER, KC_O), LT(SYMBOL1_LAYER, KC_Y), KC_F,                       KC_NO,
+     KC_NO, AR_X, AR_C, AR_L, AR_D, KC_NO,
+     KC_NO, AR_U, AR_O, AR_Y, AR_F, KC_NO,
 
-     KC_NO,         OSL(ALPHA2_LAYER), KC_BSPC,
-     OSM(MOD_LSFT), KC_SPC,            KC_NO
+     KC_NO,         OSL(ALPHA2_LAYER), AR_BSPC,
+     OSM(MOD_LSFT), AR_SPC,            KC_NO
      ),
 
     [ALPHA2_LAYER] = LAYOUT_split_3x6_3
     (KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 
-     KC_NO, KC_W,    KC_G,   KC_M,   KC_P, KC_NO,
-     KC_NO, KC_MINS, KC_QUOT, KC_EQL, KC_K, KC_NO,
+     KC_NO, AR_W,    AR_G,    AR_M,   AR_P, KC_NO,
+     KC_NO, AR_MINS, AR_QUOT, AR_EQL, AR_K, KC_NO,
 
-     KC_NO, KC_NO,  KC_NO,    KC_NO,      KC_B,  KC_NO,
-     KC_NO, KC_DOT, KC_COMM, S(KC_QUOT), KC_NO, KC_NO,
+     KC_NO, KC_NO,  KC_NO,   KC_NO,      AR_B,  KC_NO,
+     KC_NO, AR_DOT, AR_COMM, S(AR_QUOT), KC_NO, KC_NO,
 
      KC_TRNS, KC_TRNS,                  KC_TRNS,
      KC_TRNS, SCROLL_LOCK_TG_CYRILLIC2, KC_TRNS
