@@ -115,30 +115,11 @@ enum combo_events {
     COMBO_RALT,
     COMBO_COPY,
     COMBO_PASTE,
-    COMBO_TH,
-    COMBO_CH,
-    COMBO_SH,
-    COMBO_GH,
-    COMBO_PH,
-    COMBO_WH,
     COMBO_Z,
     COMBO_Q,
     COMBO_SLASH,
     COMBO_LENGTH
 };
-
-// nt = th
-const uint16_t PROGMEM combo_th[] = {AR_T, AR_N, COMBO_END};
-// nc = ch
-const uint16_t PROGMEM combo_ch[] = {AR_N, AR_C, COMBO_END};
-// sn = sh
-const uint16_t PROGMEM combo_sh[] = {AR_S, AR_N, COMBO_END};
-// gm = gh
-const uint16_t PROGMEM combo_gh[] = {AR_G, AR_M, COMBO_END};
-// pm = ph
-const uint16_t PROGMEM combo_ph[] = {AR_P, AR_M, COMBO_END};
-// wd = wh
-const uint16_t PROGMEM combo_wh[] = {AR_W, AR_D, COMBO_END};
 
 // fd = z
 const uint16_t PROGMEM combo_z[] = {AR_F, AR_D, COMBO_END};
@@ -177,60 +158,12 @@ combo_t key_combos[] = {
     [COMBO_STENO] = COMBO(combo_steno, TG(STENO_LAYER)),
     [COMBO_GAMING] = COMBO(combo_gaming, TG(GAMING_LAYER)),
     [COMBO_NAVIGATION] = COMBO(combo_navigation, TG(NAVIGATION_LAYER2)),
-    /* Alpha + h combos */
-    [COMBO_TH] = COMBO_ACTION(combo_th),
-    [COMBO_CH] = COMBO_ACTION(combo_ch),
-    [COMBO_SH] = COMBO_ACTION(combo_sh),
-    [COMBO_GH] = COMBO_ACTION(combo_gh),
-    [COMBO_PH] = COMBO_ACTION(combo_ph),
-    [COMBO_WH] = COMBO_ACTION(combo_wh),
     /* Missing keys */
     [COMBO_Z] = COMBO(combo_z, KC_Z),
     [COMBO_Q] = COMBO(combo_q, KC_Q),
     [COMBO_SLASH] = COMBO(combo_slash, KC_SLASH),
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
-
-void process_combo_event(uint16_t combo_index, bool pressed) {
-	switch (combo_index) {
-	case COMBO_TH:
-		if (pressed) {
-			set_capsword_press(KC_T);
-            set_capsword_press(KC_H);
-		}
-		break;
-	case COMBO_CH:
-		if (pressed) {
-            set_capsword_press(KC_C);
-            set_capsword_press(KC_H);
-		}
-		break;
-	case COMBO_SH:
-		if (pressed) {
-            set_capsword_press(KC_S);
-            set_capsword_press(KC_H);
-		}
-		break;
-	case COMBO_GH:
-		if (pressed) {
-            set_capsword_press(KC_G);
-            set_capsword_press(KC_H);
-		}
-		break;
-	case COMBO_PH:
-		if (pressed) {
-            set_capsword_press(KC_P);
-            set_capsword_press(KC_H);
-		}
-		break;
-    case COMBO_WH:
-        if (pressed) {
-            set_capsword_press(KC_W);
-            set_capsword_press(KC_H);
-        }
-        break;
-	}
-}
 
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
     if (layer_state_is(STENO_LAYER) && combo_index != COMBO_STENO) {
@@ -256,19 +189,12 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
             return false;
         }
         break;
-    case COMBO_TH:
-    case COMBO_CH:
-    case COMBO_SH:
-    case COMBO_GH:
-    case COMBO_PH:
-    case COMBO_WH:
     case COMBO_Z:
     case COMBO_Q:
         if (!layer_state_is(ALPHA_LAYER)) {
             return false;
         }
         break;
-
     }
 
     return true;
