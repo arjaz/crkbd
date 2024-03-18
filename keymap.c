@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <keymap_ukrainian.h>
 #include <keymap_steno.h>
-#include "features/adaptive_keys.h"
 #include "features/tap_hold_dance.h"
 
 #define ALPHA_LAYER 0
@@ -68,9 +67,6 @@ enum macros_keycodes {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_adaptive_key(keycode, record)) {
-        return false;
-    }
     tap_dance_action_t *action;
 
     switch (keycode) {
