@@ -125,7 +125,7 @@ const uint16_t PROGMEM combo_q[] = {AR_L, AR_D, COMBO_END};
 // =' = /
 const uint16_t PROGMEM combo_slash[] = {AR_QUOT, AR_EQL, COMBO_END};
 
-const uint16_t PROGMEM combo_esc[] = {AR_C, AR_T, COMBO_END};
+const uint16_t PROGMEM combo_esc[] = {AR_X, AR_D, COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {AR_C, AR_S, COMBO_END};
 const uint16_t PROGMEM combo_enter[] = {AR_Y, AR_B, COMBO_END};
 const uint16_t PROGMEM combo_ralt[] = {AR_N, AR_E, COMBO_END};
