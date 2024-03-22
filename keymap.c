@@ -119,8 +119,8 @@ enum combo_events {
 
 // fd = z
 const uint16_t PROGMEM combo_z[] = {AR_F, AR_D, COMBO_END};
-// ld = q
-const uint16_t PROGMEM combo_q[] = {AR_L, AR_D, COMBO_END};
+// gp = q
+const uint16_t PROGMEM combo_q[] = {AR_G, AR_P, COMBO_END};
 
 // =' = /
 const uint16_t PROGMEM combo_slash[] = {AR_QUOT, AR_EQL, COMBO_END};
