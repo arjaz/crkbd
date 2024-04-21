@@ -8,8 +8,7 @@
 #define NO_MUSIC_MODE
 #define LAYER_STATE_16BIT
 
-#define TAPPING_TERM 240
-#define TAPPING_TERM_PER_KEY
+#define TAPPING_TERM 200
 
 #define DISABLE_LEADER
 
