@@ -9,11 +9,10 @@
 #define NAVIGATION_LAYER1 2
 #define NAVIGATION_LAYER2 3
 #define GAMING_LAYER 4
-#define SYMBOL1_LAYER 5
-#define SYMBOL2_LAYER 6
-#define NUMBER_LAYER 7
-#define FN_LAYER 8
-#define STENO_LAYER 9
+#define SYMBOL_LAYER 5
+#define NUMBER_LAYER 6
+#define FN_LAYER 7
+#define STENO_LAYER 8
 
 #define AR_J KC_J
 #define AR_G KC_G
@@ -36,14 +35,14 @@
 #define AR_I LCTL_T(KC_I)
 #define AR_H KC_H
 #define AR_X KC_X
-#define AR_F LT(SYMBOL1_LAYER, KC_F)
-#define AR_L LT(SYMBOL2_LAYER, KC_L)
+#define AR_F KC_F
+#define AR_L LT(SYMBOL_LAYER, KC_L)
 #define AR_D LT(NAVIGATION_LAYER1, KC_D)
 #define AR_W KC_W
 #define AR_DOT KC_DOT
 #define AR_U LT(NAVIGATION_LAYER2, KC_U)
-#define AR_O LT(SYMBOL2_LAYER, KC_O)
-#define AR_Y LT(SYMBOL1_LAYER, KC_Y)
+#define AR_O LT(SYMBOL_LAYER, KC_O)
+#define AR_Y KC_Y
 #define AR_B KC_B
 #define AR_R LT(NUMBER_LAYER, KC_R)
 #define AR_BSPC KC_BSPC
@@ -167,7 +166,7 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
         return false;
     }
 
-    if (layer_state_is(SYMBOL1_LAYER) || layer_state_is(SYMBOL2_LAYER)) {
+    if (layer_state_is(SYMBOL_LAYER)) {
         return false;
     }
 
@@ -226,8 +225,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_A, LCTL_T(KC_S), LALT_T(KC_D), LGUI_T(KC_F), KC_G,
      KC_H, LGUI_T(KC_J), LALT_T(KC_K), LCTL_T(KC_L), KC_SCLN,
 
-     KC_Z, LT(SYMBOL1_LAYER, KC_X),     LT(SYMBOL2_LAYER, KC_C),    LT(NAVIGATION_LAYER1, KC_V), KC_B,
-     KC_N, LT(NAVIGATION_LAYER2, KC_M), LT(SYMBOL2_LAYER, KC_COMM), LT(SYMBOL1_LAYER, KC_DOT),   KC_RBRC,
+     KC_Z, KC_X,                        LT(SYMBOL_LAYER, KC_C),    LT(NAVIGATION_LAYER1, KC_V), KC_B,
+     KC_N, LT(NAVIGATION_LAYER2, KC_M), LT(SYMBOL_LAYER, KC_COMM), KC_DOT,   KC_RBRC,
 
      KC_TRNS, KC_TRNS, KC_TRNS,
      KC_TRNS, KC_TRNS, KC_TRNS
@@ -259,21 +258,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TRNS, KC_TRNS, KC_NO
      ),
 
-    [SYMBOL1_LAYER] = LAYOUT_split_3x5_3
-    (KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-
-     KC_TILDE, KC_COMM,  KC_DOT, KC_SLASH, KC_TRNS, KC_TRNS, S(KC_MINS), KC_SCLN, KC_AMPR,    KC_QUES,
-     KC_DLR,   KC_GRAVE, KC_AT,  KC_BSLS,  KC_TRNS, KC_TRNS, S(KC_QUOT), KC_QUOT, S(KC_BSLS), KC_CIRC,
-
-     KC_TRNS, KC_GT,   KC_TRNS,
-     KC_TRNS, KC_TRNS, KC_TRNS
-     ),
-
-    [SYMBOL2_LAYER] = LAYOUT_split_3x5_3
-    (KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-
-     KC_LT,   KC_LPRN, KC_RPRN, KC_GT,   KC_TRNS, KC_TRNS, KC_MINS, KC_EQL,  KC_HASH, KC_EXLM,
-     KC_LBRC, KC_LCBR, KC_RCBR, KC_RBRC, KC_TRNS, KC_TRNS, KC_PLUS, KC_PERC, KC_ASTR, S(KC_SCLN),
+    [SYMBOL_LAYER] = LAYOUT_split_3x5_3
+    (KC_NO,   KC_NO,   KC_DLR,  KC_NO,   KC_NO, KC_TRNS, KC_TRNS,  KC_GRAVE, KC_TRNS,    KC_TRNS,
+     KC_LT,   KC_LPRN, KC_RPRN, KC_GT,   KC_NO, KC_TRNS, KC_TILDE, KC_QUES,  KC_AMPR,    KC_EXLM,
+     KC_LBRC, KC_LCBR, KC_RCBR, KC_RBRC, KC_NO, KC_TRNS, KC_AT,    KC_PERC,  S(KC_BSLS), KC_CIRC,
 
      KC_TRNS, KC_PERC, KC_SLASH,
      KC_TRNS, KC_TRNS, KC_TRNS
