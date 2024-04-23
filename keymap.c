@@ -127,7 +127,7 @@ const uint16_t PROGMEM combo_enter[] = {AR_Y, AR_B, COMBO_END};
 const uint16_t PROGMEM combo_ralt[] = {AR_N, AR_E, COMBO_END};
 
 const uint16_t PROGMEM combo_capswrd[] = {AR_LSFT, AR_BSPC, COMBO_END};
-const uint16_t PROGMEM combo_cyrillic[] = {AR_P, AR_K, COMBO_END};
+const uint16_t PROGMEM combo_cyrillic[] = {AR_V, AR_ASTR, COMBO_END};
 const uint16_t PROGMEM combo_steno[] = {AR_MINS, AR_COMM, COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {AR_U, AR_E, AR_Y, COMBO_END};
 const uint16_t PROGMEM combo_navigation[] = {AR_F, AR_N, AR_D, COMBO_END};
