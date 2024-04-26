@@ -16,12 +16,12 @@
 
 #define AR_J KC_J
 #define AR_G KC_G
-#define AR_M KC_M
+#define AR_M LT(NUMBER_LAYER, KC_M)
 #define AR_P KC_P
 #define AR_V KC_V
 #define AR_ASTR KC_ASTR
 #define AR_MINS KC_MINS
-#define AR_QUOT KC_QUOT
+#define AR_QUOT LT(NUMBER_LAYER, KC_QUOT)
 #define AR_EQL KC_EQL
 #define AR_HASH KC_HASH
 #define AR_C KC_C
@@ -44,10 +44,12 @@
 #define AR_O LT(SYMBOL_LAYER, KC_O)
 #define AR_Y KC_Y
 #define AR_B KC_B
-#define AR_R LT(NUMBER_LAYER, KC_R)
+#define AR_R KC_R
 #define AR_BSPC KC_BSPC
 #define AR_LSFT OSM(MOD_LSFT)
-#define AR_SPC LT(NUMBER_LAYER, KC_SPC)
+#define AR_SPC KC_SPC
+
+#define AR_F5 LGUI_T(KC_F5)
 
 enum {
     TD_Q_GRAVE,
@@ -219,8 +221,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ),
 
     [CYRILLIC_LAYER] = LAYOUT_split_3x5_3
-    (KC_Q, KC_W,           KC_E, KC_R, TD(TD_T_QUOT),
-     KC_Y, TD(TD_U_BSLS),  KC_I, KC_O, TD(TD_P_LBRC),
+    (KC_Q, KC_W,          LT(NUMBER_LAYER, KC_E), KC_R, TD(TD_T_QUOT),
+     KC_Y, TD(TD_U_BSLS), LT(NUMBER_LAYER, KC_I), KC_O, TD(TD_P_LBRC),
 
      KC_A, LCTL_T(KC_S), LALT_T(KC_D), LGUI_T(KC_F), KC_G,
      KC_H, LGUI_T(KC_J), LALT_T(KC_K), LCTL_T(KC_L), KC_SCLN,
@@ -269,7 +271,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [NUMBER_LAYER] = LAYOUT_split_3x5_3
     (KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_F9, KC_F10, KC_F11, KC_F12,
-     KC_8,  KC_7,  KC_6,  KC_5,  KC_NO, KC_TRNS, KC_F5, KC_F6,  KC_F7,  KC_F8,
+     KC_8,  KC_7,  KC_6,  KC_5,  KC_NO, KC_TRNS, AR_F5, KC_F6,  KC_F7,  KC_F8,
      KC_4,  KC_3,  KC_2,  KC_1,  KC_NO, KC_TRNS, KC_F1, KC_F2,  KC_F3,  KC_F4,
 
      KC_TRNS, KC_9, KC_0, KC_TRNS, KC_TRNS, KC_TRNS
