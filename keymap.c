@@ -50,14 +50,8 @@
 #define AR_F5 LGUI_T(KC_F5)
 
 enum {
-    TD_Q_GRAVE,
-    TD_W_QUES,
-    TD_E_SLASH,
     TD_T_QUOT,
     TD_U_BSLS,
-    YOT_SOFT,
-    HE_GE,
-    KHA_EF,
     TD_P_LBRC
 };
 
@@ -75,7 +69,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_invert(CYRILLIC_LAYER);
         }
         break;
-    case TD(TD_Q_GRAVE) ... TD(TD_P_LBRC):
+    case TD(TD_T_QUOT) ... TD(TD_P_LBRC):
         action = &tap_dance_actions[TD_INDEX(keycode)];
         if (!record->event.pressed && action->state.count && !action->state.finished) {
             tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
@@ -87,15 +81,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_Q_GRAVE]     = ACTION_TAP_DANCE_TAP_HOLD(KC_Q, KC_GRAVE),
-    [TD_W_QUES]      = ACTION_TAP_DANCE_TAP_HOLD(KC_W, KC_QUES),
-    [TD_E_SLASH]     = ACTION_TAP_DANCE_TAP_HOLD(KC_E, KC_SLASH),
-    [TD_T_QUOT]      = ACTION_TAP_DANCE_TAP_HOLD(KC_T, KC_QUOT),
-    [TD_U_BSLS]      = ACTION_TAP_DANCE_TAP_HOLD(KC_U, KC_BSLS),
-    [TD_P_LBRC]      = ACTION_TAP_DANCE_TAP_HOLD(KC_P, KC_LBRC),
-    [YOT_SOFT]       = ACTION_TAP_DANCE_TAP_HOLD(UA_YOT, UA_SOFT),
-    [HE_GE]          = ACTION_TAP_DANCE_TAP_HOLD(UA_HE, KC_BSLS),
-    [KHA_EF]         = ACTION_TAP_DANCE_TAP_HOLD(UA_KHA, UA_EF),
+    [TD_T_QUOT]  = ACTION_TAP_DANCE_TAP_HOLD(KC_T, KC_QUOT),
+    [TD_U_BSLS]  = ACTION_TAP_DANCE_TAP_HOLD(KC_U, KC_BSLS),
+    [TD_P_LBRC]  = ACTION_TAP_DANCE_TAP_HOLD(KC_P, KC_LBRC),
 };
 
 enum combo_events {
