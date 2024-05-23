@@ -10,6 +10,8 @@
 
 #define TAPPING_TERM 200
 
+#define PERMISSIVE_HOLD
+
 #define DISABLE_LEADER
 
 #define MOUSEKEY_TIME_TO_MAX 60
