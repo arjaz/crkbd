@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <keymap_ukrainian.h>
 #include "features/tap_hold_dance.h"
+#include "features/achordion.h"
 
 #define ALPHA_LAYER 0
 #define CYRILLIC_LAYER 1
@@ -59,7 +60,27 @@ enum macros_keycodes {
     SCROLL_LOCK_TG_CYRILLIC = SAFE_RANGE,
 };
 
+uint16_t achordion_streak_timeout(uint16_t tap_hold_keycode) {
+    return 150;
+}
+
+uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
+    return 500;
+}
+
+bool achordion_chord(uint16_t tap_hold_keycode,
+                     keyrecord_t* tap_hold_record,
+                     uint16_t other_keycode,
+                     keyrecord_t* other_record) {
+    return true;
+}
+
+void matrix_scan_user(void) {
+    achordion_task();
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_achordion(keycode, record)) { return false; }
     tap_dance_action_t *action;
 
     switch (keycode) {

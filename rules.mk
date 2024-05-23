@@ -8,3 +8,4 @@ BOOTLOADER          = caterina
 KEY_OVERRIDE_ENABLE = yes
 
 SRC += features/tap_hold_dance.c
+SRC += features/achordion.c
