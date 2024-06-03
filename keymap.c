@@ -44,6 +44,8 @@
 #define AR_Y KC_Y
 #define AR_B KC_B
 #define AR_R KC_R
+#define AR_Q KC_Q
+#define AR_Z KC_Z
 #define AR_BSPC KC_BSPC
 #define AR_LSFT OSM(MOD_LSFT)
 #define AR_SPC KC_SPC
@@ -118,14 +120,9 @@ enum combo_events {
     COMBO_RALT,
     COMBO_COPY,
     COMBO_PASTE,
-    COMBO_Z,
-    COMBO_Q,
     COMBO_SLASH,
     COMBO_LENGTH
 };
-
-const uint16_t PROGMEM combo_z[] = {AR_F, AR_D, COMBO_END};
-const uint16_t PROGMEM combo_q[] = {AR_G, AR_P, COMBO_END};
 
 const uint16_t PROGMEM combo_slash[] = {AR_QUOT, AR_EQL, COMBO_END};
 
@@ -135,7 +132,7 @@ const uint16_t PROGMEM combo_enter[] = {AR_Y, AR_B, COMBO_END};
 const uint16_t PROGMEM combo_ralt[] = {AR_N, AR_E, COMBO_END};
 
 const uint16_t PROGMEM combo_capswrd[] = {AR_LSFT, AR_BSPC, COMBO_END};
-const uint16_t PROGMEM combo_cyrillic[] = {AR_V, AR_ASTR, COMBO_END};
+const uint16_t PROGMEM combo_cyrillic[] = {AR_V, AR_Z, COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {AR_U, AR_E, AR_Y, COMBO_END};
 const uint16_t PROGMEM combo_navigation[] = {AR_F, AR_N, AR_D, COMBO_END};
 
@@ -157,8 +154,6 @@ combo_t key_combos[] = {
     [COMBO_GAMING] = COMBO(combo_gaming, TG(GAMING_LAYER)),
     [COMBO_NAVIGATION] = COMBO(combo_navigation, TG(NAVIGATION_LAYER2)),
     /* Missing keys */
-    [COMBO_Z] = COMBO(combo_z, KC_Z),
-    [COMBO_Q] = COMBO(combo_q, KC_Q),
     [COMBO_SLASH] = COMBO(combo_slash, KC_SLASH),
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
@@ -183,12 +178,6 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
             return false;
         }
         break;
-    case COMBO_Z:
-    case COMBO_Q:
-        if (!layer_state_is(ALPHA_LAYER)) {
-            return false;
-        }
-        break;
     }
 
     return true;
@@ -207,8 +196,8 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALPHA_LAYER] = LAYOUT_split_3x5_3
-    (AR_J,    AR_G,    AR_M,    AR_P,   AR_V,
-     AR_ASTR, AR_MINS, AR_QUOT, AR_EQL, AR_HASH,
+    (AR_J, AR_G,    AR_M,    AR_P,   AR_V,
+     AR_Z, AR_MINS, AR_QUOT, AR_EQL, AR_Q,
 
      AR_C,    AR_S, AR_N, AR_T, AR_K,
      AR_COMM, AR_A, AR_E, AR_I, AR_H,
@@ -261,7 +250,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ),
 
     [SYMBOL_LAYER] = LAYOUT_split_3x5_3
-    (KC_NO,   KC_NO,   KC_DLR,  KC_NO,   KC_NO, KC_TRNS, KC_TRNS,  KC_GRAVE, KC_TRNS,    KC_TRNS,
+    (KC_NO,   KC_NO,   KC_DLR,  KC_NO,   KC_NO, KC_ASTR, KC_TRNS,  KC_GRAVE, KC_TRNS,    KC_HASH,
      KC_LT,   KC_LPRN, KC_RPRN, KC_GT,   KC_NO, KC_TRNS, KC_TILDE, KC_QUES,  KC_AMPR,    KC_EXLM,
      KC_LBRC, KC_LCBR, KC_RCBR, KC_RBRC, KC_NO, KC_TRNS, KC_AT,    KC_PERC,  S(KC_BSLS), KC_CIRC,
 
