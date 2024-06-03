@@ -5,11 +5,7 @@ void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
     tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
 
     if (state->pressed) {
-        if (state->count == 1
-#ifndef PERMISSIVE_HOLD
-            && !state->interrupted
-#endif
-        ) {
+        if (state->count == 1 && !state->interrupted) {
             register_code16(tap_hold->hold);
             tap_hold->held = tap_hold->hold;
         } else {
