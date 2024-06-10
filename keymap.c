@@ -104,9 +104,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_T_QUOT]  = ACTION_TAP_DANCE_TAP_HOLD(KC_T, KC_QUOT),
-    [TD_U_BSLS]  = ACTION_TAP_DANCE_TAP_HOLD(KC_U, KC_BSLS),
-    [TD_P_LBRC]  = ACTION_TAP_DANCE_TAP_HOLD(KC_P, KC_LBRC),
+    [TD_T_QUOT] = ACTION_TAP_DANCE_TAP_HOLD(KC_T, KC_QUOT),
+    [TD_U_BSLS] = ACTION_TAP_DANCE_TAP_HOLD(KC_U, KC_BSLS),
+    [TD_P_LBRC] = ACTION_TAP_DANCE_TAP_HOLD(KC_P, KC_LBRC),
 };
 
 enum combo_events {
@@ -117,7 +117,6 @@ enum combo_events {
     COMBO_CYRILLIC,
     COMBO_GAMING,
     COMBO_NAVIGATION,
-    COMBO_RALT,
     COMBO_COPY,
     COMBO_PASTE,
     COMBO_SLASH,
@@ -129,7 +128,6 @@ const uint16_t PROGMEM combo_slash[] = {AR_QUOT, AR_EQL, COMBO_END};
 const uint16_t PROGMEM combo_esc[] = {AR_X, AR_D, COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {AR_C, AR_S, COMBO_END};
 const uint16_t PROGMEM combo_enter[] = {AR_Y, AR_B, COMBO_END};
-const uint16_t PROGMEM combo_ralt[] = {AR_N, AR_E, COMBO_END};
 
 const uint16_t PROGMEM combo_capswrd[] = {AR_LSFT, AR_BSPC, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic[] = {AR_V, AR_Z, COMBO_END};
@@ -145,7 +143,6 @@ combo_t key_combos[] = {
     [COMBO_TAB] = COMBO(combo_tab, KC_TAB),
     [COMBO_ENTER] = COMBO(combo_enter, KC_ENT),
     [COMBO_CAPSWRD] = COMBO(combo_capswrd, CW_TOGG),
-    [COMBO_RALT] = COMBO(combo_ralt, KC_RALT),
     /* Useful shortcuts */
     [COMBO_COPY] = COMBO(combo_copy, LCTL(KC_C)),
     [COMBO_PASTE] = COMBO(combo_paste, LCTL(KC_V)),
@@ -206,7 +203,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      AR_DOT, AR_U, AR_O, AR_Y, AR_B,
 
      KC_NO,   AR_R,   AR_BSPC,
-     AR_LSFT, AR_SPC, KC_NO
+     AR_LSFT, AR_SPC, KC_RALT
      ),
 
     [CYRILLIC_LAYER] = LAYOUT_split_3x5_3
