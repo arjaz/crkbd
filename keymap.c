@@ -126,7 +126,7 @@ enum combo_events {
 const uint16_t PROGMEM combo_slash[] = {AR_QUOT, AR_EQL, COMBO_END};
 
 const uint16_t PROGMEM combo_esc[] = {AR_X, AR_D, COMBO_END};
-const uint16_t PROGMEM combo_tab[] = {AR_C, AR_S, COMBO_END};
+const uint16_t PROGMEM combo_tab[] = {AR_X, AR_F, COMBO_END};
 const uint16_t PROGMEM combo_enter[] = {AR_Y, AR_B, COMBO_END};
 
 const uint16_t PROGMEM combo_capswrd[] = {AR_LSFT, AR_BSPC, COMBO_END};
