@@ -1,6 +1,6 @@
 #pragma once
 
-#define MASTER_LEFT
+#define MASTER_RIGHT
 
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
