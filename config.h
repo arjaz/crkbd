@@ -8,7 +8,7 @@
 #define NO_MUSIC_MODE
 #define LAYER_STATE_16BIT
 
-#define TAPPING_TERM 200
+#define TAPPING_TERM 175
 
 #define PERMISSIVE_HOLD
 
@@ -18,6 +18,6 @@
 
 #define COMBO_ONLY_FROM_LAYER 0
 #define COMBO_SHOULD_TRIGGER 1
-#define COMBO_TERM 30
+#define COMBO_TERM 25
 
 #define ACHORDION_STREAK

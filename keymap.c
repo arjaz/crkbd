@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 #include <keymap_ukrainian.h>
-#include "features/tap_hold_dance.h"
 #include "features/achordion.h"
 
 #define ALPHA_LAYER 0
@@ -52,16 +51,6 @@
 
 #define AR_F5 LGUI_T(KC_F5)
 
-enum {
-    TD_T_QUOT,
-    TD_U_BSLS,
-    TD_P_LBRC
-};
-
-enum macros_keycodes {
-    SCROLL_LOCK_TG_CYRILLIC = SAFE_RANGE,
-};
-
 uint16_t achordion_streak_timeout(uint16_t tap_hold_keycode) {
     return 150;
 }
@@ -81,10 +70,11 @@ void matrix_scan_user(void) {
     achordion_task();
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_achordion(keycode, record)) { return false; }
-    tap_dance_action_t *action;
+enum {TD_T_QUOT, TD_U_BSLS, TD_P_LBRC};
+enum macros_keycodes {SCROLL_LOCK_TG_CYRILLIC = SAFE_RANGE};
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_achordion(keycode, record)) return false;
     switch (keycode) {
     case SCROLL_LOCK_TG_CYRILLIC:
         if (record->event.pressed) {
@@ -92,68 +82,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_invert(CYRILLIC_LAYER);
         }
         break;
-    case TD(TD_T_QUOT) ... TD(TD_P_LBRC):
-        action = &tap_dance_actions[TD_INDEX(keycode)];
-        if (!record->event.pressed && action->state.count && !action->state.finished) {
-            tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
-            tap_code16(tap_hold->tap);
-        }
-        break;
     }
     return true;
 }
 
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_T_QUOT] = ACTION_TAP_DANCE_TAP_HOLD(KC_T, KC_QUOT),
-    [TD_U_BSLS] = ACTION_TAP_DANCE_TAP_HOLD(KC_U, KC_BSLS),
-    [TD_P_LBRC] = ACTION_TAP_DANCE_TAP_HOLD(KC_P, KC_LBRC),
+    [TD_T_QUOT] = ACTION_TAP_DANCE_DOUBLE(KC_T, KC_QUOT),
+    [TD_U_BSLS] = ACTION_TAP_DANCE_DOUBLE(KC_U, KC_BSLS),
+    [TD_P_LBRC] = ACTION_TAP_DANCE_DOUBLE(KC_P, KC_LBRC),
 };
 
 enum combo_events {
     COMBO_ESC,
     COMBO_TAB,
     COMBO_ENTER,
-    COMBO_CAPSWRD,
     COMBO_CYRILLIC,
     COMBO_GAMING,
     COMBO_NAVIGATION,
-    COMBO_COPY,
-    COMBO_PASTE,
-    COMBO_SLASH,
     COMBO_LENGTH
 };
+uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM combo_slash[] = {AR_QUOT, AR_EQL, COMBO_END};
-
-const uint16_t PROGMEM combo_esc[] = {AR_X, AR_D, COMBO_END};
-const uint16_t PROGMEM combo_tab[] = {AR_X, AR_F, COMBO_END};
-const uint16_t PROGMEM combo_enter[] = {AR_Y, AR_B, COMBO_END};
-
-const uint16_t PROGMEM combo_capswrd[] = {AR_LSFT, AR_BSPC, COMBO_END};
-const uint16_t PROGMEM combo_cyrillic[] = {AR_V, AR_Z, COMBO_END};
+const uint16_t PROGMEM combo_esc[] = {AR_F, AR_L, AR_D, COMBO_END};
+const uint16_t PROGMEM combo_tab[] = {AR_X, AR_F, AR_L, COMBO_END};
+const uint16_t PROGMEM combo_enter[] = {AR_O, AR_Y, AR_B, COMBO_END};
+const uint16_t PROGMEM combo_cyrillic[] = {AR_A, AR_QUOT, AR_I, COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {AR_U, AR_E, AR_Y, COMBO_END};
 const uint16_t PROGMEM combo_navigation[] = {AR_F, AR_N, AR_D, COMBO_END};
 
-const uint16_t PROGMEM combo_copy[] = {AR_X, AR_F, AR_L, COMBO_END};
-const uint16_t PROGMEM combo_paste[] = {AR_X, AR_F, AR_L, AR_D, COMBO_END};
-
 combo_t key_combos[] = {
-    /* Missing important control keys */
 	[COMBO_ESC] = COMBO(combo_esc, KC_ESC),
     [COMBO_TAB] = COMBO(combo_tab, KC_TAB),
     [COMBO_ENTER] = COMBO(combo_enter, KC_ENT),
-    [COMBO_CAPSWRD] = COMBO(combo_capswrd, CW_TOGG),
-    /* Useful shortcuts */
-    [COMBO_COPY] = COMBO(combo_copy, LCTL(KC_C)),
-    [COMBO_PASTE] = COMBO(combo_paste, LCTL(KC_V)),
-    /* Layer-switching combos */
     [COMBO_CYRILLIC] = COMBO(combo_cyrillic, SCROLL_LOCK_TG_CYRILLIC),
     [COMBO_GAMING] = COMBO(combo_gaming, TG(GAMING_LAYER)),
     [COMBO_NAVIGATION] = COMBO(combo_navigation, TG(NAVIGATION_LAYER2)),
-    /* Missing keys */
-    [COMBO_SLASH] = COMBO(combo_slash, KC_SLASH),
 };
-uint16_t COMBO_LEN = COMBO_LENGTH;
 
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
     if (layer_state_is(NAVIGATION_LAYER2) && combo_index != COMBO_NAVIGATION) {
@@ -182,13 +146,8 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 
 const key_override_t dot_key_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT, S(KC_SCLN), 1);
 const key_override_t comm_key_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_COMM, KC_SCLN, 1);
-const key_override_t slash_key_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_SLASH, KC_BSLS, 1);
-
 const key_override_t **key_overrides = (const key_override_t *[]){
-    &dot_key_override,
-    &comm_key_override,
-    &slash_key_override,
-    NULL
+    &dot_key_override, &comm_key_override, NULL
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -247,8 +206,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ),
 
     [SYMBOL_LAYER] = LAYOUT_split_3x5_3
-    (KC_NO,   KC_NO,   KC_DLR,  KC_NO,   KC_NO, KC_ASTR, KC_TRNS,  KC_GRAVE, KC_TRNS,    KC_HASH,
-     KC_LT,   KC_LPRN, KC_RPRN, KC_GT,   KC_NO, KC_TRNS, KC_TILDE, KC_QUES,  KC_AMPR,    KC_EXLM,
+    (KC_NO,   KC_NO,   KC_DLR,  KC_NO,   KC_NO, KC_ASTR, KC_TRNS,  KC_GRAVE, KC_TRNS,   KC_HASH,
+     KC_LT,   KC_LPRN, KC_RPRN, KC_GT,   KC_NO, KC_BSLS, KC_TILDE, KC_QUES,  KC_AMPR,    KC_EXLM,
      KC_LBRC, KC_LCBR, KC_RCBR, KC_RBRC, KC_NO, KC_TRNS, KC_AT,    KC_PERC,  S(KC_BSLS), KC_CIRC,
 
      KC_TRNS, KC_PERC, KC_SLASH,
