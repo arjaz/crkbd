@@ -73,6 +73,17 @@ void matrix_scan_user(void) {
 enum {TD_T_QUOT, TD_U_BSLS, TD_P_LBRC};
 enum macros_keycodes {SCROLL_LOCK_TG_CYRILLIC = SAFE_RANGE};
 
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case TD(TD_T_QUOT):
+        case TD(TD_U_BSLS):
+        case TD(TD_P_LBRC):
+            return 200;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_achordion(keycode, record)) return false;
     switch (keycode) {
