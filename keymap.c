@@ -14,12 +14,12 @@
 
 #define AR_J KC_J
 #define AR_G KC_G
-#define AR_M LT(NUMBER_LAYER, KC_M)
+#define AR_M KC_M
 #define AR_P KC_P
 #define AR_V KC_V
 #define AR_ASTR KC_ASTR
 #define AR_MINS KC_MINS
-#define AR_QUOT LT(NUMBER_LAYER, KC_QUOT)
+#define AR_QUOT KC_QUOT
 #define AR_EQL KC_EQL
 #define AR_HASH KC_HASH
 #define AR_C KC_C
@@ -34,12 +34,12 @@
 #define AR_H KC_H
 #define AR_X KC_X
 #define AR_F KC_F
-#define AR_L LT(SYMBOL_LAYER, KC_L)
+#define AR_L KC_L
 #define AR_D LT(NAVIGATION_LAYER1, KC_D)
 #define AR_W KC_W
 #define AR_DOT KC_DOT
 #define AR_U LT(NAVIGATION_LAYER2, KC_U)
-#define AR_O LT(SYMBOL_LAYER, KC_O)
+#define AR_O KC_O
 #define AR_Y KC_Y
 #define AR_B KC_B
 #define AR_R KC_R
@@ -48,7 +48,7 @@
 #define AR_BSPC KC_BSPC
 #define AR_LSFT OSM(MOD_LSFT)
 #define AR_SPC KC_SPC
-
+#define AR_SYM OSL(SYMBOL_LAYER)
 #define AR_F5 LGUI_T(KC_F5)
 
 uint16_t achordion_streak_timeout(uint16_t tap_hold_keycode) {
@@ -71,21 +71,102 @@ void matrix_scan_user(void) {
 }
 
 enum {TD_T_QUOT, TD_U_BSLS, TD_P_LBRC};
-enum macros_keycodes {SCROLL_LOCK_TG_CYRILLIC = SAFE_RANGE};
+enum macros_keycodes {
+    SCROLL_LOCK_TG_CYRILLIC = SAFE_RANGE,
+    NUMWORD
+};
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case TD(TD_T_QUOT):
-        case TD(TD_U_BSLS):
-        case TD(TD_P_LBRC):
-            return 200;
-        default:
-            return TAPPING_TERM;
+    case TD(TD_T_QUOT):
+    case TD(TD_U_BSLS):
+    case TD(TD_P_LBRC):
+        return 200;
+    default:
+        return TAPPING_TERM;
     }
 }
 
+static uint16_t num_word_timer = 0;
+static bool is_num_word_on = false;
+
+void enable_num_word(void) {
+    if (is_num_word_on) return;
+    is_num_word_on = true;
+    layer_on(NUMBER_LAYER);
+}
+
+void disable_num_word(void) {
+    if (!is_num_word_on) return;
+    is_num_word_on = false;
+    layer_off(NUMBER_LAYER);
+}
+
+void toggle_num_word(void) {
+    if (is_num_word_on) disable_num_word();
+    else enable_num_word();
+}
+
+bool should_terminate_num_word(uint16_t keycode, const keyrecord_t *record) {
+    switch (keycode) {
+    case KC_F1 ... KC_F12:
+    case KC_1 ... KC_0:
+    case KC_EQL:
+    case KC_SCLN:
+    case KC_MINS:
+    case KC_DOT:
+    case KC_P1 ... KC_P0:
+    case KC_PSLS ... KC_PPLS:
+    case KC_PDOT:
+    case KC_UNDS:
+    case KC_BSPC:
+        return false;
+    default:
+        if (record->event.pressed) return true;
+        return false;
+    }
+}
+
+bool process_record_num_word(uint16_t keycode, const keyrecord_t *record) {
+    if (keycode == NUMWORD && (layer_state_is(ALPHA_LAYER) || layer_state_is(CYRILLIC_LAYER) || layer_state_is(NUMBER_LAYER))) {
+        if (record->event.pressed) {
+            enable_num_word();
+            num_word_timer = timer_read();
+            return false;
+        } else if (timer_elapsed(num_word_timer) > TAPPING_TERM) {
+            // consider it a hold
+            // disable the behavior on key release.
+            disable_num_word();
+            return false;
+        }
+    }
+    if (!is_num_word_on) return true;
+    if (!record->event.pressed) return true;
+
+    // Get the base keycode of a mod or layer tap key
+    switch (keycode) {
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+        case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
+            // Earlier return if this has not been considered tapped yet
+            if (record->tap.count == 0)
+                return true;
+            keycode = keycode & 0xFF;
+            break;
+        default:
+            break;
+    }
+
+    if (should_terminate_num_word(keycode, record))
+        disable_num_word();
+
+    return true;
+}
+
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_achordion(keycode, record)) return false;
+    if (!process_record_num_word(keycode, record)) return false;
     switch (keycode) {
     case SCROLL_LOCK_TG_CYRILLIC:
         if (record->event.pressed) {
@@ -172,19 +253,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      AR_X,   AR_F, AR_L, AR_D, AR_W,
      AR_DOT, AR_U, AR_O, AR_Y, AR_B,
 
-     KC_NO,   AR_R,   AR_BSPC,
-     AR_LSFT, AR_SPC, KC_RALT
+     AR_SYM,  AR_R,   AR_BSPC,
+     AR_LSFT, AR_SPC, NUMWORD
      ),
 
     [CYRILLIC_LAYER] = LAYOUT_split_3x5_3
-    (KC_Q, KC_W,          LT(NUMBER_LAYER, KC_E), KC_R, TD(TD_T_QUOT),
-     KC_Y, TD(TD_U_BSLS), LT(NUMBER_LAYER, KC_I), KC_O, TD(TD_P_LBRC),
+    (KC_Q, KC_W,          KC_E, KC_R, TD(TD_T_QUOT),
+     KC_Y, TD(TD_U_BSLS), KC_I, KC_O, TD(TD_P_LBRC),
 
      KC_A, LCTL_T(KC_S), LALT_T(KC_D), LGUI_T(KC_F), KC_G,
      KC_H, LGUI_T(KC_J), LALT_T(KC_K), LCTL_T(KC_L), KC_SCLN,
 
-     KC_Z, KC_X,                        LT(SYMBOL_LAYER, KC_C),    LT(NAVIGATION_LAYER1, KC_V), KC_B,
-     KC_N, LT(NAVIGATION_LAYER2, KC_M), LT(SYMBOL_LAYER, KC_COMM), KC_DOT,   KC_RBRC,
+     KC_Z, KC_X,                        KC_C,    LT(NAVIGATION_LAYER1, KC_V), KC_B,
+     KC_N, LT(NAVIGATION_LAYER2, KC_M), KC_COMM, KC_DOT,   KC_RBRC,
 
      KC_TRNS, KC_TRNS, KC_TRNS,
      KC_TRNS, KC_TRNS, KC_TRNS
@@ -194,7 +275,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     (KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,
      KC_NO, KC_LCTL, KC_LALT, KC_NO, KC_NO, KC_NO, KC_VOLD, KC_UP,   KC_VOLU, KC_NO,
      KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,
-
      KC_NO,   KC_MS_BTN1, KC_MS_BTN2,
      KC_PGDN, KC_PGUP,    KC_NO
      ),
@@ -203,7 +283,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     (KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,
      KC_NO,      KC_WH_D, KC_MS_U, KC_WH_U, KC_HOME, KC_NO, KC_VOLD, KC_UP,   KC_VOLU, KC_NO,
      KC_MS_BTN3, KC_MS_L, KC_MS_D, KC_MS_R, KC_END,  KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,
-
      KC_NO,   KC_MS_BTN1, KC_MS_BTN2,
      KC_PGDN, KC_PGUP,    KC_NO
      ),
@@ -212,24 +291,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     (KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,    KC_O,   KC_P,
      KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,    KC_L,   LT(NUMBER_LAYER, KC_SCLN),
      LCTL_T(KC_Z), LALT_T(KC_X), KC_C, KC_V, LT(NUMBER_LAYER, KC_B), KC_N, KC_M, KC_COMM, KC_DOT, KC_RBRC,
-     KC_NO,   KC_SPC,  KC_LSFT,
-     KC_TRNS, KC_TRNS, KC_NO
+     KC_TRNS, KC_SPC,  KC_LSFT,
+     KC_TRNS, KC_TRNS, KC_TRNS
      ),
 
     [SYMBOL_LAYER] = LAYOUT_split_3x5_3
-    (KC_NO,   KC_NO,   KC_DLR,  KC_NO,   KC_NO, KC_ASTR, KC_TRNS,  KC_GRAVE, KC_TRNS,   KC_HASH,
-     KC_LT,   KC_LPRN, KC_RPRN, KC_GT,   KC_NO, KC_BSLS, KC_TILDE, KC_QUES,  KC_AMPR,    KC_EXLM,
-     KC_LBRC, KC_LCBR, KC_RCBR, KC_RBRC, KC_NO, KC_TRNS, KC_AT,    KC_PERC,  S(KC_BSLS), KC_CIRC,
-
-     KC_TRNS, KC_PERC, KC_SLASH,
-     KC_TRNS, KC_TRNS, KC_TRNS
+    (KC_NO,   KC_GRAVE, KC_DLR,  KC_NO,   KC_NO, KC_ASTR, KC_TRNS,  KC_SLASH, KC_TRNS,   KC_HASH,
+     KC_LT,   KC_LPRN,  KC_RPRN, KC_GT,   KC_NO, KC_BSLS, KC_TILDE, KC_QUES,  KC_AMPR,    KC_EXLM,
+     KC_LBRC, KC_LCBR,  KC_RCBR, KC_RBRC, KC_NO, KC_TRNS, KC_AT,    KC_PERC,  S(KC_BSLS), KC_CIRC,
+     KC_TRNS, KC_PERC, KC_NO,
+     KC_TRNS, KC_TRNS, KC_NO
      ),
 
     [NUMBER_LAYER] = LAYOUT_split_3x5_3
     (KC_NO, KC_9, KC_8, KC_7, KC_NO, KC_TRNS, KC_F9, KC_F10, KC_F11, KC_F12,
      KC_NO, KC_6, KC_5, KC_4, KC_NO, KC_TRNS, AR_F5, KC_F6,  KC_F7,  KC_F8,
      KC_NO, KC_3, KC_2, KC_1, KC_NO, KC_TRNS, KC_F1, KC_F2,  KC_F3,  KC_F4,
-
      KC_TRNS, KC_0, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
      ),
 };
