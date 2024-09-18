@@ -64,6 +64,8 @@ bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t* tap_hold_record,
                      uint16_t other_keycode,
                      keyrecord_t* other_record) {
+    if ((tap_hold_keycode & 0xFF) == KC_T && (other_keycode & 0xFF) == KC_H)
+        return false;
     return true;
 }
 
@@ -118,8 +120,8 @@ enum combo_events {
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM combo_esc[] = {AR_F, AR_L, AR_D, COMBO_END};
-const uint16_t PROGMEM combo_tab[] = {AR_X, AR_F, AR_L, COMBO_END};
-const uint16_t PROGMEM combo_enter[] = {AR_O, AR_Y, AR_B, COMBO_END};
+const uint16_t PROGMEM combo_tab[] = {AR_P, AR_F, AR_L, COMBO_END};
+const uint16_t PROGMEM combo_enter[] = {AR_O, AR_Y, AR_W, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic[] = {AR_A, AR_QUOT, AR_I, COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {AR_U, AR_E, AR_Y, COMBO_END};
 const uint16_t PROGMEM combo_navigation[] = {AR_F, AR_N, AR_D, COMBO_END};
@@ -164,14 +166,14 @@ const key_override_t *key_overrides[] = {&dot_key_override, &comm_key_override};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALPHA_LAYER] = LAYOUT_split_3x5_3
-    (AR_J, AR_G,    AR_M,    AR_P,   AR_V,
-     AR_Z, AR_MINS, AR_QUOT, AR_EQL, AR_Q,
+    (AR_Q, AR_B,    AR_H,    AR_G, AR_EQL,
+     AR_Z, AR_MINS, AR_QUOT, AR_J, AR_X,
 
      AR_C,    AR_S, AR_N, AR_T, AR_K,
-     AR_COMM, AR_A, AR_E, AR_I, AR_H,
+     AR_COMM, AR_A, AR_E, AR_I, AR_M,
 
-     AR_X,   AR_F, AR_L, AR_D, AR_W,
-     AR_DOT, AR_U, AR_O, AR_Y, AR_B,
+     AR_P,   AR_F, AR_L, AR_D, AR_V,
+     AR_DOT, AR_U, AR_O, AR_Y, AR_W,
 
      AR_SYM,  AR_R,   AR_BSPC,
      AR_LSFT, AR_SPC, AR_NUM
