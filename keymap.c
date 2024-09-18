@@ -158,11 +158,9 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
     return true;
 }
 
-const key_override_t dot_key_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT, S(KC_SCLN), 1);
-const key_override_t comm_key_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_COMM, KC_SCLN, 1);
-const key_override_t **key_overrides = (const key_override_t *[]){
-    &dot_key_override, &comm_key_override, NULL
-};
+const key_override_t dot_key_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT, S(KC_SCLN), 1 << ALPHA_LAYER);
+const key_override_t comm_key_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_COMM, KC_SCLN, 1 << ALPHA_LAYER);
+const key_override_t *key_overrides[] = {&dot_key_override, &comm_key_override};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALPHA_LAYER] = LAYOUT_split_3x5_3
