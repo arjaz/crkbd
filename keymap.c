@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include <stdio.h>
 #include <keymap_ukrainian.h>
 #include "features/achordion.h"
 
@@ -218,9 +217,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ),
 
     [SYMBOL_LAYER] = LAYOUT_split_3x5_3
-    (KC_NO,   KC_GRAVE, KC_DLR,  KC_NO,   KC_NO, KC_ASTR, KC_TRNS,  KC_SLASH, KC_TRNS,   KC_HASH,
-     KC_LT,   KC_LPRN,  KC_RPRN, KC_GT,   KC_NO, KC_BSLS, KC_TILDE, KC_QUES,  KC_AMPR,    KC_EXLM,
-     KC_LBRC, KC_LCBR,  KC_RCBR, KC_RBRC, KC_NO, KC_TRNS, KC_AT,    KC_PERC,  S(KC_BSLS), KC_CIRC,
+    (KC_LT,  KC_LBRC, KC_RBRC, KC_GT,    KC_EQL, KC_ASTR, KC_TRNS,  KC_SLASH, KC_HASH,    KC_NO,
+     KC_NO,  KC_LPRN, KC_RPRN, KC_NO,    KC_NO,  KC_BSLS, KC_TILDE, KC_QUES,  KC_AMPR,    KC_EXLM,
+     KC_DLR, KC_LCBR, KC_RCBR, KC_GRAVE, KC_NO,  KC_TRNS, KC_AT,    KC_PERC,  S(KC_BSLS), KC_CIRC,
      KC_TRNS, KC_TRNS, KC_TRNS,
      KC_TRNS, KC_TRNS, KC_TRNS
      ),
