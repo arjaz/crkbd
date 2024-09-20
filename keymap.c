@@ -63,7 +63,10 @@ bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t* tap_hold_record,
                      uint16_t other_keycode,
                      keyrecord_t* other_record) {
-    if ((tap_hold_keycode & 0xFF) == KC_T && (other_keycode & 0xFF) == KC_H)
+    if (
+        (on_left_hand(tap_hold_record->event.key) && (other_keycode & 0xFF) == KC_H)
+        || ((tap_hold_keycode & 0xFF) == KC_N && (other_keycode & 0xFF) == KC_G)
+        )
         return false;
     return true;
 }

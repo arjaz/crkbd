@@ -128,6 +128,7 @@ void achordion_task(void);
  */
 bool achordion_chord(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
                      uint16_t other_keycode, keyrecord_t* other_record);
+bool on_left_hand(keypos_t pos);
 
 /**
  * Optional callback to define a timeout duration per keycode.

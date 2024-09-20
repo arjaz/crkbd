@@ -250,7 +250,7 @@ void achordion_task(void) {
 }
 
 // Returns true if `pos` on the left hand of the keyboard, false if right.
-static bool on_left_hand(keypos_t pos) {
+bool on_left_hand(keypos_t pos) {
 #ifdef SPLIT_KEYBOARD
   return pos.row < MATRIX_ROWS / 2;
 #else
