@@ -165,8 +165,8 @@ const key_override_t *key_overrides[] = {&dot_key_override, &comm_key_override};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALPHA_LAYER] = LAYOUT_split_3x5_3
-    (AR_Q, AR_B,    AR_H,    AR_G, AR_EQL,
-     AR_Z, AR_MINS, AR_QUOT, AR_J, AR_X,
+    (AR_Q,   AR_B,    AR_H,    AR_G, AR_Z,
+     AR_EQL, AR_MINS, AR_QUOT, AR_J, AR_X,
 
      AR_C,    AR_S, AR_N, AR_T, AR_K,
      AR_COMM, AR_A, AR_E, AR_I, AR_M,
@@ -217,9 +217,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ),
 
     [SYMBOL_LAYER] = LAYOUT_split_3x5_3
-    (KC_LT,  KC_LBRC, KC_RBRC, KC_GT,    KC_EQL, KC_ASTR, KC_TRNS,  KC_SLASH, KC_HASH,    KC_NO,
-     KC_NO,  KC_LPRN, KC_RPRN, KC_NO,    KC_NO,  KC_BSLS, KC_TILDE, KC_QUES,  KC_AMPR,    KC_EXLM,
-     KC_DLR, KC_LCBR, KC_RCBR, KC_GRAVE, KC_NO,  KC_TRNS, KC_AT,    KC_PERC,  S(KC_BSLS), KC_CIRC,
+    (KC_NO,  KC_LBRC, KC_RBRC, KC_NO,    KC_NO, KC_EQL,  KC_TRNS,  KC_SLASH, KC_ASTERISK, KC_HASH,
+     KC_LT,  KC_LPRN, KC_RPRN, KC_GT,    KC_NO, KC_BSLS, KC_TILDE, KC_QUES,  KC_AMPR,    KC_EXLM,
+     KC_DLR, KC_LCBR, KC_RCBR, KC_GRAVE, KC_NO, KC_TRNS, KC_AT,    KC_PERC,  S(KC_BSLS), KC_CIRC,
      KC_TRNS, KC_TRNS, KC_TRNS,
      KC_TRNS, KC_TRNS, KC_TRNS
      ),
