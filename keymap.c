@@ -23,19 +23,19 @@
 #define AR_EQL KC_EQL
 #define AR_HASH KC_HASH
 #define AR_C KC_C
-#define AR_S LCTL_T(KC_S)
-#define AR_N LALT_T(KC_N)
-#define AR_T LGUI_T(KC_T)
+#define AR_S KC_S
+#define AR_N LCTL_T(KC_N)
+#define AR_T LALT_T(KC_T)
+#define AR_H LGUI_T(KC_H)
 #define AR_K KC_K
 #define AR_COMM KC_COMM
 #define AR_A LGUI_T(KC_A)
 #define AR_E LALT_T(KC_E)
 #define AR_I LCTL_T(KC_I)
-#define AR_H KC_H
 #define AR_X KC_X
 #define AR_F KC_F
-#define AR_L KC_L
-#define AR_D LT(NAVIGATION_LAYER1, KC_D)
+#define AR_L LT(NAVIGATION_LAYER1, KC_L)
+#define AR_D KC_D
 #define AR_W KC_W
 #define AR_DOT KC_DOT
 #define AR_U LT(NAVIGATION_LAYER2, KC_U)
@@ -123,13 +123,13 @@ enum combo_events {
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM combo_esc[] = {AR_F, AR_L, AR_D, COMBO_END};
-const uint16_t PROGMEM combo_tab[] = {AR_P, AR_F, AR_L, COMBO_END};
-const uint16_t PROGMEM combo_enter[] = {AR_O, AR_Y, AR_W, COMBO_END};
+const uint16_t PROGMEM combo_esc[] = {AR_F, AR_D, AR_L, COMBO_END};
+const uint16_t PROGMEM combo_tab[] = {AR_B, AR_F, AR_D, COMBO_END};
+const uint16_t PROGMEM combo_enter[] = {AR_O, AR_Y, AR_P, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic[] = {AR_A, AR_QUOT, AR_I, COMBO_END};
-const uint16_t PROGMEM combo_steno[] = {AR_MINS, AR_QUOT, AR_J, COMBO_END};
+const uint16_t PROGMEM combo_steno[] = {AR_MINS, AR_QUOT, AR_Q, COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {AR_U, AR_E, AR_Y, COMBO_END};
-const uint16_t PROGMEM combo_navigation[] = {AR_F, AR_N, AR_D, COMBO_END};
+const uint16_t PROGMEM combo_navigation[] = {AR_F, AR_T, AR_L, COMBO_END};
 
 combo_t key_combos[] = {
 	[COMBO_ESC] = COMBO(combo_esc, KC_ESC),
@@ -171,14 +171,14 @@ const key_override_t *key_overrides[] = {&dot_key_override, &comm_key_override};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALPHA_LAYER] = LAYOUT_split_3x5_3
-    (AR_Q,   AR_B,    AR_H,    AR_G, AR_Z,
-     AR_EQL, AR_MINS, AR_QUOT, AR_J, AR_X,
+    (AR_V,   AR_W,    AR_G,    AR_M, AR_J,
+     AR_EQL, AR_MINS, AR_QUOT, AR_Q, AR_Z,
 
-     AR_C,    AR_S, AR_N, AR_T, AR_K,
-     AR_COMM, AR_A, AR_E, AR_I, AR_M,
+     AR_S,    AR_N, AR_T, AR_H, AR_K,
+     AR_COMM, AR_A, AR_E, AR_I, AR_C,
 
-     AR_P,   AR_F, AR_L, AR_D, AR_V,
-     AR_DOT, AR_U, AR_O, AR_Y, AR_W,
+     AR_B,   AR_F, AR_D, AR_L, AR_X,
+     AR_DOT, AR_U, AR_O, AR_Y, AR_P,
 
      AR_SYM,  AR_R,   AR_BSPC,
      AR_LSFT, AR_SPC, AR_NUM
