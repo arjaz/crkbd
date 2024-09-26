@@ -10,6 +10,7 @@
 #define SYMBOL_LAYER 5
 #define NUMBER_LAYER 6
 #define FN_LAYER 7
+#define STENO_LAYER 8
 
 #define AR_J KC_J
 #define AR_G KC_G
@@ -115,6 +116,7 @@ enum combo_events {
     COMBO_TAB,
     COMBO_ENTER,
     COMBO_CYRILLIC,
+    COMBO_STENO,
     COMBO_GAMING,
     COMBO_NAVIGATION,
     COMBO_LENGTH
@@ -125,6 +127,7 @@ const uint16_t PROGMEM combo_esc[] = {AR_F, AR_L, AR_D, COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {AR_P, AR_F, AR_L, COMBO_END};
 const uint16_t PROGMEM combo_enter[] = {AR_O, AR_Y, AR_W, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic[] = {AR_A, AR_QUOT, AR_I, COMBO_END};
+const uint16_t PROGMEM combo_steno[] = {AR_MINS, AR_QUOT, AR_J, COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {AR_U, AR_E, AR_Y, COMBO_END};
 const uint16_t PROGMEM combo_navigation[] = {AR_F, AR_N, AR_D, COMBO_END};
 
@@ -133,29 +136,29 @@ combo_t key_combos[] = {
     [COMBO_TAB] = COMBO(combo_tab, KC_TAB),
     [COMBO_ENTER] = COMBO(combo_enter, KC_ENT),
     [COMBO_CYRILLIC] = COMBO(combo_cyrillic, SCROLL_LOCK_TG_CYRILLIC),
+    [COMBO_STENO] = COMBO(combo_steno, TG(STENO_LAYER)),
     [COMBO_GAMING] = COMBO(combo_gaming, TG(GAMING_LAYER)),
     [COMBO_NAVIGATION] = COMBO(combo_navigation, TG(NAVIGATION_LAYER2)),
 };
 
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
-    if (layer_state_is(NAVIGATION_LAYER2) && combo_index != COMBO_NAVIGATION) {
+    if (layer_state_is(STENO_LAYER) && combo_index != COMBO_STENO)
         return false;
-    }
 
-    if (layer_state_is(SYMBOL_LAYER)) {
+    if (layer_state_is(NAVIGATION_LAYER2) && combo_index != COMBO_NAVIGATION)
         return false;
-    }
+
+    if (layer_state_is(SYMBOL_LAYER))
+        return false;
 
     switch (combo_index) {
     case COMBO_CYRILLIC:
-        if (!(layer_state_is(ALPHA_LAYER) || layer_state_is(CYRILLIC_LAYER))) {
+        if (!(layer_state_is(ALPHA_LAYER) || layer_state_is(CYRILLIC_LAYER)))
             return false;
-        }
         break;
     case COMBO_GAMING:
-        if (!(layer_state_is(ALPHA_LAYER) || layer_state_is(GAMING_LAYER))) {
+        if (!(layer_state_is(ALPHA_LAYER) || layer_state_is(GAMING_LAYER)))
             return false;
-        }
         break;
     }
 
@@ -233,4 +236,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_NO, KC_3, KC_2, KC_1, KC_NO, KC_TRNS, KC_F1, KC_F2,  KC_F3,  KC_F4,
      KC_TRNS, KC_0, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
      ),
+
+    [STENO_LAYER] = LAYOUT_split_3x5_3
+    (STN_N1, STN_N2, STN_N3, STN_N4, STN_N5,
+     STN_N6, STN_N7, STN_N8, STN_N9, STN_N9,
+
+     STN_S1, STN_TL, STN_PL, STN_HL, STN_ST1,
+     STN_FR, STN_PR, STN_LR, STN_TR, STN_DR,
+
+     STN_S2, STN_KL, STN_WL, STN_RL, STN_ST2,
+     STN_RR, STN_BR, STN_GR, STN_SR, STN_ZR,
+
+     KC_NO, STN_A, STN_O,
+     STN_E, STN_U, KC_NO
+     )
 };
