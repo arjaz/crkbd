@@ -52,11 +52,11 @@
 #define AR_F5 LGUI_T(KC_F5)
 
 uint16_t achordion_streak_timeout(uint16_t tap_hold_keycode) {
-    return 150;
+    return 200;
 }
 
 uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
-    return 500;
+    return 800;
 }
 
 bool achordion_chord(uint16_t tap_hold_keycode,
