@@ -25,3 +25,5 @@
 #define COMBO_TERM 25
 
 #define ACHORDION_STREAK
+
+#define DEBOUNCE 10
