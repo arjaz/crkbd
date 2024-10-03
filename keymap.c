@@ -42,14 +42,12 @@
 #define AR_O KC_O
 #define AR_Y KC_Y
 #define AR_B KC_B
-#define AR_R KC_R
+#define AR_R LT(SYMBOL_LAYER, KC_R)
 #define AR_Q KC_Q
 #define AR_Z KC_Z
 #define AR_BSPC KC_BSPC
 #define AR_LSFT OSM(MOD_LSFT)
-#define AR_SPC KC_SPC
-#define AR_SYM OSL(SYMBOL_LAYER)
-#define AR_NUM OSL(NUMBER_LAYER)
+#define AR_SPC LT(NUMBER_LAYER, KC_SPC)
 #define AR_F5 LGUI_T(KC_F5)
 
 uint16_t achordion_streak_timeout(uint16_t tap_hold_keycode) {
@@ -65,7 +63,10 @@ bool achordion_chord(uint16_t tap_hold_keycode,
                      uint16_t other_keycode,
                      keyrecord_t* other_record) {
     if (
-        (on_left_hand(tap_hold_record->event.key) && (other_keycode & 0xFF) == KC_H)
+        ((tap_hold_keycode & 0xFF) == KC_S
+         && (tap_hold_keycode & 0xFF) == KC_T
+         && (tap_hold_keycode & 0xFF) == KC_W
+         && (other_keycode & 0xFF) == KC_H)
         || ((tap_hold_keycode & 0xFF) == KC_N && (other_keycode & 0xFF) == KC_G)
         )
         return false;
@@ -144,13 +145,10 @@ combo_t key_combos[] = {
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
     if (layer_state_is(STENO_LAYER) && combo_index != COMBO_STENO)
         return false;
-
     if (layer_state_is(NAVIGATION_LAYER2) && combo_index != COMBO_NAVIGATION)
         return false;
-
     if (layer_state_is(SYMBOL_LAYER))
         return false;
-
     switch (combo_index) {
     case COMBO_CYRILLIC:
         if (!(layer_state_is(ALPHA_LAYER) || layer_state_is(CYRILLIC_LAYER)))
@@ -180,8 +178,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      AR_B,   AR_F, AR_D, AR_L, AR_X,
      AR_DOT, AR_U, AR_O, AR_Y, AR_P,
 
-     AR_SYM,  AR_R,   AR_BSPC,
-     AR_LSFT, AR_SPC, AR_NUM
+     KC_NO,   AR_R,   AR_BSPC,
+     AR_LSFT, AR_SPC, KC_NO
      ),
 
     [CYRILLIC_LAYER] = LAYOUT_split_3x5_3
@@ -227,7 +225,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_LT,  KC_LPRN, KC_RPRN, KC_GT,    KC_NO, KC_BSLS, KC_TILDE, KC_QUES,  KC_AMPR,    KC_EXLM,
      KC_DLR, KC_LCBR, KC_RCBR, KC_GRAVE, KC_NO, KC_TRNS, KC_AT,    KC_PERC,  S(KC_BSLS), KC_CIRC,
      KC_TRNS, KC_TRNS, KC_TRNS,
-     KC_TRNS, KC_TRNS, KC_TRNS
+     KC_RALT, KC_TRNS, KC_TRNS
      ),
 
     [NUMBER_LAYER] = LAYOUT_split_3x5_3
