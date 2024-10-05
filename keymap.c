@@ -62,12 +62,12 @@ bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t* tap_hold_record,
                      uint16_t other_keycode,
                      keyrecord_t* other_record) {
+    uint16_t raw_key = tap_hold_keycode & 0xFF;
+    uint16_t raw_other = other_keycode & 0xFF;
     if (
-        ((tap_hold_keycode & 0xFF) == KC_S
-         && (tap_hold_keycode & 0xFF) == KC_T
-         && (tap_hold_keycode & 0xFF) == KC_W
-         && (other_keycode & 0xFF) == KC_H)
-        || ((tap_hold_keycode & 0xFF) == KC_N && (other_keycode & 0xFF) == KC_G)
+        ((raw_key == KC_S || raw_key == KC_T || raw_key == KC_W)
+         && raw_other == KC_H)
+        || (raw_key == KC_N && raw_other == KC_G)
         )
         return false;
     return true;
