@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include <keymap_ukrainian.h>
 #include "features/achordion.h"
+#include "features/socd_cleaner.h"
 
 #define ALPHA_LAYER 0
 #define CYRILLIC_LAYER 1
@@ -50,6 +51,9 @@
 #define AR_SPC LT(NUMBER_LAYER, KC_SPC)
 #define AR_F5 LGUI_T(KC_F5)
 
+socd_cleaner_t socd_v = {{KC_W, KC_S}, SOCD_CLEANER_LAST};
+socd_cleaner_t socd_h = {{KC_A, KC_D}, SOCD_CLEANER_LAST};
+
 uint16_t achordion_streak_timeout(uint16_t tap_hold_keycode) {
     return 200;
 }
@@ -93,7 +97,14 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+layer_state_t layer_state_set_user(layer_state_t state) {
+  socd_cleaner_enabled = IS_LAYER_ON_STATE(state, GAMING_LAYER);
+  return state;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_socd_cleaner(keycode, record, &socd_v)) return false;
+    if (!process_socd_cleaner(keycode, record, &socd_h)) return false;
     if (!process_achordion(keycode, record)) return false;
     switch (keycode) {
     case SCROLL_LOCK_TG_CYRILLIC:
