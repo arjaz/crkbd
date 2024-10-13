@@ -55,11 +55,11 @@ socd_cleaner_t socd_v = {{KC_W, KC_S}, SOCD_CLEANER_LAST};
 socd_cleaner_t socd_h = {{KC_A, KC_D}, SOCD_CLEANER_LAST};
 
 uint16_t achordion_streak_timeout(uint16_t tap_hold_keycode) {
-    return 200;
+    return ACHORDION_STREAK_TIMEOUT;
 }
 
 uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
-    return 800;
+    return ACHORDION_TIMEOUT;
 }
 
 bool achordion_chord(uint16_t tap_hold_keycode,
@@ -144,7 +144,7 @@ const uint16_t PROGMEM combo_gaming[] = {AR_U, AR_E, AR_Y, COMBO_END};
 const uint16_t PROGMEM combo_navigation[] = {AR_F, AR_T, AR_L, COMBO_END};
 
 combo_t key_combos[] = {
-	[COMBO_ESC] = COMBO(combo_esc, KC_ESC),
+    [COMBO_ESC] = COMBO(combo_esc, KC_ESC),
     [COMBO_TAB] = COMBO(combo_tab, KC_TAB),
     [COMBO_ENTER] = COMBO(combo_enter, KC_ENT),
     [COMBO_CYRILLIC] = COMBO(combo_cyrillic, SCROLL_LOCK_TG_CYRILLIC),
