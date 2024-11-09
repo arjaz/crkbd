@@ -129,6 +129,8 @@ enum combo_events {
     COMBO_CYRILLIC,
     COMBO_GAMING,
     COMBO_NAVIGATION,
+    COMBO_SLASH,
+    COMBO_STAR,
     COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
@@ -139,6 +141,8 @@ const uint16_t PROGMEM combo_enter[] = {AR_O, AR_Y, AR_B, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic[] = {AR_A, AR_QUOT, AR_I, COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {AR_U, AR_E, AR_Y, COMBO_END};
 const uint16_t PROGMEM combo_navigation[] = {AR_P, AR_T, AR_L, COMBO_END};
+const uint16_t PROGMEM combo_slash[] = {AR_QUOT, AR_Q, COMBO_END};
+const uint16_t PROGMEM combo_star[] = {AR_COMM, AR_MINS, COMBO_END};
 
 combo_t key_combos[] = {
     [COMBO_ESC] = COMBO(combo_esc, KC_ESC),
@@ -147,6 +151,8 @@ combo_t key_combos[] = {
     [COMBO_CYRILLIC] = COMBO(combo_cyrillic, SCROLL_LOCK_TG_CYRILLIC),
     [COMBO_GAMING] = COMBO(combo_gaming, TG(GAMING_LAYER)),
     [COMBO_NAVIGATION] = COMBO(combo_navigation, TG(NAVIGATION_LAYER2)),
+    [COMBO_SLASH] = COMBO(combo_slash, KC_SLASH),
+    [COMBO_STAR] = COMBO(combo_star, KC_ASTERISK),
 };
 
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
@@ -168,9 +174,11 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
     return true;
 }
 
-const key_override_t dot_key_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT, S(KC_SCLN), 1 << ALPHA_LAYER);
-const key_override_t comm_key_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_COMM, KC_SCLN, 1 << ALPHA_LAYER);
-const key_override_t *key_overrides[] = {&dot_key_override, &comm_key_override};
+const key_override_t *key_overrides[] = {
+    &ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT, S(KC_SCLN), 1 << ALPHA_LAYER),
+    &ko_make_with_layers(MOD_MASK_SHIFT, KC_COMM, KC_SCLN, 1 << ALPHA_LAYER),
+    &ko_make_with_layers(MOD_MASK_SHIFT, KC_ASTERISK, KC_EXLM, 1 << ALPHA_LAYER)
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALPHA_LAYER] = LAYOUT_split_3x5_3
