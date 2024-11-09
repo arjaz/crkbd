@@ -133,12 +133,12 @@ enum combo_events {
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM combo_esc[] = {AR_F, AR_D, AR_L, COMBO_END};
-const uint16_t PROGMEM combo_tab[] = {AR_B, AR_F, AR_D, COMBO_END};
-const uint16_t PROGMEM combo_enter[] = {AR_O, AR_Y, AR_P, COMBO_END};
+const uint16_t PROGMEM combo_esc[] = {AR_P, AR_D, AR_L, COMBO_END};
+const uint16_t PROGMEM combo_tab[] = {AR_F, AR_P, AR_D, COMBO_END};
+const uint16_t PROGMEM combo_enter[] = {AR_O, AR_Y, AR_B, COMBO_END};
 const uint16_t PROGMEM combo_cyrillic[] = {AR_A, AR_QUOT, AR_I, COMBO_END};
 const uint16_t PROGMEM combo_gaming[] = {AR_U, AR_E, AR_Y, COMBO_END};
-const uint16_t PROGMEM combo_navigation[] = {AR_F, AR_T, AR_L, COMBO_END};
+const uint16_t PROGMEM combo_navigation[] = {AR_P, AR_T, AR_L, COMBO_END};
 
 combo_t key_combos[] = {
     [COMBO_ESC] = COMBO(combo_esc, KC_ESC),
@@ -180,8 +180,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      AR_S,    AR_N, AR_T, AR_H, AR_K,
      AR_COMM, AR_A, AR_E, AR_I, AR_C,
 
-     AR_B,   AR_F, AR_D, AR_L, AR_X,
-     AR_DOT, AR_U, AR_O, AR_Y, AR_P,
+     AR_F,   AR_P, AR_D, AR_L, AR_X,
+     AR_DOT, AR_U, AR_O, AR_Y, AR_B,
 
      KC_NO,   AR_R,   AR_BSPC,
      AR_LSFT, AR_SPC, KC_NO
