@@ -46,7 +46,7 @@
 #define AR_Q KC_Q
 #define AR_Z KC_Z
 #define AR_BSPC KC_BSPC
-#define AR_LSFT OSM(MOD_LSFT)
+#define AR_LSFT KC_LSFT
 #define AR_SPC LT(NUMBER_LAYER, KC_SPC)
 #define AR_F5 LGUI_T(KC_F5)
 
