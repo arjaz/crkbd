@@ -43,8 +43,7 @@
 #define AR_Y KC_Y
 #define AR_B KC_B
 #define AR_R LT(SYMBOL_LAYER, KC_R)
-#define AR_Q LT(0, KC_LANGUAGE_9)
-/* #define AR_Q KC_Q */
+#define AR_Q KC_Q
 #define AR_Z KC_Z
 #define AR_BSPC KC_BSPC
 #define AR_LSFT KC_LSFT
@@ -113,20 +112,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_invert(CYRILLIC_LAYER);
         }
         break;
-    case AR_Q:
-        if (record->event.pressed) {
-            /* if (is_caps_word_on()) { */
-            /*     add_weak_mods(MOD_BIT(KC_LSFT)); */
-            /* } */
-            if (record->tap.count == 0) {
-                tap_code16(KC_Q);
-            } else {
-                tap_code16(KC_Q);
-                unregister_mods(MOD_MASK_SHIFT);
-                tap_code16(KC_U);
-            }
-        }
-        return false;
     }
     return true;
 }
