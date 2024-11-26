@@ -145,8 +145,8 @@ const uint16_t PROGMEM combo_gaming[] = {AR_U, AR_E, AR_Y, COMBO_END};
 const uint16_t PROGMEM combo_navigation[] = {AR_P, AR_T, AR_L, COMBO_END};
 const uint16_t PROGMEM combo_slash[] = {AR_QUOT, AR_Q, COMBO_END};
 const uint16_t PROGMEM combo_star[] = {AR_COMM, AR_MINS, COMBO_END};
-const uint16_t PROGMEM combo_ampr[] = {AR_QUOT, AR_Q, AR_Z, COMBO_END};
-const uint16_t PROGMEM combo_hash[] = {AR_Q, AR_Z, COMBO_END};
+const uint16_t PROGMEM combo_ampr[] = {AR_Q, AR_Z, COMBO_END};
+const uint16_t PROGMEM combo_hash[] = {AR_QUOT, AR_Q, AR_Z, COMBO_END};
 
 combo_t key_combos[] = {
     [COMBO_ESC] = COMBO(combo_esc, KC_ESC),
@@ -237,7 +237,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     (KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,    KC_O,   KC_P,
      KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,    KC_L,   LT(NUMBER_LAYER, KC_SCLN),
      LCTL_T(KC_Z), LALT_T(KC_X), KC_C, KC_V, LT(NUMBER_LAYER, KC_B), KC_N, KC_M, KC_COMM, KC_DOT, KC_RBRC,
-     KC_TRNS, KC_SPC,  KC_LSFT,
+     KC_LALT, KC_SPC,  KC_LSFT,
      KC_TRNS, KC_TRNS, KC_TRNS
      ),
 
