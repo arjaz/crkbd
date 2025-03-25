@@ -165,7 +165,6 @@ const key_override_t *key_overrides[] = {
     &ko_make_with_layers(MOD_MASK_SHIFT, KC_DOT, S(KC_SCLN), 1 << _ALPHA),
     &ko_make_with_layers(MOD_MASK_SHIFT, KC_COMM, KC_SCLN, 1 << _ALPHA),
     &ko_make_with_layers(MOD_MASK_SHIFT, KC_ASTERISK, KC_EXLM, 1 << _ALPHA),
-    &ko_make_with_layers(MOD_MASK_SHIFT, KC_AMPR, S(KC_BSLS), 1 << _ALPHA),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
