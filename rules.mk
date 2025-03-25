@@ -17,3 +17,5 @@ SWAP_HANDS_ENABLE   = no
 
 SRC += features/achordion.c
 SRC += features/socd_cleaner.c
+
+VPATH += keyboards/gboards
